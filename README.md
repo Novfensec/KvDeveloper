@@ -28,7 +28,7 @@ pip install kvdeveloper
 - Create a new KivyMD project with navigation and toolbar:
 
     ``` bash
-    kvdeveloper create my_project --template nav_toolbar
+    kv create my_project --template nav_toolbar
     ```
 # Templates
 
