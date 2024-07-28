@@ -19,22 +19,22 @@ pip install kvdeveloper
 
 # Usage
 
-Create a new Kivy project with a blank template:
+- Create a new Kivy project with a blank template:
 
-```bash
-kv create my_project --template blank
-```
+    ```bash
+    kv create my_project --template blank
+    ```
 
-Create a new KivyMD project with navigation and toolbar:
+- Create a new KivyMD project with navigation and toolbar:
 
-``` bash
-kvdeveloper create my_project --template nav_toolbar
-```
+    ``` bash
+    kvdeveloper create my_project --template nav_toolbar
+    ```
 # Templates
 
-    Blank Template: A minimal template with the basic structure.
-    Navigation Toolbar Template: A template with navigation and toolbar screens.
-    MVC Template: A template following the MVC architecture.
+- **Blank Template**: A minimal template with the basic structure.
+- **Navigation Toolbar** Template: A template with navigation and toolbar screens.
+- **MVC Template**: A template following the MVC architecture.
 
 # Contributing
 
