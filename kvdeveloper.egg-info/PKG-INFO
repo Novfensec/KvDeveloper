@@ -1,0 +1,103 @@
+Metadata-Version: 2.1
+Name: kvdeveloper
+Version: 2024.0.2
+Summary: KvDeveloper is a PyPI module designed to streamline the development of Kivy and KivyMD applications. Inspired by Expo CLI for React Native, KvDeveloper provides starter templates and essential functionalities to kickstart your projects with ease.
+Author-email: Kartavya Shukla <novfensec@protonmail.com>
+Maintainer-email: Kartavya Shukla <novfensec@protonmail.com>
+License: MIT License
+        
+        Copyright (c) 2024 Kartavya Shukla
+        
+        Permission is hereby granted, free of charge, to any person obtaining a copy
+        of this software and associated documentation files (the "Software"), to deal
+        in the Software without restriction, including without limitation the rights
+        to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+        copies of the Software, and to permit persons to whom the Software is
+        furnished to do so, subject to the following conditions:
+        
+        The above copyright notice and this permission notice shall be included in all
+        copies or substantial portions of the Software.
+        
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+        IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+        FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+        AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+        LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+        OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+        SOFTWARE.
+        
+Project-URL: Homepage, https://github.com/Novfensec/kvdeveloper
+Project-URL: Documentation, https://readthedocs.org/kvdeveloper
+Project-URL: Repository, https://github.com/Novfensec/kvdeveloper.git
+Project-URL: Bug Tracker, https://github.com/Novfensec/kvdeveloper/issues
+Project-URL: Changelog, https://github.com/Novfensec/kvdeveloper/blob/master/CHANGELOG.md
+Keywords: kivy,kivymd,kvdeveloper,kartavya shukla,android,novfensec,kv
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Build Tools
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Requires-Python: >=3.1
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: kivy>2.0.0
+Requires-Dist: kivymd>1.0.0
+Requires-Dist: pillow
+
+# KvDeveloper
+
+KvDeveloper is a PyPI module designed to streamline the development of Kivy and KivyMD applications. Inspired by Expo CLI for React Native, KvDeveloper provides starter templates and essential functionalities to kickstart your projects with ease.
+
+## Features
+
+- **Starter Templates**: Quickly create new Kivy and KivyMD projects with predefined templates.
+- **MVC Structure**: Includes templates with Model-View-Controller (MVC) architecture.
+- **Navigation and Toolbar**: Templates with built-in navigation and toolbar screens.
+- **Customizable**: Easily extend and customize the templates to fit your project needs.
+
+---
+## Installation
+
+Install KvDeveloper using pip:
+
+```bash
+pip install kvdeveloper
+```
+
+---
+## Usage
+- Create a new Kivy project with a blank template:
+
+    ```bash
+    kvdeveloper create my_project --template blank
+    ```
+
+- Create a new KivyMD project with navigation and toolbar:
+
+    ``` bash
+    kvdeveloper create my_project --template nav_toolbar --structure MVC
+    ```
+---
+## Templates
+- **Blank Template**: A minimal template with the basic structure.
+- **Navigation Toolbar** Template: A template with navigation and toolbar screens.
+- **MVC Architecture**: A template add-on following the MVC architecture.
+
+---
+## Contributing
+We welcome contributions! Please read our Contributing Guide to get started.
+
+---
+## License
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+---
+## Acknowledgements
+
+Kivy
+
+KivyMD
+
+---
+## Contact
+For any inquiries, please contact us at [novfensec@protonmail.com].

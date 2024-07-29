@@ -9,6 +9,7 @@ KvDeveloper is a PyPI module designed to streamline the development of Kivy and 
 - **Navigation and Toolbar**: Templates with built-in navigation and toolbar screens.
 - **Customizable**: Easily extend and customize the templates to fit your project needs.
 
+---
 ## Installation
 
 Install KvDeveloper using pip:
@@ -17,37 +18,40 @@ Install KvDeveloper using pip:
 pip install kvdeveloper
 ```
 
-# Usage
-
+---
+## Usage
 - Create a new Kivy project with a blank template:
 
     ```bash
-    kv create my_project --template blank
+    kvdeveloper create my_project --template blank
     ```
 
 - Create a new KivyMD project with navigation and toolbar:
 
     ``` bash
-    kv create my_project --template nav_toolbar
+    kvdeveloper create my_project --template nav_toolbar --structure MVC
     ```
-# Templates
-
+---
+## Templates
 - **Blank Template**: A minimal template with the basic structure.
 - **Navigation Toolbar** Template: A template with navigation and toolbar screens.
-- **MVC Template**: A template following the MVC architecture.
+- **MVC Architecture**: A template add-on following the MVC architecture.
 
-# Contributing
-
+---
+## Contributing
 We welcome contributions! Please read our Contributing Guide to get started.
 
-# License
-
+---
+## License
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-# Acknowledgements
+---
+## Acknowledgements
 
 Kivy
+
 KivyMD
 
-# Contact
+---
+## Contact
 For any inquiries, please contact us at [novfensec@protonmail.com].
