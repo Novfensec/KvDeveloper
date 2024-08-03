@@ -4,11 +4,13 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "kvdeveloper"
-version = "2024.0.2"
+version = "2024.0.3"
 dependencies = [
-  "kivy>2.0.0",
-  "kivymd>1.0.0",
+  "kivy>=2.0.0",
+  "kivymd>=1.0.0",
   "pillow",
+  "typer>=0.12.3",
+  "rich>=13.7.1"
 ]
 requires-python = ">=3.1"
 authors = [
@@ -35,3 +37,6 @@ Documentation = "https://readthedocs.org/kvdeveloper"
 Repository = "https://github.com/Novfensec/kvdeveloper.git"
 "Bug Tracker" = "https://github.com/Novfensec/kvdeveloper/issues"
 Changelog = "https://github.com/Novfensec/kvdeveloper/blob/master/CHANGELOG.md"
+
+[project.scripts]
+kvdeveloper = "kvdeveloper.__main__:main"

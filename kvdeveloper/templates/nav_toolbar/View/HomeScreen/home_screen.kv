@@ -1,0 +1,68 @@
+<HomeScreenView>:
+    MDNavigationLayout:
+        MDScreenManager:
+            MDScreen:
+                MDStackLayout:
+                    size_hint: 1, 1
+
+                    MDBoxLayout:
+                        adaptive_height:True
+
+                        MDIconButton:
+                            icon: "menu"
+                            theme_icon_color:"Custom"
+                            icon_color: app.theme_cls.primary_dark
+                            on_press:
+                                nav_drawer.set_state("open")
+
+                        MDLabel:
+                            text: "This is Home screen"
+                            color:app.theme_cls.primary_dark
+
+                        MDBoxLayout:
+                            adaptive_width:True
+                            MDAnchorLayout:
+                                anchor_x: 'right'
+                                MDGridLayout:
+                                    rows:1
+                                    adaptive_width:True
+
+                                    MDIconButton:
+                                        icon: "login"
+                                        theme_icon_color:"Custom"
+                                        icon_color: app.theme_cls.primary_dark
+                                        on_press:
+                                            app.manager_screens.current="login screen"
+
+					MDBoxLayout:
+						orientation:"vertical"
+						padding:"9dp","9dp","9dp","9dp"
+						MDScrollView:
+							HomeScreenContext:
+								orientation:'vertical'
+								padding:"7dp","7dp","7dp","7dp"
+								radius:[25]
+								md_bg_color:0,0,0,.05
+								adaptive_height:True
+
+        ContentNavigationDrawer:
+            id:nav_drawer
+            width: "240dp"
+            md_bg_color:1,1,1,0
+            padding:0
+
+            ContentNavigationLayout:
+                md_bg_color: app.theme_cls.primary_light
+                size_hint:1,1
+                padding: ('7dp', '7dp', '7dp', '7dp')
+                radius: (0, 16, 16, 0)
+                orientation:"vertical"
+
+<HomeScreenContext>:
+	MDBoxLayout:
+		orientation:"vertical"
+		adaptive_height:True
+		height:"269dp"
+		MDLabel:
+			text:"Home Screen Context"
+			font_size:"21sp"
