@@ -19,8 +19,17 @@ Make sure you have the following installed:
 
 # Usage
 1. Run the Kivy app using terminal:
-   
-   <pre><code>python main.py</code></pre>
+
+   - Activate Virtual Environment.
+
+      ```bash
+      venv\scripts\activate
+      ```
+
+   - Run the App.
+      ```bash
+      (venv) python main.py
+      ```
 
 2. Simply execute the `main.py` file from your editor.
 

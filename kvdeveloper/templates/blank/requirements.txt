@@ -1,4 +1,4 @@
-kivy==2.3.0
-kivymd==1.1.1
+kivy=={{kivy_version}}
+kivymd=={{kivymd_version}}
 watchdog==4.0.1
 pillow==10.3.0

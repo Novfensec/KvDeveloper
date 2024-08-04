@@ -2,16 +2,6 @@ from kivy.properties import ObjectProperty
 from kivymd.app import MDApp
 from kivymd.theming import ThemableBehavior
 from kivymd.uix.screen import MDScreen
-from kivymd.uix.navigationdrawer import MDNavigationDrawer
-from kivymd.uix.boxlayout import MDBoxLayout
-
-class ContentNavigationDrawer(MDNavigationDrawer):
-    def __init__(self, *args, **kwargs):
-        super(ContentNavigationDrawer, self).__init__( *args, **kwargs)
-
-class ContentNavigationLayout(MDBoxLayout):
-    def __init__(self, *args, **kwargs):
-        super(ContentNavigationLayout, self).__init__( *args, **kwargs) 
 
 class BaseScreenView(ThemableBehavior, MDScreen):
     

@@ -9,25 +9,38 @@
                                          |_|              
 ```
 
+<img src="kvdeveloper/assets/images/kvdeveloper_logo.png" height="128" align="right">
+
 KvDeveloper is a PyPI module designed to streamline the development of Kivy and KivyMD applications. Inspired by Expo CLI for React Native, KvDeveloper provides starter templates and essential functionalities to kickstart your projects with ease.
 
 ## Features
-
 - **Starter Templates**: Quickly create new Kivy and KivyMD projects with predefined templates.
-- **MVC Structure**: Includes templates with Model-View-Controller (MVC) architecture.
+- **MVC Structure**: Includes templates with Model-View-Controller (MVC) architecture. `(recommended KivyMD==1.1.1)`
 - **Navigation and Toolbar**: Templates with built-in navigation and toolbar screens.
 - **Customizable**: Easily extend and customize the templates to fit your project needs.
 
 ## Installation
-
 Install KvDeveloper using pip:
 
 ```bash
 pip install kvdeveloper
 ```
 
+## Requirements
+- **Python**>=3.1
+
+- kivy>=2.2.0 `(recommended kivy==2.3.0)`
+
+- kivymd>=1.1.1 `(recommended KivyMD==1.1.1)`
+
+- pillow
+
+- typer>=0.12.3
+
+- rich>=13.7.1
+
 ## Usage
-- Create a new Kivy project with a blank template:
+- Create a new KivyMD project with a blank template:
 
     ```bash
     kvdeveloper create my_project --template blank
@@ -41,7 +54,7 @@ pip install kvdeveloper
 
 ## Templates
 - **Blank Template**: A minimal template with the basic structure.
-- **Navigation Toolbar** Template: A template with navigation and toolbar screens.
+- **Navigation Toolbar Template**: A template with navigation and toolbar screens.
 - **MVC Architecture**: A template add-on following the MVC architecture.
 
 ## License
@@ -49,9 +62,9 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## Acknowledgements
 
-Kivy
+[Kivy](https://github.com/kivy)
 
-KivyMD
+[KivyMD](https://github.com/kivymd)
 
 ## Contact
 For any inquiries, please contact us at [novfensec@protonmail.com].

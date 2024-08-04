@@ -31,6 +31,5 @@ kvdeveloper/templates/nav_toolbar/View/HomeScreen/__init__.py
 kvdeveloper/templates/nav_toolbar/View/HomeScreen/home_screen.py
 kvdeveloper/templates/nav_toolbar/View/LoginScreen/__init__.py
 kvdeveloper/templates/nav_toolbar/View/LoginScreen/login_screen.py
-kvdeveloper/view_base/base_screen.py
 kvdeveloper/view_base/home_screen.py
 kvdeveloper/view_base/main.py

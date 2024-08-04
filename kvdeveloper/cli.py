@@ -16,12 +16,12 @@ def create(template: str = typer.Option(DEFAULT_TEMPLATE, help="Template for the
            structure: str = typer.Option(DEFAULT_STRUCTURE, help="Structure for the project."),
            project_name: Optional[str] = typer.Argument("NewProject", help="Name of the project")
         ):
-    """
+    '''
     Create a new project with the specified template and structure.
     :param project_name: The name of the project.
     :param template: The name of the template folder.
     :param structure: The name of the structure folder.
-    """
+    '''
     template_info=TEMPLATES[f'{template}']
     structure_info=STRUCTURES[f'{structure}']
     typer.secho(f"Creating project '{project_name}' with template '{template}': {template_info}\n",fg=typer.colors.BRIGHT_MAGENTA)

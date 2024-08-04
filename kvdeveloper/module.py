@@ -54,6 +54,11 @@ def create_from_template(template_name: str, destination: str, variables: Dict[s
                 target_file.write(content)
             
             console.print(f"Created file: [bright_white]{target_file_path}[/bright_white]")
+    
+    '''
+    Updating requirements.txt.
+    '''
+    update_requirements(template_path, destination)
             
 def create_from_structure(template_name: str, structure_name: str, destination: str, variables: Dict[str, str]) -> None:
     """
@@ -86,19 +91,6 @@ def create_from_structure(template_name: str, structure_name: str, destination: 
         if output.returncode != 0:
             raise typer.Exit(code=1)
 
-        '''
-        updating main.py.
-        '''
-        with open(f"{VIEW_BASE}/main.py", "r", encoding="utf-8")  as template_file:
-            content = template_file.read()
-        
-        content = replace_placeholders(content, variables)
-            
-        with open(f"{destination}/main.py", "w", encoding="utf-8") as target_file:
-            target_file.write(content)
-            
-            console.print(f"Updated file: [bright_white]{destination}/main.py[/bright_white]")
-
         with open(f"{template_path}/View/SampleScreen/sample_screen.kv", "r", encoding="utf-8") as template_file:
             content = template_file.read()
 
@@ -112,19 +104,6 @@ def create_from_structure(template_name: str, structure_name: str, destination: 
 
         if output.returncode != 0:
             raise typer.Exit(code=1)
-
-        '''
-        updating main.py.
-        '''
-        with open(f"{VIEW_BASE}/main.py", "r", encoding="utf-8")  as template_file:
-            content = template_file.read()
-        
-        content = replace_placeholders(content, variables)
-            
-        with open(f"{destination}/main.py", "w", encoding="utf-8") as target_file:
-            target_file.write(content)
-            
-            console.print(f"Updated file: [bright_white]{destination}/main.py[/bright_white]")
         
         '''
         updating home screen styles.
@@ -148,14 +127,6 @@ def create_from_structure(template_name: str, structure_name: str, destination: 
         '''
         updating base screen components.
         '''
-        with open(f"{VIEW_BASE}/base_screen.py", "r", encoding="utf-8")  as template_file:
-            content = template_file.read()
-        
-        with open(f"{destination}/View/base_screen.py", "w", encoding="utf-8") as target_file:
-            target_file.write(content)
-            
-            console.print(f"Updated file: [bright_white]{destination}/View/base_screen.py[/bright_white]")
-        
         with open(f"{template_path}/View/Components/components.kv", "r", encoding="utf-8")  as template_file:
             content = template_file.read()
         
@@ -174,6 +145,44 @@ def create_from_structure(template_name: str, structure_name: str, destination: 
             target_file.write(content)
             
             console.print(f"Updated file: [bright_white]{destination}/View/LoginScreen/login_screen.kv[/bright_white]")
+    
+    '''
+    updating main.py.
+    '''
+    with open(f"{VIEW_BASE}/main.py", "r", encoding="utf-8")  as template_file:
+        content = template_file.read()
+
+    content = replace_placeholders(content, variables)
+        
+    with open(f"{destination}/main.py", "w", encoding="utf-8") as target_file:
+        target_file.write(content)
+        
+        console.print(f"Updated file: [bright_white]{destination}/main.py[/bright_white]")
+        
+    '''
+    updating README.md.
+    '''
+    with open(f"{template_path}/README.md", "r", encoding="utf-8")  as template_file:
+        content = template_file.read()
+        
+    with open(f"{destination}/README.md", "w", encoding="utf-8") as target_file:
+        target_file.write(content)
+        
+        console.print(f"Updated file: [bright_white]{destination}/README.md[/bright_white]")
+    
+    '''
+    Updating requirements.txt.
+    '''
+    update_requirements(template_path, destination)
+    
+    '''
+    Installing requirements with pip.
+    '''
+    console.print(f"\n[green]Installing requirements with pip.[/green]\n")
+    try:
+        subprocess.run([f"{variables['project_name']}\\venv\scripts\python","-m","pip","install","-r",f"{destination}/requirements.txt"])
+    except Exception as e:
+        console.print(e)
 
 def setup_build(project_name: str, destination: str, variables: Dict[str, str]) -> None:
     """
@@ -191,7 +200,7 @@ def setup_build(project_name: str, destination: str, variables: Dict[str, str]) 
     with open(f"{destination}/buildozer.spec", "w", encoding="utf-8") as target_build_file:
         target_build_file.write(content)
         
-        console.print(f"\nCreated file: [bright_cyan]{destination}/buildozer.spec[/bright_cyan]\n")
+        console.print(f"\nCreated file: [bold cyan]{destination}/buildozer.spec[/bold cyan]\n")
         
 def project_info(project_name, template, structure, destination):
     """
@@ -218,4 +227,26 @@ def project_info(project_name, template, structure, destination):
     tree_panel=Panel(tree,title="File Tree",border_style="bold green",title_align="left",padding=1)
     console.print(tree_panel)
     console.print(f"\n[bold yellow]Happy Coding![/bold yellow]\n")
+
+def update_requirements(template_path: str, destination: str):
+    '''
+    Updating requirements.txt.
+    :param template_path: The path of the template folder.
+    :param destination: The destination path where files are created.
+    '''
+    from kivymd._version import __version__ as kivymd_version
+    from kivy._version import __version__ as kivy_version
+    
+    install_variables={
+        "kivymd_version" : kivymd_version,
+        "kivy_version" : kivy_version,
+    }
+    with open(f"{template_path}/requirements.txt", "r", encoding="utf-8")  as template_file:
+        content = template_file.read()
+    
+    content = replace_placeholders(content, install_variables)
         
+    with open(f"{destination}/requirements.txt", "w", encoding="utf-8") as target_file:
+        target_file.write(content)
+        
+        console.print(f"\nUpdated file: [bright_white]{destination}/requirements.txt[/bright_white]")

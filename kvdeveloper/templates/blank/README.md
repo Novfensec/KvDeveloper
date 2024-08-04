@@ -19,10 +19,19 @@ Make sure you have the following installed:
 
 # Usage
 1. Run the KivyMD app using terminal:
-   
-   <pre><code>python main.py</code></pre>
 
-2. Simply execute the `main.py` file from your editor.
+   - Activate Virtual Environment.
+
+      ```bash
+      venv\scripts\activate
+      ```
+
+   - Run the App.
+      ```bash
+      (venv) python main.py
+      ```
+
+2. Simply execute the `main.py` file from your editor in a python debug terminal.
 
 You should see the app window open with some basic app design. Make changes to the `.kv` files and save it to see the updates in real-time.
 
