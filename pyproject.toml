@@ -32,11 +32,11 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/Novfensec/kvdeveloper"
-Documentation = "https://readthedocs.org/kvdeveloper"
-Repository = "https://github.com/Novfensec/kvdeveloper.git"
-"Bug Tracker" = "https://github.com/Novfensec/kvdeveloper/issues"
-Changelog = "https://github.com/Novfensec/kvdeveloper/blob/master/CHANGELOG.md"
+Homepage = "https://github.com/Novfensec/KvDeveloper"
+Documentation = "https://readthedocs.org/KvDeveloper"
+Repository = "https://github.com/Novfensec/KvDeveloper.git"
+"Bug Tracker" = "https://github.com/Novfensec/KvDeveloper/issues"
+Changelog = "https://github.com/Novfensec/KvDeveloper/blob/main/CHANGELOG.md"
 
 [project.scripts]
 kvdeveloper = "kvdeveloper.__main__:main"
