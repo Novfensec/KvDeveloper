@@ -9,7 +9,7 @@
                                          |_|              
 ```
 
-<img src="https://raw.githubusercontent.com/Novfensec/KvDeveloper/main/kvdeveloper/assets/images/kvdeveloper_logo.png" height="178" align="right"/>
+<img src="https://raw.githubusercontent.com/Novfensec/KvDeveloper/main/kvdeveloper/assets/image_library/kvdeveloper/kvdeveloper_logo256.png" height="178" align="right"/>
 
 <p>KvDeveloper is a PyPI module designed to streamline the development of Kivy and KivyMD applications. Inspired by Expo CLI for React Native, it offers starter templates and essential functionalities to kickstart your projects with ease. With features like predefined templates, MVC architecture support, and customizable options, KvDeveloper simplifies creating robust and organized Kivy projects. It supports Python 3.1+, Kivy 2.2.0+, and KivyMD 1.1.1+, making it a versatile tool for developers looking to enhance their Kivy development workflow.</p>
 
@@ -18,7 +18,7 @@
 
 - Issue Tracker: [https://github.com/Novfensec/KvDeveloper/issues]
 
-- Documentation: [Coming Soon.]
+- Documentation: [Coming Soon...]
 
 - Youtube Admin: [https://www.youtube.com/@NovfensecInc]
 
@@ -57,7 +57,7 @@ pip install kvdeveloper
     kvdeveloper create my_project --template blank
     ```
 
-- Create a new KivyMD project with navigation and toolbar:
+- Create a new KivyMD project with navigation and toolbar with MVC architecture.:
 
     ``` bash
     kvdeveloper create my_project --template nav_toolbar --structure MVC
@@ -65,7 +65,15 @@ pip install kvdeveloper
 
 ## Templates
 - **Blank Template**: A minimal template with the basic structure.
+
 - **Navigation Toolbar Template**: A template with navigation and toolbar screens.
+    <p align="center">
+        <img 
+            width="600" src="https://raw.githubusercontent.com/Novfensec/KvDeveloper/main/kvdeveloper/assets/image_library/kvdeveloper/nav_toolbar.png" style="border-radius:2%" 
+            title="kvdeveloper create MyApp --template nav_toolbar"
+        />
+    </p>
+
 - **MVC Architecture**: A template add-on following the MVC architecture.
 
 ## License

@@ -16,8 +16,9 @@
                                 nav_drawer.set_state("open")
 
                         MDLabel:
-                            text: "This is Home screen"
+                            text: "KvDeveloper"
                             color:app.theme_cls.primary_dark
+							font_size:"19sp"
 
                         MDBoxLayout:
                             adaptive_width:True
@@ -36,14 +37,15 @@
 
 					MDBoxLayout:
 						orientation:"vertical"
-						padding:"9dp","9dp","9dp","9dp"
 						MDScrollView:
+							always_overscroll:False
 							HomeScreenContext:
 								orientation:'vertical'
 								padding:"7dp","7dp","7dp","7dp"
-								radius:[25]
-								md_bg_color:0,0,0,.05
 								adaptive_height:True
+
+								Widget:
+									size_hint:1,None
 
         ContentNavigationDrawer:
             id:nav_drawer
@@ -63,11 +65,106 @@
     md_bg_color:1,1,1,0
     padding:0
 
-<HomeScreenContext>:
+<HomeScreenContext@MDBoxLayout>:
 	MDBoxLayout:
 		orientation:"vertical"
 		adaptive_height:True
-		height:"269dp"
-		MDLabel:
-			text:"Home Screen Context"
-			font_size:"21sp"
+		padding:"7dp","1dp","7dp","7dp"
+		spacing:"7dp"
+		radius:[25]
+		md_bg_color:0,0,0,.025
+		MDBoxLayout:
+			adaptive_height:True
+			padding:"7dp","7dp","7dp","7dp"
+			MDBoxLayout:
+				adaptive_height:True
+				orientation:"vertical"
+				MDLabel:
+					multiline:True
+					text:'''KvDeveloper'''
+					color:app.theme_cls.primary_color
+					bold:True
+					font_size:"25sp"
+
+			MDBoxLayout:
+				orientation: 'vertical'
+				adaptive_size:True
+				MDAnchorLayout:
+					anchor_x: 'right'
+					anchor_y: 'top'
+					size_hint_y:None
+					height:avatar.height
+
+					FitImage:
+						id:avatar
+						source:f"https://raw.githubusercontent.com/Novfensec/KvDeveloper/main/kvdeveloper/assets/image_library/kvdeveloper/kvdeveloper_logo128.png"
+						size_hint: None,None
+						size:"95sp","95sp"
+		MDSeparator:
+		MDBoxLayout:
+			orientation: 'vertical'
+			adaptive_height:True
+			spacing:"11dp"
+			padding:"7dp","7dp","7dp","7dp"
+
+			MDLabel:
+				multiline:True
+				font_size:"16sp"
+				adaptive_height:True
+				text:
+                    "KvDeveloper is a PyPI module designed to streamline the development of Kivy and KivyMD applications. Inspired by Expo CLI for React Native, it offers starter templates and essential functionalities to kickstart your projects with ease. With features like predefined templates, MVC architecture support, and customizable options, KvDeveloper simplifies creating robust and organized Kivy projects."
+
+			MDSeparator:
+			MDGridLayout:
+				cols:2
+				adaptive_height:True
+				padding:"7dp","7dp","7dp","7dp"
+				spacing:"15dp"
+
+				MDAnchorLayout:
+					md_bg_color:0,.4,1,.05
+					radius:[15]
+					size_hint_y:None
+
+					MDIconButton:
+						icon:"youtube"
+						theme_icon_color:"Custom"
+						icon_color:"red"
+						icon_size:"75sp"
+						on_press:
+							app.web_open("https://youtube.com/@NovfensecInc")
+
+				MDAnchorLayout:
+					md_bg_color:0,.4,1,.05
+					radius:[15]
+					size_hint_y:None
+
+					MDIconButton:
+						icon:"github"
+						theme_icon_color:"Custom"
+						icon_color:"black"
+						icon_size:"75sp"
+						on_press:
+							app.web_open("https://github.com/Novfensec/KvDeveloper")
+
+				MDAnchorLayout:
+					md_bg_color:0,.4,1,.05
+					radius:[15]
+					size_hint_y:None
+
+					MDIconButton:
+						icon:f"https://raw.githubusercontent.com/Novfensec/KvDeveloper/main/kvdeveloper/assets/image_library/basic/discord128.png"
+						icon_size:"75sp"
+						on_press:
+							app.web_open("https://discord.com/invite/gpubX9H8p7")
+
+				MDAnchorLayout:
+					md_bg_color:0,.4,1,.05
+					radius:[15]
+					size_hint_y:None
+
+					MDIconButton:
+						icon:f"https://raw.githubusercontent.com/Novfensec/KvDeveloper/main/kvdeveloper/assets/image_library/basic/stack_overflow128.png"
+						icon_size:"75sp"
+						on_press:
+							app.web_open("https://stackoverflow.com/users/16486510/novfensec")

@@ -1,17 +1,294 @@
 <LoginScreenView>:
-    MDStackLayout:
-        size_hint: 1, 1
+    MDScreenManager:
+        id:login_manager_screens
+        LoginSubScreen:
+			manager_screens:login_manager_screens
+        SignupSubScreen:
+			manager_screens:login_manager_screens
 
+<LoginSubScreen@MDScreen>:
+	manager_screens:None
+    name:"login sub screen"
+    MDStackLayout:
+        size_hint:1,1
         MDBoxLayout:
             adaptive_height:True
-
             MDIconButton:
-                icon: "arrow-left"
+                icon:'arrow-left'
                 theme_icon_color:"Custom"
-                icon_color: app.theme_cls.primary_dark
+                icon_color:app.theme_cls.primary_dark
+                elevation:1
                 on_press:
-                    app.manager_screens.current="home screen"
+                    app.manager_screens.current='home screen'
 
-            MDLabel:
-                text: "This is Login screen"
-                color:app.theme_cls.primary_dark
+        MDBoxLayout:
+            orientation: 'vertical'
+            MDScrollView:
+                always_overscroll:False
+
+                MDGridLayout:
+                    cols:1
+                    adaptive_height:True
+					padding: ('9dp', '9dp', '9dp', '45dp')
+
+                    LoginBoxLayout:
+                        orientation: 'vertical'
+                        adaptive_height:True
+                        spacing: '10dp'
+						manager_screens:root.manager_screens
+
+<LoginBoxLayout@MDBoxLayout>:
+    MDBoxLayout:
+        adaptive_height:True
+
+        MDLabel:
+            text:'Login to Novfensec Inc.'
+            color:app.theme_cls.primary_color
+			multiline:True
+            halign:'center'
+            font_size:'25sp'
+            size_hint_y:None
+            height:self.texture_size[1]
+
+    MDBoxLayout:
+        orientation: 'vertical'
+        adaptive_height:True
+        padding: ('14dp', '14dp', '14dp', '14dp')
+        MDAnchorLayout:
+            anchor_x: 'center'
+            size_hint_y:None
+            height:avatar.height
+
+            FitImage:
+                id:avatar
+                source:f"https://raw.githubusercontent.com/Novfensec/KvDeveloper/main/kvdeveloper/assets/image_library/basic/login_avatar128.png"
+                size_hint: None,None
+                size:"95sp","95sp"
+
+    MDBoxLayout:
+    	orientation: 'vertical'
+        adaptive_height:True
+        md_bg_color:0,0,1,.09
+        spacing: '16dp'
+        radius:[19]
+        padding: ('9dp', '14dp', '9dp', '14dp')
+
+        MDTextField:
+            hint_text:'Username'
+			icon_left:"account"
+            size_hint:.9,None
+            pos_hint:{'center_x':.5}
+            font_size:'19sp'
+
+        MDTextField:
+            hint_text:'Password'
+			password:True
+			icon_left:"lock"
+            size_hint:.9,None
+            pos_hint:{'center_x':.5}
+            font_size:'19sp'
+
+        MDRectangleFlatButton:
+        	text:"Login"
+        	size_hint:.9,None
+            pos_hint:{'center_x':.5}
+        	font_size:'19sp'
+        	text_color:"white"
+			md_bg_color:app.theme_cls.primary_color
+			ripple_color:app.theme_cls.primary_dark
+
+        MDTextButton:
+            text:"Or Create an Account"
+            halign:'center'
+            size_hint:1,None
+            color:0,0,1,.8
+			on_press:
+				root.manager_screens.current="signup sub screen"
+
+	Widget:
+	MDBoxLayout:
+		adaptive_height:True
+        padding: ('9dp', '19dp', '9dp', '1dp')
+
+		MDSeparator:
+
+		MDLabel:
+			id:centered_text
+			adaptive_width:True
+			text:" or Login with"
+
+		MDSeparator:
+
+	MDAnchorLayout:
+		anchor_x:"center"
+		radius:[15]
+		size_hint_y:None
+
+		MDBoxLayout:
+			adaptive_size:True
+			padding:"7dp","7dp","7dp","7dp"
+
+			MDIconButton:
+				icon:f"https://raw.githubusercontent.com/Novfensec/KvDeveloper/main/kvdeveloper/assets/image_library/basic/google64.png"
+				theme_icon_color:"Custom"
+				icon_color:"black"
+				icon_size:"45sp"
+
+			MDIconButton:
+				icon:"github"
+				theme_icon_color:"Custom"
+				icon_color:"black"
+				icon_size:"51sp"
+
+<SignupSubScreen@MDScreen>:
+	manager_screens:None
+	name:"signup sub screen"
+
+    MDStackLayout:
+        size_hint:1,1
+        MDBoxLayout:
+            adaptive_height:True
+            MDIconButton:
+                icon:'arrow-left'
+                theme_icon_color:"Custom"
+                icon_color:app.theme_cls.primary_dark
+                elevation:1
+                on_press:
+                    app.manager_screens.current='home screen'
+
+        MDBoxLayout:
+            orientation: 'vertical'
+            MDScrollView:
+                always_overscroll:False
+
+                MDGridLayout:
+                    cols:1
+                    adaptive_height:True
+					padding: ('9dp', '9dp', '9dp', '45dp')
+
+                    SignupBoxLayout:
+                        orientation: 'vertical'
+                        adaptive_height:True
+                        spacing: '10dp'
+						manager_screens:root.manager_screens
+
+<SignupBoxLayout@MDBoxLayout>:
+    MDBoxLayout:
+        adaptive_height:True
+
+        MDLabel:
+            text:'Signup for Novfensec Inc.'
+            color:app.theme_cls.primary_color
+			multiline:True
+            halign:'center'
+            font_size:'25sp'
+            size_hint_y:None
+            height:self.texture_size[1]
+
+    MDBoxLayout:
+        orientation: 'vertical'
+        adaptive_height:True
+        padding: ('14dp', '14dp', '14dp', '14dp')
+        MDAnchorLayout:
+            anchor_x: 'center'
+            size_hint_y:None
+            height:avatar.height
+
+            FitImage:
+                id:avatar
+                source:f"https://raw.githubusercontent.com/Novfensec/KvDeveloper/main/kvdeveloper/assets/image_library/basic/signup_avatar128.png"
+                size_hint: None,None
+                size:"95sp","95sp"
+				radius:[19]
+
+    MDBoxLayout:
+    	orientation: 'vertical'
+        adaptive_height:True
+        md_bg_color:0,0,1,.09
+        spacing: '11dp'
+        radius:[19]
+        padding: ('9dp', '14dp', '9dp', '14dp')
+
+        MDTextField:
+            hint_text:'Username'
+			icon_left:"account"
+            size_hint:.9,None
+            pos_hint:{'center_x':.5}
+            font_size:'19sp'
+
+        MDTextField:
+            hint_text:'Email Address'
+			email:True
+			icon_left:"email"
+            size_hint:.9,None
+            pos_hint:{'center_x':.5}
+            font_size:'19sp'
+
+        MDTextField:
+            hint_text:'Password'
+			password:True
+			icon_left:"lock"
+            size_hint:.9,None
+            pos_hint:{'center_x':.5}
+            font_size:'19sp'
+
+		MDTextField:
+            hint_text:'Confirm Password'
+			password:True
+			icon_left:"lock"
+            size_hint:.9,None
+            pos_hint:{'center_x':.5}
+            font_size:'19sp'
+
+        MDRectangleFlatButton:
+        	text:"Signup"
+        	size_hint:.9,None
+            pos_hint:{'center_x':.5}
+        	font_size:'19sp'
+        	text_color:"white"
+			md_bg_color:app.theme_cls.primary_color
+			ripple_color:app.theme_cls.primary_dark
+
+        MDTextButton:
+            text:"Or Login to your Account"
+            halign:'center'
+            size_hint:1,None
+            color:0,0,1,.8
+			on_press:
+				root.manager_screens.current="login sub screen"
+
+	Widget:
+	MDBoxLayout:
+		adaptive_height:True
+        padding: ('9dp', '19dp', '9dp', '1dp')
+
+		MDSeparator:
+
+		MDLabel:
+			id:centered_text
+			adaptive_width:True
+			halign:"center"
+			text:" or Signup with"
+
+		MDSeparator:
+
+	MDAnchorLayout:
+		anchor_x:"center"
+		radius:[15]
+		size_hint_y:None
+
+		MDBoxLayout:
+			adaptive_size:True
+			padding:"7dp","7dp","7dp","7dp"
+
+			MDIconButton:
+				icon:f"https://raw.githubusercontent.com/Novfensec/KvDeveloper/main/kvdeveloper/assets/image_library/basic/google64.png"
+				theme_icon_color:"Custom"
+				icon_color:"black"
+				icon_size:"45sp"
+
+			MDIconButton:
+				icon:"github"
+				theme_icon_color:"Custom"
+				icon_color:"black"
+				icon_size:"51sp"

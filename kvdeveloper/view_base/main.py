@@ -30,10 +30,13 @@ Window.left = resolution[0] - Window.width +3
 
 from kivymd.tools.hotreload.app import MDApp
 from kivymd.uix.screenmanager import MDScreenManager
-from kivymd.utils.set_bars_colors import set_bars_colors
+import webbrowser
 from kivy.clock import Clock
 
 Clock.max_iteration=30
+
+Window.keyboard_anim_args={"d": .2, "t": "in_out_expo"}
+Window.softinput_mode="below_target"
 
 class {{project_name}}(MDApp):
     DEBUG=True
@@ -72,7 +75,7 @@ class {{project_name}}(MDApp):
             
         return self.manager_screens
 
-    def apply_styles(self,style="Light"):
+    def apply_styles(self,style="Light") -> None:
         self.theme_cls.theme_style=style
         
     def on_keyboard_down(self, window, keyboard, keycode, text, modifiers) -> None:
@@ -85,6 +88,9 @@ class {{project_name}}(MDApp):
 
         if "meta" in modifiers or "ctrl" in modifiers and text == "r":
             self.rebuild()
+
+    def web_open(self, url) -> None:
+        webbrowser.open_new_tab(url)
 
 if __name__ == '__main__':
     {{project_name}}().run()
@@ -108,6 +114,7 @@ if __name__ == '__main__':
 # from kivymd.app import MDApp
 # from kivymd.uix.screenmanager import MDScreenManager
 # from kivymd.utils.set_bars_colors import set_bars_colors
+# import webbrowser
 
 # from kivy.clock import Clock
 
@@ -129,6 +136,9 @@ if __name__ == '__main__':
 # Window.top = 30
 # Window.left = resolution[0] - Window.width
 
+# Window.keyboard_anim_args={"d": .2, "t": "in_out_expo"}
+# Window.softinput_mode="below_target"
+
 # class {{project_name}}(MDApp):
 #     def __init__(self, **kwargs):
 #         super().__init__(**kwargs)
@@ -140,16 +150,13 @@ if __name__ == '__main__':
 #         self.theme_cls.accent_dark_hue="600"
 #         self.theme_cls.accent_light_hue="100"
 #         self.apply_styles("Light")
-#         # This is the screen manager that will contain all the screens of your
-#         # application.
+#         # This is the screen manager that will contain all the screens of your application.
 #         self.manager_screens = MDScreenManager()
         
 #     def build(self) -> MDScreenManager:
 #         self.generate_application_screens()
 #         self.set_bars_colors()
-#         self.manager_screens.padding="44dp"
 #         self.manager_screens.current="home screen"
-#         self.manager_screens.transition=MDSwapTransition()
 #         return self.manager_screens
 
 #     def generate_application_screens(self) -> None:
@@ -170,15 +177,18 @@ if __name__ == '__main__':
 #             view.name = name_screen
 #             self.manager_screens.add_widget(view)
 
-#     def set_bars_colors(self):
+#     def set_bars_colors(self) -> None:
 #         set_bars_colors(
 #             self.theme_cls.primary_color,  # status bar color
 #             self.theme_cls.primary_color,  # navigation bar color
 #             "Light",                       # icons color of status bar
 #         )
 
-#     def apply_styles(self,style="Light"):
+#     def apply_styles(self,style="Light") -> None:
 #         self.theme_cls.theme_style=style
+        
+#     def web_open(self, url) -> None:
+#         webbrowser.open_new_tab(url)
 
 # if __name__ == '__main__':
 #     {{project_name}}().run()

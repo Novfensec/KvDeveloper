@@ -5,6 +5,7 @@ from kivymd.uix.screenmanager import MDScreenManager
 from kivy.core.window import Window
 from kivy import Config
 from PIL import ImageGrab
+import webbrowser
 
 resolution = ImageGrab.grab().size
 
@@ -15,6 +16,9 @@ Config.set("graphics", "width", "317")
 # Place the application window on the right side of the computer screen.
 Window.top = 30
 Window.left = resolution[0] - Window.width + 5
+
+Window.keyboard_anim_args={"d": .2, "t": "in_out_expo"}
+Window.softinput_mode="below_target"
 
 class UI(MDScreenManager):
     def __init__(self, *args,**kwargs):
@@ -40,7 +44,9 @@ class {{project_name}}(MDApp):
         return self.manager_screens
 
     def generate_application_screens(self) -> None:
-       # adds different screen widgets to the screen manager 
+        '''
+        Adds different screen widgets to the screen manager
+        '''
         import View.screens
         importlib.reload(View.screens)
         screens = View.screens.screens
@@ -51,6 +57,9 @@ class {{project_name}}(MDApp):
             view.name = name_screen
             self.manager_screens.add_widget(view)
 
+    def web_open(self, url) -> None:
+        webbrowser.open_new_tab(url)
+
 if __name__ == '__main__':
     {{project_name}}().run()
 
@@ -60,6 +69,12 @@ For Production uncomment the below code and comment out the above code
 
 # from kivymd.app import MDApp
 # from kivymd.uix.screenmanager import MDScreenManager
+# import webbrowser
+# from kivymd.utils.set_bars_colors import set_bars_colors
+# from kivy.core.window import Window
+
+# Window.keyboard_anim_args={"d": .2, "t": "in_out_expo"}
+# Window.softinput_mode="below_target"
 
 # class UI(MDScreenManager):
 #     def __init__(self, *args,**kwargs):
@@ -79,6 +94,7 @@ For Production uncomment the below code and comment out the above code
         
 #     def build(self) -> UI:
 #         self.generate_application_screens()
+#         self.set_bars_colors()
 #         return self.manager_screens
     
 #     def generate_application_screens(self) -> None:
@@ -91,6 +107,16 @@ For Production uncomment the below code and comment out the above code
 #             view.manager_screens = self.manager_screens
 #             view.name = name_screen
 #             self.manager_screens.add_widget(view)
+
+#     def set_bars_colors(self) -> None:
+#         set_bars_colors(
+#             self.theme_cls.primary_color,  # status bar color
+#             self.theme_cls.primary_color,  # navigation bar color
+#             "Light",                       # icons color of status bar
+#         )
+
+#     def web_open(self, url) -> None:
+#         webbrowser.open_new_tab(url)
 
 # if __name__ == '__main__':
 #     {{project_name}}().run()

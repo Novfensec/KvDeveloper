@@ -2,7 +2,7 @@ import typer
 from pathlib import Path
 
 app = typer.Typer()
-def_dir=Path(__file__).parent
+def_dir = Path(__file__).parent
 
 # Configuration settings
 TEMPLATES = {
@@ -19,3 +19,5 @@ DEFAULT_TEMPLATE = "blank"
 DEFAULT_STRUCTURE = "none"
 
 VIEW_BASE = f"{def_dir}/view_base"
+
+IMAGE_LIBRARY = f"{def_dir}/assets/image_library"

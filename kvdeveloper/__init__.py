@@ -1,5 +1,5 @@
 __app_name__ = "kvdeveloper"
-__version__ = "2024.0.4"
+__version__ = "2024.0.5"
 
 (
     SUCCESS,

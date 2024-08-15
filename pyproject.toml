@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "kvdeveloper"
-version = "2024.0.4"
+version = "2024.0.5"
 dependencies = [
   "kivy>=2.2.0",
   "kivymd>=1.1.1",
@@ -22,7 +22,7 @@ maintainers = [
 description = "KvDeveloper is a PyPI module designed to streamline the development of Kivy and KivyMD applications. Inspired by Expo CLI for React Native, KvDeveloper provides starter templates and essential functionalities to kickstart your projects with ease."
 readme = "README.md"
 license = {file = "LICENSE"}
-keywords = ["kivy", "kivymd", "kvdeveloper", "kartavya shukla", "android", "novfensec", "kv"]
+keywords = ["kivy", "open source", "kivymd", "kvdeveloper", "kartavya shukla", "android", "novfensec", "kv"]
 classifiers = [
   "Development Status :: 4 - Beta",
   "Intended Audience :: Developers",
