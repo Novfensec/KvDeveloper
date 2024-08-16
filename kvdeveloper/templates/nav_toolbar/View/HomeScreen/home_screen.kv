@@ -97,7 +97,7 @@
 
 					FitImage:
 						id:avatar
-						source:f"https://raw.githubusercontent.com/Novfensec/KvDeveloper/main/kvdeveloper/assets/image_library/kvdeveloper/kvdeveloper_logo128.png"
+						source:f"{app.image_library_path}/kvdeveloper/kvdeveloper_logo128.png"
 						size_hint: None,None
 						size:"95sp","95sp"
 		MDSeparator:
@@ -153,8 +153,8 @@
 					size_hint_y:None
 
 					MDIconButton:
-						icon:f"https://raw.githubusercontent.com/Novfensec/KvDeveloper/main/kvdeveloper/assets/image_library/basic/discord128.png"
-						icon_size:"75sp"
+						icon_size:"85sp"
+						icon:f"{app.image_library_path}/basic/discord128.png"
 						on_press:
 							app.web_open("https://discord.com/invite/gpubX9H8p7")
 
@@ -164,7 +164,7 @@
 					size_hint_y:None
 
 					MDIconButton:
-						icon:f"https://raw.githubusercontent.com/Novfensec/KvDeveloper/main/kvdeveloper/assets/image_library/basic/stack_overflow128.png"
-						icon_size:"75sp"
+						icon_size:"85sp"
+						icon:f"{app.image_library_path}/basic/stack_overflow128.png"
 						on_press:
 							app.web_open("https://stackoverflow.com/users/16486510/novfensec")

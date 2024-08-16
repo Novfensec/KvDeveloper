@@ -6,6 +6,7 @@ from kivy.core.window import Window
 from kivy import Config
 from PIL import ImageGrab
 import webbrowser
+from kvdeveloper.config import IMAGE_LIBRARY
 
 resolution = ImageGrab.grab().size
 
@@ -37,6 +38,7 @@ class {{project_name}}(MDApp):
         self.theme_cls.accent_palette="Indigo"
         self.theme_cls.accent_dark_hue="600"
         self.theme_cls.accent_light_hue="100"
+        self.image_library_path=IMAGE_LIBRARY
 
     def build_app(self) -> UI:
         self.manager_screens=UI()
@@ -70,6 +72,7 @@ For Production uncomment the below code and comment out the above code
 # from kivymd.app import MDApp
 # from kivymd.uix.screenmanager import MDScreenManager
 # import webbrowser
+# from kvdeveloper.config import IMAGE_LIBRARY
 # from kivymd.utils.set_bars_colors import set_bars_colors
 # from kivy.core.window import Window
 
@@ -90,6 +93,7 @@ For Production uncomment the below code and comment out the above code
 #         self.theme_cls.accent_palette="Indigo"
 #         self.theme_cls.accent_dark_hue="600"
 #         self.theme_cls.accent_light_hue="100"
+#         self.image_library_path=IMAGE_LIBRARY
 #         self.manager_screens=UI()
         
 #     def build(self) -> UI:

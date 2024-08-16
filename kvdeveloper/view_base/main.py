@@ -31,6 +31,7 @@ Window.left = resolution[0] - Window.width +3
 from kivymd.tools.hotreload.app import MDApp
 from kivymd.uix.screenmanager import MDScreenManager
 import webbrowser
+from kvdeveloper.config import IMAGE_LIBRARY
 from kivy.clock import Clock
 
 Clock.max_iteration=30
@@ -50,6 +51,7 @@ class {{project_name}}(MDApp):
         self.theme_cls.accent_palette="Indigo"
         self.theme_cls.accent_dark_hue="600"
         self.theme_cls.accent_light_hue="100"
+        self.image_library_path=IMAGE_LIBRARY
         self.apply_styles("Light")
 
     def build_app(self) -> MDScreenManager:
@@ -115,6 +117,7 @@ if __name__ == '__main__':
 # from kivymd.uix.screenmanager import MDScreenManager
 # from kivymd.utils.set_bars_colors import set_bars_colors
 # import webbrowser
+# from kvdeveloper.config import IMAGE_LIBRARY
 
 # from kivy.clock import Clock
 
@@ -149,6 +152,7 @@ if __name__ == '__main__':
 #         self.theme_cls.accent_palette="Indigo"
 #         self.theme_cls.accent_dark_hue="600"
 #         self.theme_cls.accent_light_hue="100"
+#         self.image_library_path=IMAGE_LIBRARY
 #         self.apply_styles("Light")
 #         # This is the screen manager that will contain all the screens of your application.
 #         self.manager_screens = MDScreenManager()
