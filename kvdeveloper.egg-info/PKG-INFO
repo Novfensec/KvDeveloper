@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: kvdeveloper
-Version: 2024.0.7
+Version: 2024.0.8
 Summary: KvDeveloper is a PyPI module designed to streamline the development of Kivy and KivyMD applications. Inspired by Expo CLI for React Native, KvDeveloper provides starter templates and essential functionalities to kickstart your projects with ease.
 Author-email: Kartavya Shukla <novfensec@protonmail.com>
 Maintainer-email: Kartavya Shukla <novfensec@protonmail.com>
