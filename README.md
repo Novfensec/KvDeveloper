@@ -9,20 +9,20 @@
                                          |_|              
 ```
 
-<img src="https://raw.githubusercontent.com/Novfensec/KvDeveloper/main/kvdeveloper/assets/image_library/kvdeveloper/kvdeveloper_logo256.png" height="178" align="right"/>
+<img src="https://raw.githubusercontent.com/Novfensec/KvDeveloper/main/kvdeveloper/assets/image_library/kvdeveloper/kvdeveloper_logo256.png" height="178" align="right" padding="11"/>
 
 <p>KvDeveloper is a PyPI module designed to streamline the development of Kivy and KivyMD applications. Inspired by Expo CLI for React Native, it offers starter templates and essential functionalities to kickstart your projects with ease. With features like predefined templates, MVC architecture support, and customizable options, KvDeveloper simplifies creating robust and organized Kivy projects. It supports Python 3.1+, Kivy 2.2.0+, and KivyMD 1.1.1+, making it a versatile tool for developers looking to enhance their Kivy development workflow.</p>
 
 ## Community and Support
-- Discord: [https://discord.com/invite/gpubX9H8p7]
+- <a href="https://discord.com/invite/gpubX9H8p7" rel="noopener" target="_blank">Discord</a>
 
-- Issue Tracker: [https://github.com/Novfensec/KvDeveloper/issues]
+- <a href="https://github.com/Novfensec/KvDeveloper/issues" rel="noopener" target="_blank">Issue Tracker</a>
 
-- Documentation: [Coming Soon...]
+- <a href="#ComingSoon" rel="noopener" target="_blank">Coming Soon...</a>
 
-- Youtube Admin: [https://www.youtube.com/@NovfensecInc]
+- <a href="https://www.youtube.com/@NovfensecInc" rel="noopener" target="_blank">Youtube Admin</a>
 
-- Youtube KvDeveloper: [https://www.youtube.com/@KvDeveloper]
+- <a href="https://www.youtube.com/@KvDeveloper" rel="noopener" target="_blank">Youtube KvDeveloper</a>
 
 ## Features
 - **Starter Templates**: Quickly create new Kivy and KivyMD projects with predefined templates.
@@ -69,7 +69,7 @@ pip install kvdeveloper
 - **Navigation Toolbar Template**: A template with navigation and toolbar screens.
     <p align="center">
         <img 
-            width="600" src="https://raw.githubusercontent.com/Novfensec/KvDeveloper/main/kvdeveloper/assets/image_library/kvdeveloper/nav_toolbar.png" style="border-radius:2%" 
+            width="700" src="https://raw.githubusercontent.com/Novfensec/KvDeveloper/main/kvdeveloper/assets/image_library/kvdeveloper/nav_toolbar.png" style="border-radius:1em" 
             title="kvdeveloper create MyApp --template nav_toolbar"
         />
     </p>
@@ -77,7 +77,7 @@ pip install kvdeveloper
 - **MVC Architecture**: A template add-on following the MVC architecture.
 
 ## License
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the [LICENSE](https://github.com/Novfensec/KvDeveloper/blob/main/LICENSE) file for details.
 
 ## Acknowledgements
 

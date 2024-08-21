@@ -5,6 +5,7 @@ kvdeveloper/__init__.py
 kvdeveloper/__main__.py
 kvdeveloper/cli.py
 kvdeveloper/config.py
+kvdeveloper/info_reader.py
 kvdeveloper/module.py
 kvdeveloper.egg-info/PKG-INFO
 kvdeveloper.egg-info/SOURCES.txt
@@ -12,6 +13,8 @@ kvdeveloper.egg-info/dependency_links.txt
 kvdeveloper.egg-info/entry_points.txt
 kvdeveloper.egg-info/requires.txt
 kvdeveloper.egg-info/top_level.txt
+kvdeveloper/assets/css/github-markdown.css
+kvdeveloper/assets/css/prism.css
 kvdeveloper/assets/image_library/basic/discord128.png
 kvdeveloper/assets/image_library/basic/discord256.png
 kvdeveloper/assets/image_library/basic/discord512.png
@@ -44,6 +47,7 @@ kvdeveloper/assets/image_library/kvdeveloper/kvdeveloper_logo512.png
 kvdeveloper/assets/image_library/kvdeveloper/kvdeveloper_logo64.png
 kvdeveloper/assets/image_library/kvdeveloper/kvdeveloper_logo720.png
 kvdeveloper/assets/image_library/kvdeveloper/nav_toolbar.png
+kvdeveloper/assets/js/prism.js
 kvdeveloper/structures/__init__.py
 kvdeveloper/structures/MVC/Controller/__init__.py
 kvdeveloper/structures/MVC/Model/__init__.py

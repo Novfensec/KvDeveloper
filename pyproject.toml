@@ -4,13 +4,16 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "kvdeveloper"
-version = "2024.0.6"
+version = "2024.0.7"
 dependencies = [
   "kivy>=2.2.0",
   "kivymd>=1.1.1",
-  "pillow",
+  "pillow>=10.3.0",
   "typer>=0.12.3",
-  "rich>=13.7.1"
+  "rich>=13.7.1",
+  "markdown2>=2.5.0",
+  "pyqt5",
+  "pyqtwebengine",
 ]
 requires-python = ">=3.1"
 authors = [
@@ -42,7 +45,12 @@ Changelog = "https://github.com/Novfensec/KvDeveloper/blob/main/CHANGELOG.md"
 kvdeveloper = "kvdeveloper.__main__:main"
 
 [tool.setuptools.package-data]
-"kvdeveloper" = ["assets/image_library/basic/*","assets/image_library/kvdeveloper/*"]
+"kvdeveloper" = [
+  "assets/image_library/basic/*",
+  "assets/image_library/kvdeveloper/*",
+  "assets/css/*",
+  "assets/js/*",
+]
 
 [tool.setuptools.exclude-package-data]
 "kvdeveloper" = ["*.pyc", "*.pyo"]

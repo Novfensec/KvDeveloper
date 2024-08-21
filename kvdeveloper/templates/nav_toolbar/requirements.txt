@@ -2,4 +2,3 @@ kivy=={{kivy_version}}
 kivymd=={{kivymd_version}}
 watchdog==4.0.1
 pillow==10.3.0
-webbrowser

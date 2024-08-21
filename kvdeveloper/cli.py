@@ -4,17 +4,16 @@ from typing import Optional, Dict
 from kvdeveloper import __app_name__, __version__
 from .config import app, DEFAULT_TEMPLATE, DEFAULT_STRUCTURE, STRUCTURES, TEMPLATES
 from .module import (
+    console,
     create_from_template,
     create_from_structure,
     setup_build,
     project_info,
 )
-from rich.console import Console
+from .info_reader import info_reader
 from rich.panel import Panel
 from rich.text import Text
 from rich.table import Table
-
-console = Console()
 
 
 @app.command()
@@ -22,7 +21,7 @@ def create(
     template: str = typer.Option(DEFAULT_TEMPLATE, help="Template for the project."),
     structure: str = typer.Option(DEFAULT_STRUCTURE, help="Structure for the project."),
     project_name: Optional[str] = typer.Argument(
-        "NewProject", help="Name of the project"
+        "NewProject", help="Name of the project."
     ),
 ) -> None:
     """
@@ -60,6 +59,25 @@ def create(
     }
     setup_build(project_name, destination, build_variables)
     project_info(project_name, template, structure, destination)
+
+
+@app.command()
+def show_readme(
+    directory: Optional[str] = typer.Argument(
+        ".", help="The directory containig the README.md file."
+    )
+) -> None:
+    """
+    Call the function to start a markdown displaying window.
+
+    :param directory: The directory containig the README.md file.
+    """
+    readme_path = os.path.join(directory, "README.md")
+    if not os.path.isfile(readme_path):
+        typer.echo(f"File '{readme_path}' not found.")
+        raise typer.Exit(code=1)
+
+    info_reader(directory)
 
 
 @app.command()
