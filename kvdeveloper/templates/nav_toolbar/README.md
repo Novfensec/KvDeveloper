@@ -4,7 +4,7 @@ A simple app using KivyMD with Navigation drawer, HomeScreen and LoginScreen com
 ## Overview
 This repository contains a basic KivyMD app with Navigation drawer, HomeScreen and LoginScreen components including hot reload functionality. You can make code changes and instantly see the updates without restarting the application [ *Only for changes made to `main.py` and `.kv` files.* ].
 
-<img src="https://raw.githubusercontent.com/Novfensec/KvDeveloper/main/kvdeveloper/assets/image_library/kvdeveloper/nav_toolbar.png" width="700/>
+<img src="https://raw.githubusercontent.com/Novfensec/KvDeveloper/main/kvdeveloper/assets/image_library/kvdeveloper/nav_toolbar.png" width="700"/>
 
 ## Prerequisites
 Make sure you have the following installed:
