@@ -18,7 +18,7 @@
 
 - <a href="https://github.com/Novfensec/KvDeveloper/issues" rel="noopener" target="_blank">Issue Tracker</a>
 
-- <a href="#ComingSoon" rel="noopener" target="_blank">Coming Soon...</a>
+- <a href="#ComingSoon" rel="noopener" target="_blank">Documentation Coming soon..</a>
 
 - <a href="https://www.youtube.com/@NovfensecInc" rel="noopener" target="_blank">Youtube Admin</a>
 
@@ -44,11 +44,17 @@ pip install kvdeveloper
 
 - kivymd>=1.1.1 `(recommended kivymd==1.1.1)`
 
-- pillow
+- pillow>=10.3.0
 
 - typer>=0.12.3
 
 - rich>=13.7.1
+
+- markdown2>=2.5.0
+
+- pyqt5
+
+- pyqtwebengine
 
 ## Usage
 - Create a new KivyMD project with a blank template:
@@ -59,8 +65,13 @@ pip install kvdeveloper
 
 - Create a new KivyMD project with navigation and toolbar with MVC architecture.:
 
-    ``` bash
+    ```bash
     kvdeveloper create my_project --template nav_toolbar --structure MVC
+    ```
+
+- Get info about the template used for the project:
+    ```bash
+    kvdeveloper show-readme my_project
     ```
 
 ## Templates
@@ -69,7 +80,7 @@ pip install kvdeveloper
 - **Navigation Toolbar Template**: A template with navigation and toolbar screens.
     <p align="center">
         <img 
-            width="700" src="https://raw.githubusercontent.com/Novfensec/KvDeveloper/main/kvdeveloper/assets/image_library/kvdeveloper/nav_toolbar.png" style="border-radius:1em" 
+            width="800" src="https://raw.githubusercontent.com/Novfensec/KvDeveloper/main/kvdeveloper/assets/image_library/kvdeveloper/nav_toolbar.png" style="border-radius:1em" 
             title="kvdeveloper create MyApp --template nav_toolbar"
         />
     </p>

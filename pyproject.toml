@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "kvdeveloper"
-version = "2024.0.8"
+dynamic = ["version"]
 dependencies = [
   "kivy>=2.2.0",
   "kivymd>=1.1.1",
@@ -43,6 +43,9 @@ Changelog = "https://github.com/Novfensec/KvDeveloper/blob/main/CHANGELOG.md"
 
 [project.scripts]
 kvdeveloper = "kvdeveloper.__main__:main"
+
+[tool.setuptools.dynamic]
+version = {attr = "kvdeveloper.__version__"}
 
 [tool.setuptools.package-data]
 "kvdeveloper" = [
