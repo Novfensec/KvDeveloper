@@ -1,14 +1,17 @@
 import typer
 import os
-from typing import Optional, Dict
+from typing import Optional, List
 from kvdeveloper import __app_name__, __version__
 from .config import app, DEFAULT_TEMPLATE, DEFAULT_STRUCTURE, STRUCTURES, TEMPLATES
 from .module import (
     console,
     create_from_template,
     create_from_structure,
+    add_from_default,
+    add_from_structure,
     setup_build,
     project_info,
+    name_parser,
 )
 from .info_reader import info_reader
 from rich.panel import Panel
@@ -43,6 +46,7 @@ def create(
     )
 
     project_name = project_name.strip().replace(" ", "")
+    project_name=name_parser(project_name, "project")
     variables = {
         "project_name": project_name,
     }
@@ -62,13 +66,35 @@ def create(
 
 
 @app.command()
+def add_screen(
+    name_screen: List[str] = typer.Argument(help="Name of the screen."),
+    use_template: Optional[str] = typer.Option(
+        None, help="Name of the template if the specified view exists in it."
+    ),
+    structure: str = typer.Option(DEFAULT_STRUCTURE, help="Structure of the project."),
+) -> None:
+    """
+    Create screens with specified template and structure.
+
+    :param name_screen: The name of the screen.
+    :param use_template: The name of the template to be used for creating the view if it pre-exists.
+    :param structure: The name of the structure folder.
+    """
+    destination = os.path.join(os.getcwd(), "View")
+    if structure == "none":
+        add_from_default(name_screen, use_template, destination)
+    elif structure == "MVC":
+        add_from_structure(name_screen, use_template, destination, structure)
+
+
+@app.command()
 def show_readme(
     directory: Optional[str] = typer.Argument(
         ".", help="The directory containig the README.md file."
     )
 ) -> None:
     """
-    Call the function to start a markdown displaying window.
+    Show the README.md file containing the template info of the project.
 
     :param directory: The directory containig the README.md file.
     """

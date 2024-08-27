@@ -1,13 +1,14 @@
 import os
 import typer
-from typing import Optional, Dict
+import platform
+import subprocess
+import re
+from typing import Dict, List, Literal
 from .config import TEMPLATES_DIR, TEMPLATES, STRUCTURES_DIR, STRUCTURES, VIEW_BASE
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
 from rich.tree import Tree
-import platform
-import subprocess
 
 console = Console()
 
@@ -344,3 +345,242 @@ def update_requirements(template_path: str, destination: str) -> None:
         console.print(
             f"\nUpdated file: [bright_white]{destination}/requirements.txt[/bright_white]"
         )
+
+
+def add_from_default(
+    name_screen: List[str], use_template: str, destination: str
+) -> None:
+    """
+    Add screens to the project with a specified template and a default structure.
+
+    :param name_screen: A list of screen names to be added.
+    :param use_template: The template name to be used for creating the view if it pre-exists.
+    :param destination: The destination path where the files will be created.
+    """
+    for name_view in name_screen:
+        # Parse screen name to PascalCase
+        parsed_name = name_parser(name_view, "screen")
+        # A snake that parses a name.
+        snake_name_view = name_parser_snake(parsed_name)
+        console.print(
+            f"Creating Screen with name [bold cyan]{parsed_name}[/bold cyan]."
+        )
+
+        # Construct the view path
+        view_path = os.path.join(destination, parsed_name)
+
+        if not os.path.isdir(view_path):
+            variables = {"parsed_name": parsed_name}
+            try:
+                # Construct the template path
+                template_path = os.path.join(
+                    TEMPLATES_DIR, f"{use_template}/View/{parsed_name}"
+                )
+
+                if not os.path.isdir(template_path):
+                    # Template does not exist; create files with a blank template
+                    if use_template:
+                        typer.echo(
+                            f"View '{parsed_name}' not found in template '{use_template}'. Creating '{parsed_name}' with a blank template."
+                        )
+                    os.makedirs(view_path, exist_ok=True)
+
+                    # Create the .py file using the default template
+                    with open(
+                        f"{VIEW_BASE}/default_screen.py", "r", encoding="utf-8"
+                    ) as view_file:
+                        content = view_file.read()
+                    content = replace_placeholders(content, variables)
+                    with open(
+                        f"{view_path}/{snake_name_view}.py", "w", encoding="utf-8"
+                    ) as target_file:
+                        target_file.write(content)
+                    console.print(
+                        f"\nCreated file: [bright_white]{view_path}/{snake_name_view}.py[/bright_white]"
+                    )
+
+                    # Create the .kv file using the default template
+                    with open(
+                        f"{VIEW_BASE}/default_screen.kv", "r", encoding="utf-8"
+                    ) as view_file:
+                        content = view_file.read()
+                    content = replace_placeholders(content, variables)
+                    with open(
+                        f"{view_path}/{snake_name_view}.kv", "w", encoding="utf-8"
+                    ) as target_file:
+                        target_file.write(content)
+                    console.print(
+                        f"\nCreated file: [bright_white]{view_path}/{snake_name_view}.kv[/bright_white]"
+                    )
+                    update_screens_file(parsed_name, snake_name_view, destination)
+
+                else:
+                    # Template exists; copy and process files from the template
+                    for root, _, files in os.walk(template_path):
+                        relative_path = os.path.relpath(root, template_path)
+                        target_dir = os.path.join(destination, relative_path)
+                        os.makedirs(target_dir, exist_ok=True)
+
+                        for file_name in files:
+                            template_file_path = os.path.join(root, file_name)
+                            target_file_path = os.path.join(target_dir, file_name)
+
+                            # Read and process each template file
+                            with open(
+                                template_file_path, "r", encoding="utf-8"
+                            ) as template_file:
+                                content = template_file.read()
+                            content = replace_placeholders(content, variables)
+                            with open(
+                                target_file_path, "w", encoding="utf-8"
+                            ) as target_file:
+                                target_file.write(content)
+
+                            console.print(
+                                f"Created file: [bright_white]{target_file_path}[/bright_white]"
+                            )
+                            update_screens_file(
+                                parsed_name, snake_name_view, destination
+                            )
+            except Exception as e:
+                typer.secho(f"Error: {e}", err=True)
+        else:
+            console.print(
+                f"Screen with name [green]{parsed_name}[/green] already exists. Try a different name."
+            )
+
+
+def update_screens_file(
+    parsed_name: str, snake_name_view: str, destination: str
+) -> None:
+    """
+    Updates the screens.py file by adding the import statement and the screen entry.
+
+    :param parsed_name: The name of the screen class (e.g., 'MyScreen').
+    :param snake_name_view: The name of the screen in snake_case (e.g., 'my_screen').
+    :param destination: The destination path where the files is located.
+    """
+
+    # Define the paths and patterns
+    file_path = os.path.join(destination, "screens.py")
+    import_statement = (
+        f"from View.{parsed_name}.{snake_name_view} import {parsed_name}View\n"
+    )
+    screen_entry = f"    '{snake_name_view.replace('_', ' ')}': {{\n        'object': {parsed_name}View(),\n    }},\n"
+
+    # Read the contents of the screens.py file
+    with open(file_path, "r") as file:
+        content = file.read()
+
+    # Check if the import statement already exists
+    if re.search(re.escape(import_statement.strip()), content):
+        print(f"The import statement for {parsed_name}View already exists.")
+    else:
+        # Insert the import statement at the top of the file (after the first import block)
+        content = re.sub(
+            r"(import .*\n)+", r"\g<0>" + import_statement, content, count=1
+        )
+
+    # Check if the screen entry already exists
+    screen_key = snake_name_view.replace("_", " ")
+    if re.search(re.escape(screen_key), content):
+        print(f"The screen entry for {snake_name_view} already exists.")
+    else:
+        # Insert the new screen entry at the correct position in the dictionary
+        # This pattern finds the last closing curly brace '}' for each screen entry
+        content = re.sub(
+            r"(\n\s*},\s*\n\s*'[\w\s]+':\s*{\s*\n\s*'object':\s*[\w]+\(\),\s*\n\s*},\s*\n)(\s*})",
+            r"\g<1>" + screen_entry + r"\g<2>",
+            content,
+        )
+
+    # Write the updated content back to the screens.py file
+    with open(file_path, "w", encoding="utf-8") as file:
+        file.write(content)
+
+    console.print(f"[bright cyan]screens.py[/bright cyan] has been successfully updated with {parsed_name}View.")
+
+
+def add_from_structure(
+    name_screen: List[str], use_template: str, destination: str, structure: str
+) -> None:
+    """
+    Add screens to the project using a custom structure.
+
+    :param name_screen: A list of screen names to be added.
+    :param use_template: The template name to be used for creating the view.
+    :param destination: The destination path where the files will be created.
+    :param structure: The custom structure to follow when creating the screens.
+
+    --- Under Development ---
+    """
+    pass
+
+
+def name_parser_snake(name: str) -> str:
+    """
+    Convert a PascalCase name to snake_case.
+
+    :param name: The name to be converted.
+    :return: The converted snake_case name.
+    """
+    # Convert name to lowercase and ensure 'screen' is separated with '_'
+    snake_case = name.lower()
+    snake_case = re.sub(r"_?screen", "_screen", snake_case)
+    return snake_case
+
+
+def name_parser(name: str, parse_type: Literal["screen", "project"]) -> str:
+    """
+    Parse the name according to the given parse type.
+
+    :param name: The name to be parsed.
+    :param parse_type: The type of parsing to perform ("screen" or "project").
+    :return: The parsed name in PascalCase.
+    :raises ValueError: If the name is invalid.
+    :raises TypeError: If the parse type is invalid.
+    """
+    name = name.lower()
+
+    if parse_type == "screen":
+        # Validate and format screen name
+        if name and name[0].isdigit():
+            raise ValueError("The name of the screen should not start with a number.")
+        elif "screen" not in name:
+            name += "Screen"
+        elif name.lower() == "screen":
+            raise ValueError(
+                "The name of the screen cannot be only 'screen' or 'Screen'."
+            )
+
+        # Extract and capitalize words
+        words = re.split(r"[^a-zA-Z0-9]", name)
+        pascal_case = "".join(
+            word.capitalize() if word.lower() != "screen" else "Screen"
+            for word in words
+            if word
+        )
+        pascal_case = re.sub(r"Screen", "Screen", pascal_case, flags=re.IGNORECASE)
+    elif parse_type == "project":
+        # Validate and format project name
+        if name and name[0].isdigit():
+            raise ValueError("The name of the project should not start with a number.")
+        elif "app" not in name:
+            name += "App"
+        elif name.lower() == "app":
+            raise ValueError("The name of the project cannot be only 'app' or 'App'.")
+
+        # Extract and capitalize words
+        words = re.split(r"[^a-zA-Z0-9]", name)
+        pascal_case = "".join(
+            word.capitalize() if word.lower() != "app" else "App"
+            for word in words
+            if word
+        )
+        pascal_case = re.sub(r"App", "App", pascal_case, flags=re.IGNORECASE)
+    else:
+        raise TypeError(
+            f"Invalid parse type: '{parse_type}'. Should be one of ['screen', 'project']"
+        )
+
+    return pascal_case
