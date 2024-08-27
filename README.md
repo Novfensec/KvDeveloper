@@ -104,7 +104,7 @@ You can contribute by:
 - Submitting pull requests to improve the documentation or the KvDeveloper tool.
 - Helping with translations or writing new guides.
 
-For more detailed instructions, please visit our [Contributing](https://github.com/Novfensec/KvDeveloper.docs/blob/main/CONTRIBUTING.md) page.
+For more detailed instructions, please visit our [Contributing](https://github.com/Novfensec/KvDeveloper/blob/main/CONTRIBUTING.md) page.
 
 ## License
 
