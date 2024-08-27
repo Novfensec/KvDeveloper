@@ -22,7 +22,7 @@ Please read and follow our [Code of Conduct](https://github.com/Novfensec/KvDeve
    - Click the "Fork" button at the top right of the KvDeveloper GitHub page.
    - Clone your forked repository to your local machine:
      ```sh
-     git clone https://github.com/Novfensec/KvDeveloper.git
+     git clone https://github.com/<your-username>/KvDeveloper.git
      cd KvDeveloper
      ```
 
