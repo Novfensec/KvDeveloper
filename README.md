@@ -14,15 +14,16 @@
 <p>KvDeveloper is a PyPI module designed to streamline the development of Kivy and KivyMD applications. Inspired by Expo CLI for React Native, it offers starter templates and essential functionalities to kickstart your projects with ease. With features like predefined templates, MVC architecture support, and customizable options, KvDeveloper simplifies creating robust and organized Kivy projects. It supports Python 3.1+, Kivy 2.2.0+, and KivyMD 1.1.1+, making it a versatile tool for developers looking to enhance their Kivy development workflow.</p>
 
 ## Community and Support
-- <a href="https://discord.com/invite/gpubX9H8p7" rel="noopener" target="_blank">Discord</a>
 
-- <a href="https://github.com/Novfensec/KvDeveloper/issues" rel="noopener" target="_blank">Issue Tracker</a>
+Join the KvDeveloper community to get support, share your projects, and collaborate with other developers. Here are some ways you can connect with us:
 
-- <a href="#ComingSoon" rel="noopener" target="_blank">Documentation Coming soon..</a>
+- **Discord**: Join our [KvDeveloper Community Server](https://discord.com/invite/gpubX9H8p7).
+- **Stack Overflow**: Feel free to reach out on our [Stack Overflow](https://stackoverflow.com/users/16486510/novfensec).
+- **GitHub Discussions**: Participate in discussions and ask questions in the [GitHub Discussions](https://github.com/Novfensec/KvDeveloper/discussions) section.
+- **Youtube - Admin**: Follow [@NovfensecInc](https://youtube.com/@NovfensecInc) to learn by building futuristic projects.
+- **YouTube - KvDeveloper**: Follow us on YouTube [@KvDeveloper](https://youtube.com/@KvDeveloper) for updates and announcements.
 
-- <a href="https://www.youtube.com/@NovfensecInc" rel="noopener" target="_blank">Youtube Admin</a>
-
-- <a href="https://www.youtube.com/@KvDeveloper" rel="noopener" target="_blank">Youtube KvDeveloper</a>
+If you encounter any issues or have questions, feel free to reach out to the community or submit an issue on GitHub.
 
 ## Features
 - **Starter Templates**: Quickly create new Kivy and KivyMD projects with predefined templates.
@@ -31,11 +32,17 @@
 - **Customizable**: Easily extend and customize the templates to fit your project needs.
 
 ## Installation
-Install KvDeveloper using pip:
+- Install KvDeveloper using pip:
 
-```bash
-pip install kvdeveloper
-```
+    ```bash
+    pip install kvdeveloper
+    ```
+
+- Install devlopment version using pip:
+
+    ```bash
+    pip install git+https://github.com/Novfensec/KvDeveloper.git@main
+    ```
 
 ## Requirements
 - **Python**>=3.1
@@ -87,8 +94,21 @@ pip install kvdeveloper
 
 - **MVC Architecture**: A template add-on following the MVC architecture.
 
+## Contributing
+
+We welcome contributions from the community! If you're interested in contributing to KvDeveloper or its documentation, please read our [Contributing Guidelines](https://github.com/Novfensec/KvDeveloper/blob/main/CONTRIBUTING.md).
+
+You can contribute by:
+
+- Reporting bugs or suggesting features in the [Issues](https://github.com/Novfensec/KvDeveloper/issues) section.
+- Submitting pull requests to improve the documentation or the KvDeveloper tool.
+- Helping with translations or writing new guides.
+
+For more detailed instructions, please visit our [Contributing](https://github.com/Novfensec/KvDeveloper.docs/blob/main/CONTRIBUTING.md) page.
+
 ## License
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/Novfensec/KvDeveloper/blob/main/LICENSE) file for details.
+
+KvDeveloper is released under the [MIT License](https://github.com/Novfensec/KvDeveloper/blob/main/LICENSE). You're free to use, modify, and distribute this software as long as you adhere to the terms of the license.
 
 ## Acknowledgements
 
