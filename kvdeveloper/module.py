@@ -404,15 +404,26 @@ def add_from_default(
                         f"{VIEW_BASE}/default_screen.kv", "r", encoding="utf-8"
                     ) as view_file:
                         content = view_file.read()
+
                     content = replace_placeholders(content, variables)
+
                     with open(
                         f"{view_path}/{snake_name_view}.kv", "w", encoding="utf-8"
                     ) as target_file:
                         target_file.write(content)
+
+                    content = replace_placeholders(content, variables)
+
                     console.print(
                         f"\nCreated file: [bright_white]{view_path}/{snake_name_view}.kv[/bright_white]"
                     )
                     update_screens_file(parsed_name, snake_name_view, destination)
+
+                    # Create an empty __init__.py File
+                    with open(
+                        f"{view_path}/__init__.py", "w", encoding="utf-8"
+                    ) as init_file:
+                        init_file.write("# Empty __init__.py file")
 
                 else:
                     # Template exists; copy and process files from the template
@@ -498,7 +509,9 @@ def update_screens_file(
     with open(file_path, "w", encoding="utf-8") as file:
         file.write(content)
 
-    console.print(f"[bright cyan]screens.py[/bright cyan] has been successfully updated with {parsed_name}View.")
+    console.print(
+        f"\nFile [bright cyan]screens.py[/bright cyan] has been successfully updated with {parsed_name}View."
+    )
 
 
 def add_from_structure(
