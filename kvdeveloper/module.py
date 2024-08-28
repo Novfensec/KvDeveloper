@@ -425,7 +425,7 @@ def add_from_default(
                     ) as init_file:
                         init_file.write("# Empty __init__.py file")
 
-                else:
+                elif os.path.isdir(template_path):
                     # Template exists; copy and process files from the template
                     for root, _, files in os.walk(template_path):
                         relative_path = os.path.relpath(root, template_path)
@@ -515,7 +515,7 @@ def update_screens_file(
 
 
 def add_from_structure(
-    name_screen: List[str], use_template: str, destination: str, structure: str
+    name_screen: List[str], use_template: str, destination: str
 ) -> None:
     """
     Add screens to the project using a custom structure.
@@ -527,7 +527,59 @@ def add_from_structure(
 
     --- Under Development ---
     """
-    pass
+    parsed_screens_list = []
+    for name_view in name_screen:
+        # Parse screen name to PascalCase
+        parsed_name = name_parser(name_view, "screen")
+        parsed_screens_list.append(parsed_name)
+
+    parsed_screens_string = " ".join(parsed_screens_list)
+
+    output = subprocess.run(
+        f"python -m kivymd.tools.patterns.add_view MVC . {parsed_screen_string}",
+        shell=True,
+    )
+
+    if output.returncode != 0:
+        raise typer.Exit(code=1)
+
+    for parsed_name in parsed_screens_list:
+        # Construct the template path
+        template_path = os.path.join(
+            TEMPLATES_DIR, f"{use_template}/View/{parsed_name}"
+        )
+
+        # Construct the view path
+        view_path = os.path.join(destination, parsed_name)
+
+        # A snake that parses a name.
+        snake_name_view = name_parser_snake(parsed_name)
+
+        variables = {"parsed_name": parsed_name}
+
+        if not os.path.isdir(template_path):
+            # Template does not exist;
+            if use_template:
+                typer.echo(
+                    f"View '{parsed_name}' not found in template '{use_template}'."
+                )
+        elif os.path.isdir(template_path):
+            # Template exists; process files from the template
+            with open(
+                f"{template_path}/{snake_name_view}.kv", "r", encoding="utf-8"
+            ) as template_file:
+                content = template_file.read()
+
+            content = replace_placeholders(content, variables)
+
+            with open(
+                f"{view_path}/{snake_name_view}.kv", "w", encoding="utf-8"
+            ) as target_file:
+                target_file.write(content)
+
+            console.print(
+                f"\nUpdated file: [bright_white]{view_path}/{snake_name_view}.kv[/bright_white]"
+            )
 
 
 def name_parser_snake(name: str) -> str:

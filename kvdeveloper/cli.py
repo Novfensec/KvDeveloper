@@ -84,7 +84,7 @@ def add_screen(
     if structure == "none":
         add_from_default(name_screen, use_template, destination)
     elif structure == "MVC":
-        add_from_structure(name_screen, use_template, destination, structure)
+        add_from_structure(name_screen, use_template, destination)
 
 
 @app.command()
