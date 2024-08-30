@@ -56,6 +56,9 @@ def create(
         create_from_template(template, destination, variables)
     elif structure == "MVC":
         create_from_structure(template, structure, destination, variables)
+    else:
+        console.print("Structure for name [green]{structure}[/green] not found.")
+        raise typer.Exit(code=0)
 
     build_variables = {
         "project_name": project_name,
@@ -85,6 +88,9 @@ def add_screen(
         add_from_default(name_screen, use_template, destination)
     elif structure == "MVC":
         add_from_structure(name_screen, use_template, destination)
+    else:
+        console.print("Structure for name [green]{structure}[/green] not found.")
+        raise typer.Exit(code=0)
 
 
 @app.command()

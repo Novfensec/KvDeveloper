@@ -9,6 +9,7 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
 from rich.tree import Tree
+from rich.prompt import Prompt
 
 console = Console()
 
@@ -524,8 +525,6 @@ def add_from_structure(
     :param use_template: The template name to be used for creating the view.
     :param destination: The destination path where the files will be created.
     :param structure: The custom structure to follow when creating the screens.
-
-    --- Under Development ---
     """
     parsed_screens_list = []
     for name_view in name_screen:
@@ -536,12 +535,23 @@ def add_from_structure(
     parsed_screens_string = " ".join(parsed_screens_list)
 
     output = subprocess.run(
-        f"python -m kivymd.tools.patterns.add_view MVC . {parsed_screen_string}",
+        f"python -m kivymd.tools.patterns.add_view MVC . {parsed_screens_string}",
         shell=True,
     )
 
     if output.returncode != 0:
-        raise typer.Exit(code=1)
+        console.print(
+            "\nThis project may not be following [green]MVC[/green] architecture.\n"
+        )
+        prompt = Prompt.ask(
+            f"Want to add screen using structure [[green]none: {STRUCTURES[structure]}[/green]] ?",
+            choices=["y", "n"],
+            default="n",
+        )
+        if prompt == "y":
+            add_from_default(name_screen, use_template, destination)
+        else:
+            raise typer.Exit(code=1)
 
     for parsed_name in parsed_screens_list:
         # Construct the template path

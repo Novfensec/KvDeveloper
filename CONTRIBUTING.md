@@ -4,13 +4,12 @@ Thank you for considering contributing to KvDeveloper! We welcome contributions 
 
 ## Table of Contents
 
-1. Code of Conduct
-2. How to Contribute
-3. Reporting Bugs
-4. Requesting Features
-5. Coding Standards
-6. Documentation
-7. Support
+1. [Code of Conduct](#code-of-conduct)
+2. [How to Contribute](#how-to-contribute)
+3. [Reporting Bugs](#reporting-bugs)
+4. [Requesting Features](#requesting-features)
+5. [Coding Standards](#coding-standards)
+6. [Support](#support)
 
 ## Code of Conduct
 
@@ -21,42 +20,48 @@ Please read and follow our [Code of Conduct](https://github.com/Novfensec/KvDeve
 1. **Fork the Repository**:
    - Click the "Fork" button at the top right of the KvDeveloper GitHub page.
    - Clone your forked repository to your local machine:
-     ```sh
-     git clone https://github.com/<your-username>/KvDeveloper.git
-     cd KvDeveloper
-     ```
+
+      ```sh
+      git clone https://github.com/<your-username>/KvDeveloper.git
+      cd KvDeveloper
+      ```
 
 2. **Install in Editable Mode**:
    - Set up the project in editable mode using pip:
-     ```sh
-     pip install -e .
-     ```
+
+      ```sh
+      pip install -e .
+      ```
 
 3. **Create a Branch**:
    - Create a new branch for your changes:
-     ```sh
-     git checkout -b my-feature-branch
-     ```
+
+      ```sh
+      git checkout -b my-feature-branch
+      ```
 
 4. **Make Your Changes**:
    - Make your changes, ensuring proper type hinting and formatting your code using the Black formatter.
-   ```sh
-   pip install black
-   black .
-   ```
+
+      ```sh
+      pip install black
+      black .
+      ```
 
 5. **Commit Your Changes**:
    - Commit your changes with a clear and descriptive commit message:
-     ```sh
-     git add .
-     git commit -m "Add feature X to KvDeveloper"
-     ```
+
+      ```sh
+      git add .
+      git commit -m "Add feature X to KvDeveloper"
+      ```
 
 6. **Push Your Branch**:
    - Push your branch to your forked repository:
-     ```sh
-     git push origin my-feature-branch
-     ```
+
+      ```sh
+      git push origin my-feature-branch
+      ```
 
 7. **Create a Pull Request**:
    - Go to the KvDeveloper GitHub page and click the "New Pull Request" button.
