@@ -17,7 +17,7 @@
 
 Join the KvDeveloper community to get support, share your projects, and collaborate with other developers. Here are some ways you can connect with us:
 
-- **Discord**: Join our [KvDeveloper Community Server](https://discord.com/invite/gpubX9H8p7).
+- **Discord**: Join our [KvDeveloper Community Server](https://discord.com/invite/U9bfkD6A4c).
 - **Stack Overflow**: Feel free to reach out on our [Stack Overflow](https://stackoverflow.com/users/16486510/novfensec).
 - **GitHub Discussions**: Participate in discussions and ask questions in the [GitHub Discussions](https://github.com/Novfensec/KvDeveloper/discussions) section.
 - **Youtube - Admin**: Follow [@NovfensecInc](https://youtube.com/@NovfensecInc) to learn by building futuristic projects.

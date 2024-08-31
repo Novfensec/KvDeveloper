@@ -37,7 +37,7 @@ classifiers = [
 [project.urls]
 Homepage = "https://github.com/Novfensec/KvDeveloper"
 Documentation = "https://readthedocs.org/KvDeveloper"
-Repository = "https://github.com/Novfensec/KvDeveloper.git"
+Repository = "https://github.com/Novfensec/KvDeveloper"
 "Bug Tracker" = "https://github.com/Novfensec/KvDeveloper/issues"
 Changelog = "https://github.com/Novfensec/KvDeveloper/blob/main/CHANGELOG.md"
 
