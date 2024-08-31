@@ -117,4 +117,4 @@ KvDeveloper is released under the [MIT License](https://github.com/Novfensec/KvD
 [KivyMD](https://github.com/kivymd)
 
 ## Contact
-For any inquiries, please contact us at [novfensec@protonmail.com].
+For any inquiries, please contact us at [novfensec@protonmail.com](mailto:novfensec@protonmail.com).
