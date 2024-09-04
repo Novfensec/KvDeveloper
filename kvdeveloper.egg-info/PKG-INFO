@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: kvdeveloper
-Version: 2024.0.9
+Version: 2024.1.0
 Summary: KvDeveloper is a PyPI module designed to streamline the development of Kivy and KivyMD applications. Inspired by Expo CLI for React Native, KvDeveloper provides starter templates and essential functionalities to kickstart your projects with ease.
 Author-email: Kartavya Shukla <novfensec@protonmail.com>
 Maintainer-email: Kartavya Shukla <novfensec@protonmail.com>
@@ -27,7 +27,7 @@ License: MIT License
         SOFTWARE.
         
 Project-URL: Homepage, https://github.com/Novfensec/KvDeveloper
-Project-URL: Documentation, https://readthedocs.org/KvDeveloper
+Project-URL: Documentation, https://novfensec.github.io/KvDeveloper.docs
 Project-URL: Repository, https://github.com/Novfensec/KvDeveloper
 Project-URL: Bug Tracker, https://github.com/Novfensec/KvDeveloper/issues
 Project-URL: Changelog, https://github.com/Novfensec/KvDeveloper/blob/main/CHANGELOG.md
@@ -70,6 +70,7 @@ Join the KvDeveloper community to get support, share your projects, and collabor
 
 - **Discord**: Join our [KvDeveloper Community Server](https://discord.com/invite/U9bfkD6A4c).
 - **Stack Overflow**: Feel free to reach out on our [Stack Overflow](https://stackoverflow.com/users/16486510/novfensec).
+- **Reddit - KvDeveloper**: Feel free to join our [Reddit Community](https://reddit.com/r/KvDeveloper).
 - **GitHub Discussions**: Participate in discussions and ask questions in the [GitHub Discussions](https://github.com/Novfensec/KvDeveloper/discussions) section.
 - **Youtube - Admin**: Follow [@NovfensecInc](https://youtube.com/@NovfensecInc) to learn by building futuristic projects.
 - **YouTube - KvDeveloper**: Follow us on YouTube [@KvDeveloper](https://youtube.com/@KvDeveloper) for updates and announcements.

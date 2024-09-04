@@ -36,7 +36,7 @@ classifiers = [
 
 [project.urls]
 Homepage = "https://github.com/Novfensec/KvDeveloper"
-Documentation = "https://readthedocs.org/KvDeveloper"
+Documentation = "https://novfensec.github.io/KvDeveloper.docs"
 Repository = "https://github.com/Novfensec/KvDeveloper"
 "Bug Tracker" = "https://github.com/Novfensec/KvDeveloper/issues"
 Changelog = "https://github.com/Novfensec/KvDeveloper/blob/main/CHANGELOG.md"
@@ -49,10 +49,8 @@ version = {attr = "kvdeveloper.__version__"}
 
 [tool.setuptools.package-data]
 "kvdeveloper" = [
-  "assets/image_library/basic/*",
-  "assets/image_library/kvdeveloper/*",
-  "assets/css/*",
-  "assets/js/*",
+  "assets/**",
+  "build/**",
 ]
 
 [tool.setuptools.exclude-package-data]

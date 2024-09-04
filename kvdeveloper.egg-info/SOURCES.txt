@@ -3,6 +3,7 @@ README.md
 pyproject.toml
 kvdeveloper/__init__.py
 kvdeveloper/__main__.py
+kvdeveloper/build_config.py
 kvdeveloper/cli.py
 kvdeveloper/config.py
 kvdeveloper/info_reader.py
@@ -48,6 +49,8 @@ kvdeveloper/assets/image_library/kvdeveloper/kvdeveloper_logo64.png
 kvdeveloper/assets/image_library/kvdeveloper/kvdeveloper_logo720.png
 kvdeveloper/assets/image_library/kvdeveloper/nav_toolbar.png
 kvdeveloper/assets/js/prism.js
+kvdeveloper/build/colab/buildozer_action.ipynb
+kvdeveloper/build/github/buildozer_action.yml
 kvdeveloper/structures/__init__.py
 kvdeveloper/structures/MVC/Controller/__init__.py
 kvdeveloper/structures/MVC/Model/__init__.py

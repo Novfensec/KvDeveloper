@@ -1,6 +1,6 @@
 import typer
 import os
-from typing import Optional, List
+from typing import Optional, List, Literal
 from kvdeveloper import __app_name__, __version__
 from .config import app, DEFAULT_TEMPLATE, DEFAULT_STRUCTURE, STRUCTURES, TEMPLATES
 from .module import (
@@ -14,9 +14,11 @@ from .module import (
     name_parser,
 )
 from .info_reader import info_reader
+from .build_config import generate_build_files
 from rich.panel import Panel
 from rich.text import Text
 from rich.table import Table
+from rich.prompt import Prompt
 
 
 @app.command()
@@ -46,7 +48,7 @@ def create(
     )
 
     project_name = project_name.strip().replace(" ", "")
-    project_name=name_parser(project_name, "project")
+    project_name = name_parser(project_name, "project")
     variables = {
         "project_name": project_name,
     }
@@ -91,6 +93,45 @@ def add_screen(
     else:
         console.print("Structure for name [green]{structure}[/green] not found.")
         raise typer.Exit(code=0)
+
+
+@app.command()
+def config_build_setup(
+    platform: str = typer.Argument(help="Platform specific to setup build files."),
+    external: str = typer.Option(help="External Build Environment."),
+) -> None:
+    """
+    Generates necessary build files for external build environments and linux systems.
+    - buildozer.spec: Buildozer configurations file.
+    - Github:
+        buildozer_action.yml: CI/CD worflow file for github actions.
+    - Colab:
+        buildozer_action.ipynb: Jupyter notebook for google colab environment.
+
+    Setup build files for platforms Android, IOS.
+    `Currently supporting Android conversions build systems.`
+
+    :param platform: Platform specific to setup build files.
+    :param external: External Build Environment.
+    """
+    available_platforms = [
+        "android",
+    ]
+    for platforms in available_platforms:
+        if platform != platforms:
+            typer.secho("Unavailable platform.", err=True)
+            raise typer.Exit(code=0)
+
+    generate_build_files(platform, external)
+    spec_file_path = os.path.join(os.getcwd(), "buildozer.spec")
+
+    if not os.path.isfile(spec_file_path):
+        project_name = "SampleApp"
+        variables = {
+            "project_name": project_name,
+            "project_package_name": project_name.lower(),
+        }
+        setup_build(project_name, ".", variables)
 
 
 @app.command()
