@@ -41,16 +41,21 @@ Repository = "https://github.com/Novfensec/KvDeveloper"
 "Bug Tracker" = "https://github.com/Novfensec/KvDeveloper/issues"
 Changelog = "https://github.com/Novfensec/KvDeveloper/blob/main/CHANGELOG.md"
 
-[project.scripts]
-kvdeveloper = "kvdeveloper.__main__:main"
-
 [tool.setuptools.dynamic]
 version = {attr = "kvdeveloper.__version__"}
 
+[project.scripts]
+kvdeveloper = "kvdeveloper.__main__:main"
+
 [tool.setuptools.package-data]
 "kvdeveloper" = [
-  "assets/**",
-  "build/**",
+  "**/*.md",
+  "**/*.txt",
+  "**/*.ipynb",
+  "**/*.kv",
+  "**/*.yml",
+  "**/*.png",
+  "**/*.spec",
 ]
 
 [tool.setuptools.exclude-package-data]

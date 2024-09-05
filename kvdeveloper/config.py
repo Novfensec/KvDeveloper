@@ -22,4 +22,4 @@ VIEW_BASE = f"{def_dir}/view_base"
 
 IMAGE_LIBRARY = f"{def_dir}/assets/image_library"
 
-BUILD_DIR = f"{def_dir}/build"
+BUILD_DIR = f"{def_dir}/build_files"
