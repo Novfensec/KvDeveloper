@@ -1,2 +1,0 @@
-[console_scripts]
-kvdeveloper = kvdeveloper.__main__:main

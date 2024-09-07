@@ -31,6 +31,7 @@ If you encounter any issues or have questions, feel free to reach out to the com
 - **MVC Structure**: Includes templates with Model-View-Controller (MVC) architecture. `(recommended KivyMD==1.1.1)`
 - **Navigation and Toolbar**: Templates with built-in navigation and toolbar screens.
 - **Customizable**: Easily extend and customize the templates to fit your project needs.
+- **Build Workflows and Jupyter Notebooks**: Generates build workflows for github based conversions and jupyter notebooks for colab based converions.
 
 ## Installation
 - Install KvDeveloper using pip:
@@ -52,7 +53,7 @@ If you encounter any issues or have questions, feel free to reach out to the com
 
 - kivymd>=1.1.1 `(recommended kivymd==1.1.1)`
 
-- pillow>=10.3.0
+- pillow>=10.0.0
 
 - typer>=0.12.3
 
@@ -80,6 +81,18 @@ If you encounter any issues or have questions, feel free to reach out to the com
 - Get info about the template used for the project:
     ```bash
     kvdeveloper show-readme my_project
+    ```
+
+- Generate github buildozer workflows for android conversion:
+    ```bash
+    kvdeveloper config-build-setup android --external github
+    ```
+
+    Sample Repository: [Sample-KivyMD-App](https://github.com/Novfensec/SAMPLE-KIVYMD-APP)
+
+- Generate jupyter notebook for colab based android conversion [`Contains commands to import your app folder from your personal drive!`]:
+    ```bash
+    kvdeveloper config-build-setup android --external colab
     ```
 
 ## Templates

@@ -1,4 +1,4 @@
-*.pyc
-*.pyo
+__pycache__
 dist
 venv
+*.egg-info
