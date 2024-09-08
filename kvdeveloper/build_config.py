@@ -26,7 +26,7 @@ def generate_build_files(platform: str, external: str) -> None:
         with open(destination_file_path, "w", encoding="utf-8") as template_file:
             template_file.write(content)
 
-        console.print("Created file {destination_file_path}.")
+            console.print(f"Created file {destination_file_path}.")
 
     elif external == "github":
         external_file_path = os.path.join(external_path, "buildozer_action.yml")
@@ -40,4 +40,4 @@ def generate_build_files(platform: str, external: str) -> None:
         with open(destination_file_path, "w", encoding="utf-8") as template_file:
             template_file.write(content)
 
-        console.print("Created file {destination_file_path}.")
+            console.print(f"Created file {destination_file_path}.")

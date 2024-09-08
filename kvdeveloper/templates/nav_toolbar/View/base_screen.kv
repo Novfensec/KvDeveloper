@@ -1,0 +1,89 @@
+<ContentNavigationLayout@MDBoxLayout>:
+    MDNavigationDrawerHeader:
+        title:"KvDeveloper"
+		title_color:app.theme_cls.primary_dark
+        padding: ('7dp', '7dp', '7dp', '7dp')
+    MDSeparator:
+    MDBoxLayout:
+        adaptive_height:True
+        orientation:"vertical"
+        padding: ('9dp', '9dp', '9dp', '9dp')
+        spacing: '11dp'
+
+        MDBoxLayout:
+            orientation: 'vertical'
+            adaptive_height:True
+            MDAnchorLayout:
+                anchor_x: 'left'
+                anchor_y: 'top'
+                size_hint_y:None
+                height:avatar.height
+
+                FitImage:
+                    id:avatar
+                    source:f"{app.image_library_path}/kvdeveloper/kvdeveloper_logo128.png"
+					size_hint: None,None
+                    size:"128sp","128sp"
+        Widget:
+
+        MDLabel:
+            font_style:"Body1"
+            text: 'Novfensec Inc.'
+            color: app.theme_cls.primary_dark
+            font_size:"18sp"
+
+        Widget:
+
+    MDSeparator:
+
+    MDBoxLayout:
+        orientation: "vertical"
+        adaptive_height: True
+        spacing: "9dp"
+        padding: "3dp","8dp" , 0, "12dp"
+
+        MDWidget:
+
+        MDLabel:
+            text: "Navigation List"
+            height:self.texture_size[1]
+            font_size:"25sp"
+            bold:True
+            multiline:True
+
+        MDWidget:
+    MDSeparator:
+    MDNavigationDrawerMenu:
+        id:navigation_drawer_menu
+
+        DrawerClickableItem:
+            text:"Screen 1"
+
+        DrawerClickableItem:
+            text:"Screen 2"
+
+        DrawerClickableItem:
+            text:"Screen 3"
+
+    MDAnchorLayout:
+        anchor_y: 'bottom'
+        MDBoxLayout:
+            adaptive_height:True
+            orientation: 'vertical'
+            spacing: '14dp'
+
+            MDFillRoundFlatIconButton:
+                icon:"copyright"
+                text:"Novfensec Inc."
+                icon_color:app.theme_cls.primary_dark
+                text_color:app.theme_cls.primary_dark
+                ripple_color:self.text_color
+                md_bg_color:app.theme_cls.accent_light
+
+<DrawerClickableItem@MDNavigationDrawerItem>:
+    icon:"git"
+    focus_color:app.theme_cls.accent_light
+    unfocus_color:app.theme_cls.primary_light
+    text_color:"black"
+    ripple_color:app.theme_cls.accent_light
+    selected_color:app.theme_cls.primary_dark

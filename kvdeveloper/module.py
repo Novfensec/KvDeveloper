@@ -1,6 +1,7 @@
 import os
 import typer
 import platform
+import sys
 import subprocess
 import re
 from typing import Dict, List, Literal
@@ -90,119 +91,71 @@ def create_from_structure(
         typer.echo(f"Structure '{structure_name}' not found.")
         raise typer.Exit(code=1)
 
-    version = platform.python_version()
+    parsed_screens_list = []
+    dir_list=os.listdir(f"{template_path}/View")
+    for name_view in dir_list:
+        if os.path.isdir(f"{template_path}/View/{name_view}"):
+            # Parse screen name to PascalCase
+            parsed_name = name_parser(name_view, "screen")
+            parsed_screens_list.append(parsed_name)
+
+    parsed_screens_string = " ".join(parsed_screens_list)
+
+    python_version = platform.python_version()
 
     """
     There is no point of writing MVC implementation from scratch so I used subprocess to run KivyMD's inbuilt create_project script simplifying development workflow.
     """
+    output = subprocess.run(
+        f"{sys.executable} -m kivymd.tools.patterns.create_project MVC . {variables['project_name']} python{python_version} master --use_hotreload yes --name_screen {parsed_screens_string}",
+        shell=True,
+    )
 
-    if template_name == "blank":
-        output = subprocess.run(
-            [
-                "python",
-                "-m",
-                "kivymd.tools.patterns.create_project",
-                "MVC",
-                ".",
-                f"{variables['project_name']}",
-                f"python{version}",
-                "master",
-                "--use_hotreload",
-                "yes",
-                "--name_screen",
-                "SampleScreen",
-            ]
+    if output.returncode != 0:
+        raise typer.Exit(code=1)
+
+    """
+    updating base screen components.
+    """
+    with open(
+        f"{template_path}/View/base_screen.kv", "r", encoding="utf-8"
+    ) as template_file:
+        content = template_file.read()
+
+    with open(
+        f"{destination}/View/base_screen.kv", "w", encoding="utf-8"
+    ) as target_file:
+        target_file.write(content)
+
+        console.print(
+            f"Updated file: [bright_white]{destination}/View/base_screen.kv[/bright_white]"
         )
 
-        if output.returncode != 0:
-            raise typer.Exit(code=1)
+    """
+    Updating screen styles.
+    """
 
-        with open(
-            f"{template_path}/View/SampleScreen/sample_screen.kv", "r", encoding="utf-8"
-        ) as template_file:
-            content = template_file.read()
+    for name_view in dir_list:
+        if os.path.isdir(f"{template_path}/View/{name_view}"):
+            parsed_name = name_parser(name_view, "screen")
+            snake_name_view = name_parser_snake(parsed_name)
+            with open(
+                f"{template_path}/View/{parsed_name}/{snake_name_view}.kv",
+                "r",
+                encoding="utf-8",
+            ) as template_file:
+                content = template_file.read()
 
-        with open(
-            f"{destination}/View/SampleScreen/sample_screen.kv", "w", encoding="utf-8"
-        ) as target_file:
-            target_file.write(content)
+            with open(
+                f"{destination}/View/{parsed_name}/{snake_name_view}.kv",
+                "w",
+                encoding="utf-8",
+            ) as target_file:
+                target_file.write(content)
 
-            console.print(
-                f"Updated file: [bright_white]{destination}/View/SampleScreen/sample_screen.kv[/bright_white]"
-            )
-
-    elif template_name == "nav_toolbar":
-        output = subprocess.run(
-            [
-                "python",
-                "-m",
-                "kivymd.tools.patterns.create_project",
-                "MVC",
-                ".",
-                f"{variables['project_name']}",
-                f"python{version}",
-                "master",
-                "--use_hotreload",
-                "yes",
-                "--name_screen",
-                "HomeScreen",
-                "LoginScreen",
-            ]
-        )
-
-        if output.returncode != 0:
-            raise typer.Exit(code=1)
-
-        """
-        updating home screen styles.
-        """
-        with open(
-            f"{template_path}/View/HomeScreen/home_screen.kv", "r", encoding="utf-8"
-        ) as template_file:
-            content = template_file.read()
-
-        with open(
-            f"{destination}/View/HomeScreen/home_screen.kv", "w", encoding="utf-8"
-        ) as target_file:
-            target_file.write(content)
-
-            console.print(
-                f"Updated file: [bright_white]{destination}/View/HomeScreen/home_screen.kv[/bright_white]"
-            )
-
-        """
-        updating base screen components.
-        """
-        with open(
-            f"{template_path}/View/Components/components.kv", "r", encoding="utf-8"
-        ) as template_file:
-            content = template_file.read()
-
-        with open(
-            f"{destination}/View/base_screen.kv", "w", encoding="utf-8"
-        ) as target_file:
-            target_file.write(content)
-
-            console.print(
-                f"Updated file: [bright_white]{destination}/View/base_screen.kv[/bright_white]"
-            )
-
-        """
-        updating login screen styles.
-        """
-        with open(
-            f"{template_path}/View/LoginScreen/login_screen.kv", "r", encoding="utf-8"
-        ) as template_file:
-            content = template_file.read()
-
-        with open(
-            f"{destination}/View/LoginScreen/login_screen.kv", "w", encoding="utf-8"
-        ) as target_file:
-            target_file.write(content)
-
-            console.print(
-                f"Updated file: [bright_white]{destination}/View/LoginScreen/login_screen.kv[/bright_white]"
-            )
+                console.print(
+                    f"Updated file: [bright_white]{destination}/View/{parsed_name}/{snake_name_view}.kv[/bright_white]"
+                )
 
     """
     updating main.py.
@@ -326,12 +279,12 @@ def update_requirements(template_path: str, destination: str) -> None:
     :param template_path: The path of the template folder.
     :param destination: The destination path where files are created.
     """
-    from kivymd._version import __version__ as kivymd_version
-    from kivy._version import __version__ as kivy_version
+    # from kivymd._version import __version__ as kivymd_version
+    # from kivy._version import __version__ as kivy_version
 
     install_variables = {
-        "kivymd_version": kivymd_version,
-        "kivy_version": kivy_version,
+        "kivymd_version": "1.1.1",
+        "kivy_version": "2.3.0",
     }
     with open(
         f"{template_path}/requirements.txt", "r", encoding="utf-8"
@@ -396,9 +349,9 @@ def add_from_default(
                         f"{view_path}/{snake_name_view}.py", "w", encoding="utf-8"
                     ) as target_file:
                         target_file.write(content)
-                    console.print(
-                        f"\nCreated file: [bright_white]{view_path}/{snake_name_view}.py[/bright_white]"
-                    )
+                        console.print(
+                            f"\nCreated file: [bright_white]{view_path}/{snake_name_view}.py[/bright_white]"
+                        )
 
                     # Create the .kv file using the default template
                     with open(
@@ -413,11 +366,9 @@ def add_from_default(
                     ) as target_file:
                         target_file.write(content)
 
-                    content = replace_placeholders(content, variables)
-
-                    console.print(
-                        f"\nCreated file: [bright_white]{view_path}/{snake_name_view}.kv[/bright_white]"
-                    )
+                        console.print(
+                            f"\nCreated file: [bright_white]{view_path}/{snake_name_view}.kv[/bright_white]"
+                        )
                     update_screens_file(parsed_name, snake_name_view, destination)
 
                     # Create an empty __init__.py File
@@ -448,9 +399,9 @@ def add_from_default(
                             ) as target_file:
                                 target_file.write(content)
 
-                            console.print(
-                                f"Created file: [bright_white]{target_file_path}[/bright_white]"
-                            )
+                                console.print(
+                                    f"Created file: [bright_white]{target_file_path}[/bright_white]"
+                                )
                             update_screens_file(
                                 parsed_name, snake_name_view, destination
                             )
@@ -510,9 +461,9 @@ def update_screens_file(
     with open(file_path, "w", encoding="utf-8") as file:
         file.write(content)
 
-    console.print(
-        f"\nFile [bright cyan]screens.py[/bright cyan] has been successfully updated with {parsed_name}View."
-    )
+        console.print(
+            f"\nFile [bright cyan]screens.py[/bright cyan] has been successfully updated with {parsed_name}View."
+        )
 
 
 def add_from_structure(
@@ -587,9 +538,9 @@ def add_from_structure(
             ) as target_file:
                 target_file.write(content)
 
-            console.print(
-                f"\nUpdated file: [bright_white]{view_path}/{snake_name_view}.kv[/bright_white]"
-            )
+                console.print(
+                    f"\nUpdated file: [bright_white]{view_path}/{snake_name_view}.kv[/bright_white]"
+                )
 
 
 def name_parser_snake(name: str) -> str:
