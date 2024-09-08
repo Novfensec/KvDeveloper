@@ -486,7 +486,7 @@ def add_from_structure(
     parsed_screens_string = " ".join(parsed_screens_list)
 
     output = subprocess.run(
-        f"python -m kivymd.tools.patterns.add_view MVC . {parsed_screens_string}",
+        f"{sys.executable} -m kivymd.tools.patterns.add_view MVC . {parsed_screens_string}",
         shell=True,
     )
 
