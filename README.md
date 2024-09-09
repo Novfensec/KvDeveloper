@@ -40,7 +40,7 @@ If you encounter any issues or have questions, feel free to reach out to the com
     pip install kvdeveloper
     ```
 
-- Install devlopment version using pip:
+- Install development version using pip `(requires git installation)`:
 
     ```bash
     pip install git+https://github.com/Novfensec/KvDeveloper.git@main
