@@ -92,7 +92,7 @@ def create_from_structure(
         raise typer.Exit(code=1)
 
     parsed_screens_list = []
-    dir_list=os.listdir(f"{template_path}/View")
+    dir_list = os.listdir(f"{template_path}/View")
     for name_view in dir_list:
         if os.path.isdir(f"{template_path}/View/{name_view}"):
             # Parse screen name to PascalCase
@@ -135,27 +135,26 @@ def create_from_structure(
     Updating screen styles.
     """
 
-    for name_view in dir_list:
-        if os.path.isdir(f"{template_path}/View/{name_view}"):
-            parsed_name = name_parser(name_view, "screen")
-            snake_name_view = name_parser_snake(parsed_name)
-            with open(
-                f"{template_path}/View/{parsed_name}/{snake_name_view}.kv",
-                "r",
-                encoding="utf-8",
-            ) as template_file:
-                content = template_file.read()
+    for name_view in parsed_screens_list:
+        parsed_name = name_parser(name_view, "screen")
+        snake_name_view = name_parser_snake(parsed_name)
+        with open(
+            f"{template_path}/View/{parsed_name}/{snake_name_view}.kv",
+            "r",
+            encoding="utf-8",
+        ) as template_file:
+            content = template_file.read()
 
-            with open(
-                f"{destination}/View/{parsed_name}/{snake_name_view}.kv",
-                "w",
-                encoding="utf-8",
-            ) as target_file:
-                target_file.write(content)
+        with open(
+            f"{destination}/View/{parsed_name}/{snake_name_view}.kv",
+            "w",
+            encoding="utf-8",
+        ) as target_file:
+            target_file.write(content)
 
-                console.print(
-                    f"Updated file: [bright_white]{destination}/View/{parsed_name}/{snake_name_view}.kv[/bright_white]"
-                )
+            console.print(
+                f"Updated file: [bright_white]{destination}/View/{parsed_name}/{snake_name_view}.kv[/bright_white]"
+            )
 
     """
     updating main.py.
@@ -193,17 +192,21 @@ def create_from_structure(
     """
     Installing requirements with pip.
     """
+    if os.name=="nt":
+        envbin="scripts"
+    else:
+        envbin="bin"
     console.print(f"\n[green]Installing requirements with pip.[/green]\n")
     try:
         subprocess.run(
             [
-                f"{variables['project_name']}\\venv\scripts\python",
+                f"{variables['project_name']}\\venv\\{envbin}\\python",
                 "-m",
                 "pip",
                 "install",
                 "-r",
                 f"{destination}/requirements.txt",
-            ]
+            ],
         )
     except Exception as e:
         console.print(f"[bold red]{e}[/bold red]")
