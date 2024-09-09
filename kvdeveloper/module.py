@@ -432,7 +432,7 @@ def update_screens_file(
     import_statement = (
         f"from View.{parsed_name}.{snake_name_view} import {parsed_name}View\n"
     )
-    screen_entry = f"    '{snake_name_view.replace('_', ' ')}': {{\n        'object': {parsed_name}View(),\n    }},\n"
+    screen_entry = f"\n    '{snake_name_view.replace('_', ' ')}': {{\n        'object': {parsed_name}View(),\n    }},"
 
     # Read the contents of the screens.py file
     with open(file_path, "r") as file:
@@ -443,20 +443,20 @@ def update_screens_file(
         print(f"The import statement for {parsed_name}View already exists.")
     else:
         # Insert the import statement at the top of the file (after the first import block)
+        # Finds the first occurrence of `from View...` and inserts new import below it
         content = re.sub(
-            r"(import .*\n)+", r"\g<0>" + import_statement, content, count=1
+            r"(from View\..*\n)+", r"\g<0>" + import_statement, content, count=1
         )
 
     # Check if the screen entry already exists
     screen_key = snake_name_view.replace("_", " ")
-    if re.search(re.escape(screen_key), content):
+    if re.search(re.escape(f"'{screen_key}':"), content):
         print(f"The screen entry for {snake_name_view} already exists.")
     else:
-        # Insert the new screen entry at the correct position in the dictionary
-        # This pattern finds the last closing curly brace '}' for each screen entry
+        # Insert the new screen entry before the last closing curly brace of the dictionary
         content = re.sub(
-            r"(\n\s*},\s*\n\s*'[\w\s]+':\s*{\s*\n\s*'object':\s*[\w]+\(\),\s*\n\s*},\s*\n)(\s*})",
-            r"\g<1>" + screen_entry + r"\g<2>",
+            r"(\n\s*}\s*)$",  # This looks for the last closing curly brace
+            screen_entry + r"\g<1>",  # Insert the new screen entry before it
             content,
         )
 
@@ -464,9 +464,7 @@ def update_screens_file(
     with open(file_path, "w", encoding="utf-8") as file:
         file.write(content)
 
-        console.print(
-            f"\nFile [bright cyan]screens.py[/bright cyan] has been successfully updated with {parsed_name}View."
-        )
+    console.print(f"[bright cyan]screens.py[/bright cyan] has been successfully updated with {parsed_name}View.")
 
 
 def add_from_structure(

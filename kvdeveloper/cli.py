@@ -102,6 +102,7 @@ def config_build_setup(
 ) -> None:
     """
     Generates necessary build files for external build environments and linux systems.
+
     - buildozer.spec: Buildozer configurations file.
     - Github:
         buildozer_action.yml: CI/CD worflow file for github actions.
