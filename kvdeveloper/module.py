@@ -192,10 +192,10 @@ def create_from_structure(
     """
     Installing requirements with pip.
     """
-    if os.name=="nt":
-        envbin="scripts"
+    if os.name == "nt":
+        envbin = "scripts"
     else:
-        envbin="bin"
+        envbin = "bin"
     console.print(f"\n[green]Installing requirements with pip.[/green]\n")
     try:
         subprocess.run(
@@ -464,7 +464,9 @@ def update_screens_file(
     with open(file_path, "w", encoding="utf-8") as file:
         file.write(content)
 
-    console.print(f"[bright cyan]screens.py[/bright cyan] has been successfully updated with {parsed_name}View.")
+    console.print(
+        f"[bright cyan]screens.py[/bright cyan] has been successfully updated with {parsed_name}View."
+    )
 
 
 def add_from_structure(
