@@ -53,7 +53,7 @@ def create_from_template(
 
         for file_name in files:
             # Skip .pyc and .pyo files
-            if file_name.endswith(('.pyc', '.pyo')):
+            if file_name.endswith((".pyc", ".pyo")):
                 continue
             template_file_path = os.path.join(root, file_name)
             target_file_path = os.path.join(target_dir, file_name)
@@ -290,10 +290,12 @@ def update_requirements(template_path: str, destination: str) -> None:
     """
     # from kivymd._version import __version__ as kivymd_version
     # from kivy._version import __version__ as kivy_version
+    from kvdeveloper import __version__ as kvdeveloper_version
 
     install_variables = {
         "kivymd_version": "1.1.1",
         "kivy_version": "2.3.0",
+        "kvdeveloper_version": kvdeveloper_version,
     }
     with open(
         f"{template_path}/requirements.txt", "r", encoding="utf-8"
@@ -398,7 +400,7 @@ def add_from_default(
 
                         for file_name in files:
                             # Skip .pyc and .pyo files
-                            if file_name.endswith(('.pyc', '.pyo')):
+                            if file_name.endswith((".pyc", ".pyo")):
                                 continue
                             template_file_path = os.path.join(root, file_name)
                             target_file_path = os.path.join(target_dir, file_name)

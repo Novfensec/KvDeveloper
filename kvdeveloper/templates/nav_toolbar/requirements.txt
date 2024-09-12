@@ -2,4 +2,4 @@ kivy==2.3.0
 kivymd==1.1.1
 watchdog==4.0.1
 pillow==10.3.0
-kvdeveloper==2024.1.2
+kvdeveloper=={{kvdeveloper_version}}

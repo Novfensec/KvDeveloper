@@ -106,6 +106,14 @@ If you encounter any issues or have questions, feel free to reach out to the com
         />
     </p>
 
+- **Navigation Dock Template**: A template navigation and toolbar screens with BottomNavigation, HomeScreen, LoginScreen and SettingsScreen components.
+    <p align="center">
+        <img 
+            width="800" src="https://raw.githubusercontent.com/Novfensec/KvDeveloper/main/kvdeveloper/assets/image_library/kvdeveloper/nav_dock.png" style="border-radius:1em" 
+            title="kvdeveloper create MyApp --template nav_dock"
+        />
+    </p>
+
 - **MVC Architecture**: A template add-on following the MVC architecture.
 
 ## Contributing

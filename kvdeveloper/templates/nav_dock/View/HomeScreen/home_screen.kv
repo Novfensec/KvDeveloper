@@ -1,0 +1,575 @@
+<HomeScreenView>:
+	md_bg_color:1,1,1,1
+    MDBottomNavigation:
+		panel_color: app.theme_cls.primary_light
+		text_color_active: app.theme_cls.primary_color
+
+        MDBottomNavigationItem:
+            name: "home"
+			text:"Home"
+			icon:"home"
+			
+			MDBoxLayout:
+				orientation:"vertical"
+				MDRecycleView:
+					MDScrollView:
+						always_overscroll:False
+						HomeScreenContext:
+							orientation:'vertical'
+							padding:"7dp","7dp","7dp","7dp"
+							adaptive_height:True
+
+							Widget:
+								size_hint:1,None
+
+        MDBottomNavigationItem:
+            name: "login"
+			text:"Login"
+			icon:"login"
+			
+			MDScreenManager:
+				id:login_manager_screens
+				LoginSubScreen:
+					manager_screens:login_manager_screens
+				SignupSubScreen:
+					manager_screens:login_manager_screens
+
+        MDBottomNavigationItem:
+            name: "settings"
+			text:"Settings"
+			icon:"cog"
+
+			MDBoxLayout:
+				orientation:"vertical"
+				MDRecycleView:
+					MDScrollView:
+						always_overscroll:False
+						MDGridLayout:
+							cols:1
+							adaptive_height:True
+							
+							Widget:
+								size_hint:1,None
+								height:"45dp"
+							
+							SettingsScreenContext:
+								orientation:'vertical'
+								padding:"7dp","13dp","7dp","7dp"
+								adaptive_height:True
+
+								Widget:
+									size_hint:1,None
+
+    MDNavigationLayout:
+        MDScreenManager:
+            MDScreen:
+                MDStackLayout:
+                    size_hint: 1, 1
+
+                    MDBoxLayout:
+                        adaptive_height:True
+						padding:"4dp","4dp","4dp","4dp"
+
+                        MDIconButton:
+                            icon: "menu"
+                            theme_icon_color:"Custom"
+                            icon_color: app.theme_cls.primary_dark
+							md_bg_color:0.5,0.6,1,0.1
+                            on_press:
+                                nav_drawer.set_state("open")
+
+        ContentNavigationDrawer:
+            id:nav_drawer
+            width: "240dp"
+            md_bg_color:1,1,1,0
+            padding:0
+
+            ContentNavigationLayout:
+                md_bg_color: app.theme_cls.primary_light
+                size_hint:1,1
+                padding: ('7dp', '7dp', '7dp', '7dp')
+                radius: (0, 16, 16, 0)
+                orientation:"vertical"
+
+<HomeScreenContext@MDBoxLayout>:
+	MDBoxLayout:
+		orientation:"vertical"
+		adaptive_height:True
+		padding:"7dp","7dp","7dp","7dp"
+		spacing:"7dp"
+		radius:[25]
+		MDBoxLayout:
+			adaptive_height:True
+			padding:"7dp","7dp","7dp","7dp"
+			MDBoxLayout:
+				adaptive_height:True
+				orientation:"vertical"
+				MDLabel:
+					multiline:True
+					text:'''KvDeveloper'''
+					color:app.theme_cls.primary_color
+					bold:True
+					font_size:"25sp"
+
+			MDBoxLayout:
+				orientation: 'vertical'
+				adaptive_size:True
+				MDAnchorLayout:
+					anchor_x: 'right'
+					anchor_y: 'top'
+					size_hint_y:None
+					height:avatar.height
+
+					FitImage:
+						id:avatar
+						source:f"{app.image_library_path}/kvdeveloper/kvdeveloper_logo128.png"
+						size_hint: None,None
+						size:"95sp","95sp"
+		MDSeparator:
+		MDBoxLayout:
+			orientation: 'vertical'
+			adaptive_height:True
+			spacing:"11dp"
+			padding:"7dp","7dp","7dp","7dp"
+
+			MDLabel:
+				multiline:True
+				font_size:"16sp"
+				adaptive_height:True
+				text:
+                    "KvDeveloper is a PyPI module designed to streamline the development of Kivy and KivyMD applications. Inspired by Expo CLI for React Native, it offers starter templates and essential functionalities to kickstart your projects with ease. With features like predefined templates, MVC architecture support, and customizable options, KvDeveloper simplifies creating robust and organized Kivy projects."
+
+			MDSeparator:
+			MDGridLayout:
+				cols:2
+				adaptive_height:True
+				padding:"7dp","7dp","7dp","7dp"
+				spacing:"15dp"
+
+				MDAnchorLayout:
+					md_bg_color:0,.4,1,.05
+					radius:[15]
+					size_hint_y:None
+
+					MDIconButton:
+						icon:"youtube"
+						theme_icon_color:"Custom"
+						icon_color:"red"
+						icon_size:"75sp"
+						on_press:
+							app.web_open("https://youtube.com/@NovfensecInc")
+
+				MDAnchorLayout:
+					md_bg_color:0,.4,1,.05
+					radius:[15]
+					size_hint_y:None
+
+					MDIconButton:
+						icon:"github"
+						theme_icon_color:"Custom"
+						icon_color:"black"
+						icon_size:"75sp"
+						on_press:
+							app.web_open("https://github.com/Novfensec/KvDeveloper")
+
+				MDAnchorLayout:
+					md_bg_color:0,.4,1,.05
+					radius:[15]
+					size_hint_y:None
+
+					MDIconButton:
+						icon_size:"85sp"
+						icon:f"{app.image_library_path}/basic/discord128.png"
+						on_press:
+							app.web_open("https://discord.com/invite/U9bfkD6A4c")
+
+				MDAnchorLayout:
+					md_bg_color:0,.4,1,.05
+					radius:[15]
+					size_hint_y:None
+
+					MDIconButton:
+						icon_size:"85sp"
+						icon:f"{app.image_library_path}/basic/stack_overflow128.png"
+						on_press:
+							app.web_open("https://stackoverflow.com/users/16486510/novfensec")
+
+<LoginSubScreen@MDScreen>:
+	manager_screens:None
+    name:"login sub screen"
+    MDStackLayout:
+        size_hint:1,1
+
+        MDBoxLayout:
+            orientation: 'vertical'
+			MDRecycleView:
+				MDScrollView:
+					always_overscroll:False
+
+					MDGridLayout:
+						cols:1
+						adaptive_height:True
+						padding: ('9dp', '9dp', '9dp', '45dp')
+						
+						Widget:
+							size_hint:1,None
+							height:"45dp"
+
+						LoginBoxLayout:
+							orientation: 'vertical'
+							adaptive_height:True
+							spacing: '7dp'
+							manager_screens:root.manager_screens
+
+<LoginBoxLayout@MDBoxLayout>:
+    MDBoxLayout:
+        adaptive_height:True
+
+        MDLabel:
+            text:'Login to Novfensec Inc.'
+            color:app.theme_cls.primary_color
+			multiline:True
+            halign:'center'
+            font_size:'25sp'
+            size_hint_y:None
+            height:self.texture_size[1]
+
+    MDBoxLayout:
+        orientation: 'vertical'
+        adaptive_height:True
+        padding: ('14dp', '14dp', '14dp', '14dp')
+        MDAnchorLayout:
+            anchor_x: 'center'
+            size_hint_y:None
+            height:avatar.height
+
+            FitImage:
+                id:avatar
+                source:f"{app.image_library_path}/basic/login_illustration400.png"
+                size_hint: None,None
+                size:"145sp","125sp"
+
+    MDBoxLayout:
+    	orientation: 'vertical'
+        adaptive_height:True
+        md_bg_color:0.7,0.6,1,0.1
+        spacing: '16dp'
+        radius:[19]
+        padding: ('9dp', '14dp', '9dp', '14dp')
+
+        MDTextField:
+            hint_text:'Username'
+			icon_left:"account"
+            size_hint:.9,None
+            pos_hint:{'center_x':.5}
+            font_size:'19sp'
+
+        MDTextField:
+            hint_text:'Password'
+			password:True
+			icon_left:"lock"
+            size_hint:.9,None
+            pos_hint:{'center_x':.5}
+            font_size:'19sp'
+
+        MDRectangleFlatButton:
+        	text:"Login"
+        	size_hint:.9,None
+            pos_hint:{'center_x':.5}
+        	font_size:'19sp'
+        	text_color:"white"
+			md_bg_color:app.theme_cls.primary_color
+			ripple_color:app.theme_cls.primary_dark
+
+        MDTextButton:
+            text:"Or Create an Account"
+            halign:'center'
+            size_hint:1,None
+            color:0,0,1,.8
+			on_press:
+				root.manager_screens.current="signup sub screen"
+
+	Widget:
+	MDBoxLayout:
+		adaptive_height:True
+        padding: ('9dp', '7dp', '9dp', '1dp')
+
+		MDSeparator:
+
+		MDLabel:
+			id:centered_text
+			adaptive_width:True
+			text:" or Login with"
+
+		MDSeparator:
+
+	MDAnchorLayout:
+		anchor_x:"center"
+		radius:[15]
+		size_hint_y:None
+
+		MDBoxLayout:
+			adaptive_size:True
+			padding:"7dp","7dp","7dp","7dp"
+
+			MDIconButton:
+				icon:f"{app.image_library_path}/basic/google64.png"
+				icon_size:"45sp"
+
+			MDIconButton:
+				icon:"github"
+				theme_icon_color:"Custom"
+				icon_color:"black"
+				icon_size:"51sp"
+
+<SignupSubScreen@MDScreen>:
+	manager_screens:None
+	name:"signup sub screen"
+
+    MDStackLayout:
+        size_hint:1,1
+
+        MDBoxLayout:
+            orientation: 'vertical'
+			MDRecycleView:
+				MDScrollView:
+					always_overscroll:False
+
+					MDGridLayout:
+						cols:1
+						adaptive_height:True
+						padding: ('9dp', '9dp', '9dp', '45dp')
+						
+						Widget:
+							size_hint:1,None
+							height:"45dp"
+
+						SignupBoxLayout:
+							orientation: 'vertical'
+							adaptive_height:True
+							spacing: '7dp'
+							manager_screens:root.manager_screens
+
+<SignupBoxLayout@MDBoxLayout>:
+    MDBoxLayout:
+        adaptive_height:True
+
+        MDLabel:
+            text:'Signup for Novfensec Inc.'
+            color:app.theme_cls.primary_color
+			multiline:True
+            halign:'center'
+            font_size:'25sp'
+            size_hint_y:None
+            height:self.texture_size[1]
+
+    MDBoxLayout:
+        orientation: 'vertical'
+        adaptive_height:True
+        padding: ('14dp', '14dp', '14dp', '14dp')
+        MDAnchorLayout:
+            anchor_x: 'center'
+            size_hint_y:None
+            height:avatar.height
+
+            FitImage:
+                id:avatar
+                source:f"{app.image_library_path}/basic/signup_illustration.png"
+                size_hint: None,None
+                size:"145sp","125sp"
+				radius:[19]
+
+    MDBoxLayout:
+    	orientation: 'vertical'
+        adaptive_height:True
+        md_bg_color:0.7,0.6,1,0.1
+        spacing: '11dp'
+        radius:[19]
+        padding: ('9dp', '14dp', '9dp', '14dp')
+
+        MDTextField:
+            hint_text:'Username'
+			icon_left:"account"
+            size_hint:.9,None
+            pos_hint:{'center_x':.5}
+            font_size:'19sp'
+
+        MDTextField:
+            hint_text:'Email Address'
+			email:True
+			icon_left:"email"
+            size_hint:.9,None
+            pos_hint:{'center_x':.5}
+            font_size:'19sp'
+
+        MDTextField:
+            hint_text:'Password'
+			password:True
+			icon_left:"lock"
+            size_hint:.9,None
+            pos_hint:{'center_x':.5}
+            font_size:'19sp'
+
+		MDTextField:
+            hint_text:'Confirm Password'
+			password:True
+			icon_left:"lock"
+            size_hint:.9,None
+            pos_hint:{'center_x':.5}
+            font_size:'19sp'
+
+        MDRectangleFlatButton:
+        	text:"Signup"
+        	size_hint:.9,None
+            pos_hint:{'center_x':.5}
+        	font_size:'19sp'
+        	text_color:"white"
+			md_bg_color:app.theme_cls.primary_color
+			ripple_color:app.theme_cls.primary_dark
+
+        MDTextButton:
+            text:"Or Login to your Account"
+            halign:'center'
+            size_hint:1,None
+            color:0,0,1,.8
+			on_press:
+				root.manager_screens.current="login sub screen"
+
+	Widget:
+	MDBoxLayout:
+		adaptive_height:True
+        padding: ('9dp', '19dp', '9dp', '1dp')
+
+		MDSeparator:
+
+		MDLabel:
+			id:centered_text
+			adaptive_width:True
+			halign:"center"
+			text:" or Signup with"
+
+		MDSeparator:
+
+	MDAnchorLayout:
+		anchor_x:"center"
+		radius:[15]
+		size_hint_y:None
+
+		MDBoxLayout:
+			adaptive_size:True
+			padding:"7dp","7dp","7dp","7dp"
+
+			MDIconButton:
+				icon:f"{app.image_library_path}/basic/google64.png"
+				icon_size:"45sp"
+
+			MDIconButton:
+				icon:"github"
+				theme_icon_color:"Custom"
+				icon_color:"black"
+				icon_size:"51sp"
+
+<SettingsScreenContext@MDBoxLayout>:
+	MDBoxLayout:
+		orientation:"vertical"
+		adaptive_height:True
+		spacing:"7dp"
+		radius:[25]
+		
+		MDRelativeLayout:
+			size_hint:1,None
+			height:text_field.height
+			
+			MDTextField:
+				id:text_field
+				mode:"fill"
+				radius:[25]
+				adaptive_height:True
+				icon_left:"magnify"
+				hint_text:"Search"
+				font_size:"21sp"
+				fill_color_normal:app.theme_cls.primary_light
+				icon_left_color_normal:app.theme_cls.primary_color
+				
+			MDIconButton:
+				icon:"microphone"
+				pos_hint:{"center_x":.9,"center_y":.5}
+				theme_icon_color:"Custom"
+				icon_color:app.theme_cls.primary_color
+				
+	MDBoxLayout:
+		orientation:"vertical"
+		adaptive_height:True
+		padding:"0dp","7dp","0dp","7dp"
+		spacing:"10dp"
+		
+		MDList:
+			radius:[15]
+			spacing:"7dp"
+			padding:"3dp","0dp","3dp","0dp"
+
+			IconListItem:
+				icon:"weather-night"
+				text:"Night Mode"
+				no_ripple:True
+				secondary_text:"Enabled" if mode_switch.active else "Disabled"
+
+				MDSwitch:
+					id:mode_switch
+					pos_hint:{"center_x":.9,"center_y":.5}
+					
+			IconListItem:
+				icon:"bell-outline"
+				text:"Notifications"
+				no_ripple:True
+				secondary_text:"News and updates"
+
+				MDSwitch:
+					id:notification_switch
+					pos_hint:{"center_x":.9,"center_y":.5}
+		
+		MDSeparator:
+		MDList:
+			radius:[15]
+			spacing:"7dp"
+
+			IconListItem:
+				icon:"magic-staff"
+				text:"Appearance"
+				secondary_text:"Themes, layout, text size"
+					
+			IconListItem:
+				icon:"shield-lock-outline"
+				text:"Privacy and security"
+				secondary_text:"Terms of use and privacy policy"
+					
+			IconListItem:
+				icon:"help-circle-outline"
+				text:"Help and feedback"
+				secondary_text:"FAQs, report problems, social"
+				
+			IconListItem:
+				icon:"information-outline"
+				text:"About KvDeveloper"
+				secondary_text:"Updates, version"
+
+<IconListItem@MDRelativeLayout>:
+	size_hint:1,None
+	height:list_item.height
+	text:"blank"
+	icon:"blank"
+	secondary_text:"blank"
+	no_ripple:False
+	md_bg_color:0.5,0.6,1,0.1
+	radius:[15]
+	
+	TwoLineIconListItem:
+		id:list_item
+		_no_ripple_effect:root.no_ripple
+		text:root.text
+		secondary_text:root.secondary_text
+		divider:None
+		
+		IconLeftWidget:
+			icon:root.icon
+			md_bg_color:0.5,0.6,1,0.2

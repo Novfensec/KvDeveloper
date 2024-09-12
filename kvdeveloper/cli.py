@@ -64,7 +64,7 @@ def create(
 
     build_variables = {
         "project_name": project_name,
-        "project_package_name": project_name.lower(),
+        "project_package_name": project_name.strip("App").lower(),
     }
     setup_build(project_name, destination, build_variables)
     project_info(project_name, template, structure, destination)
@@ -130,7 +130,7 @@ def config_build_setup(
         project_name = "SampleApp"
         variables = {
             "project_name": project_name,
-            "project_package_name": project_name.lower(),
+            "project_package_name": project_name.strip("App").lower(),
         }
         setup_build(project_name, ".", variables)
 
