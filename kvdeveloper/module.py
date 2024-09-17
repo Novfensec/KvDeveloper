@@ -492,7 +492,6 @@ def add_from_structure(
     :param name_screen: A list of screen names to be added.
     :param use_template: The template name to be used for creating the view.
     :param destination: The destination path where the files will be created.
-    :param structure: The custom structure to follow when creating the screens.
     """
     parsed_screens_list = []
     for name_view in name_screen:
@@ -512,7 +511,7 @@ def add_from_structure(
             "\nThis project may not be following [green]MVC[/green] architecture.\n"
         )
         prompt = Prompt.ask(
-            f"Want to add screen using structure [[green]none: {STRUCTURES[structure]}[/green]] ?",
+            f"Want to add screen using structure [[green]none: {STRUCTURES['none']}[/green]] ?",
             choices=["y", "n"],
             default="n",
         )
