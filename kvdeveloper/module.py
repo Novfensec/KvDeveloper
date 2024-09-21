@@ -1,7 +1,6 @@
 import os
 import typer
 import platform
-import sys
 import subprocess
 import re
 from typing import Dict, List, Literal
@@ -141,7 +140,7 @@ def create_from_structure(
     There is no point of writing MVC implementation from scratch so I used subprocess to run KivyMD's inbuilt create_project script simplifying development workflow.
     """
     output = subprocess.run(
-        f"{sys.executable} -m kivymd.tools.patterns.create_project MVC . {variables['project_name']} python{python_version} master --use_hotreload yes --name_screen {parsed_screens_string}",
+        f"python -m kivymd.tools.patterns.create_project MVC . {variables['project_name']} python{python_version} master --use_hotreload yes --name_screen {parsed_screens_string}",
         shell=True,
     )
 
@@ -535,7 +534,7 @@ def add_from_structure(
     parsed_screens_string = " ".join(parsed_screens_list)
 
     output = subprocess.run(
-        f"{sys.executable} -m kivymd.tools.patterns.add_view MVC . {parsed_screens_string}",
+        f"python -m kivymd.tools.patterns.add_view MVC . {parsed_screens_string}",
         shell=True,
     )
 

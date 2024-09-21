@@ -11,14 +11,12 @@ from .module import (
     add_from_structure,
     setup_build,
     project_info,
-    name_parser,
 )
 from .info_reader import info_reader
 from .build_config import generate_build_files
 from rich.panel import Panel
 from rich.text import Text
 from rich.table import Table
-from rich.prompt import Prompt
 
 
 @app.command()
