@@ -47,7 +47,7 @@ If you encounter any issues or have questions, feel free to reach out to the com
     ```
 
 ## Requirements
-- **Python**>=3.1
+- **Python**>=3.9
 
 - kivy>=2.2.0 `(recommended kivy==2.3.0)`
 
