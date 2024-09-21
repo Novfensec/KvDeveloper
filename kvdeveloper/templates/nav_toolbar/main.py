@@ -18,8 +18,8 @@ Config.set("graphics", "width", "317")
 Window.top = 30
 Window.left = resolution[0] - Window.width + 5
 
-Window.keyboard_anim_args={"d": .2, "t": "in_out_expo"}
-Window.softinput_mode="below_target"
+Window.keyboard_anim_args = {"d": .2, "t": "in_out_expo"}
+Window.softinput_mode = "below_target"
 
 class UI(MDScreenManager):
     def __init__(self, *args,**kwargs):
@@ -28,20 +28,15 @@ class UI(MDScreenManager):
 class {{project_name}}(MDApp):
     def __init__(self, *args,**kwargs):
         super({{project_name}}, self).__init__(*args,**kwargs)
-        self.DEBUG=True
-        self.KV_DIRS=[
+        self.DEBUG = True
+        self.KV_DIRS = [
             os.path.join(os.getcwd(),"View"),
         ]
-        self.theme_cls.primary_palette="Indigo"
-        self.theme_cls.primary_dark_hue="800"
-        self.theme_cls.primary_light_hue="50"
-        self.theme_cls.accent_palette="Indigo"
-        self.theme_cls.accent_dark_hue="600"
-        self.theme_cls.accent_light_hue="100"
-        self.image_library_path=IMAGE_LIBRARY
+        self.theme_cls.primary_palette = "Midnightblue"
+        self.image_library_path = IMAGE_LIBRARY
 
     def build_app(self) -> UI:
-        self.manager_screens=UI()
+        self.manager_screens = UI()
         self.generate_application_screens()
         return self.manager_screens
 
@@ -59,7 +54,7 @@ class {{project_name}}(MDApp):
             view.name = name_screen
             self.manager_screens.add_widget(view)
 
-    def web_open(self, url) -> None:
+    def web_open(self, url: str) -> None:
         webbrowser.open_new_tab(url)
 
 if __name__ == '__main__':
@@ -76,8 +71,8 @@ For Production uncomment the below code and comment out the above code
 # from kivymd.utils.set_bars_colors import set_bars_colors
 # from kivy.core.window import Window
 
-# Window.keyboard_anim_args={"d": .2, "t": "in_out_expo"}
-# Window.softinput_mode="below_target"
+# Window.keyboard_anim_args = {"d": .2, "t": "in_out_expo"}
+# Window.softinput_mode = "below_target"
 
 # class UI(MDScreenManager):
 #     def __init__(self, *args,**kwargs):
@@ -87,14 +82,9 @@ For Production uncomment the below code and comment out the above code
 #     def __init__(self, *args,**kwargs):
 #         super({{project_name}}, self).__init__(*args,**kwargs)
 #         self.load_all_kv_files(self.directory)
-#         self.theme_cls.primary_palette="Indigo"
-#         self.theme_cls.primary_dark_hue="800"
-#         self.theme_cls.primary_light_hue="50"
-#         self.theme_cls.accent_palette="Indigo"
-#         self.theme_cls.accent_dark_hue="600"
-#         self.theme_cls.accent_light_hue="100"
-#         self.image_library_path=IMAGE_LIBRARY
-#         self.manager_screens=UI()
+#         self.theme_cls.primary_palette = "Midnightblue"
+#         self.image_library_path = IMAGE_LIBRARY
+#         self.manager_screens = UI()
         
 #     def build(self) -> UI:
 #         self.generate_application_screens()
@@ -119,7 +109,7 @@ For Production uncomment the below code and comment out the above code
 #             "Light",                       # icons color of status bar
 #         )
 
-#     def web_open(self, url) -> None:
+#     def web_open(self, url: str) -> None:
 #         webbrowser.open_new_tab(url)
 
 # if __name__ == '__main__':

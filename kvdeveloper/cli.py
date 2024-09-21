@@ -1,6 +1,6 @@
 import typer
 import os
-from typing import Optional, List, Literal
+from typing import Optional, List
 from kvdeveloper import __app_name__, __version__
 from .config import app, DEFAULT_TEMPLATE, DEFAULT_STRUCTURE, STRUCTURES, TEMPLATES
 from .module import (
@@ -36,8 +36,22 @@ def create(
     :param template: The name of the template folder.
     :param structure: The name of the structure folder.
     """
-    template_info = TEMPLATES[f"{template}"]
-    structure_info = STRUCTURES[f"{structure}"]
+
+    destination = os.path.join(os.getcwd(), project_name)
+    if os.path.isdir(destination):
+        ValueError(f"Project '{project_name}' already exists.")
+
+    try:
+        template_info = TEMPLATES[f"{template}"]
+    except:
+        console.print(f" Template for name [green]{template}[/green] not found.")
+        raise typer.Exit(code=0)
+    try:
+        structure_info = STRUCTURES[f"{structure}"]
+    except:
+        console.print(f" Structure for name [green]{structure}[/green] not found.")
+        raise typer.Exit(code=0)
+
     typer.secho(
         f"Creating project '{project_name}' with template '{template}': {template_info}\n",
         fg=typer.colors.BRIGHT_MAGENTA,
@@ -48,23 +62,17 @@ def create(
     )
 
     project_name = project_name.strip().replace(" ", "")
-    project_name = name_parser(project_name, "project")
     variables = {
         "project_name": project_name,
     }
-
-    destination = os.path.join(os.getcwd(), project_name)
-    if structure == "none":
-        create_from_template(template, destination, variables)
-    elif structure == "MVC":
-        create_from_structure(template, structure, destination, variables)
-    else:
-        console.print("Structure for name [green]{structure}[/green] not found.")
-        raise typer.Exit(code=0)
-
+    funcs={
+        "none" : lambda : create_from_template(template, destination, variables),
+        "MVC" : lambda : create_from_structure(template, structure, destination, variables),
+    }
+    task = funcs.get(structure)()
     build_variables = {
         "project_name": project_name,
-        "project_package_name": project_name.strip("App").lower(),
+        "project_package_name": project_name.lower(),
     }
     setup_build(project_name, destination, build_variables)
     project_info(project_name, template, structure, destination)
@@ -109,8 +117,8 @@ def config_build_setup(
     - Colab:
         buildozer_action.ipynb: Jupyter notebook for google colab environment.
 
-    Setup build files for platforms Android, IOS.
-    `Currently supporting Android conversions build systems.`
+    Setup build files for platforms Android and IOS.
+    `Currently supporting Android conversions build system.`
 
     :param platform: Platform specific to setup build files.
     :param external: External Build Environment.

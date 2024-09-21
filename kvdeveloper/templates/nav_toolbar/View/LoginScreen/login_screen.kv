@@ -16,7 +16,7 @@
             MDIconButton:
                 icon:'arrow-left'
                 theme_icon_color:"Custom"
-                icon_color:app.theme_cls.primary_dark
+                icon_color:"midnightblue"
                 elevation:1
                 on_press:
                     app.manager_screens.current='home screen'
@@ -43,9 +43,10 @@
 
         MDLabel:
             text:'Login to Novfensec Inc.'
-            color:app.theme_cls.primary_color
+            color:app.theme_cls.primaryColor
 			multiline:True
             halign:'center'
+            theme_font_size:"Custom"
             font_size:'25sp'
             size_hint_y:None
             height:self.texture_size[1]
@@ -61,82 +62,100 @@
 
             FitImage:
                 id:avatar
-                source:f"{app.image_library_path}/basic/login_avatar128.png"
+                source:f"{app.image_library_path}/basic/login_illustration400.png"
                 size_hint: None,None
-                size:"95sp","95sp"
+                size:"145sp","125sp"
 
     MDBoxLayout:
     	orientation: 'vertical'
         adaptive_height:True
-        md_bg_color:0,0,1,.09
         spacing: '16dp'
+        md_bg_color:0.75,0.7,0.9,0.2
         radius:[19]
         padding: ('9dp', '14dp', '9dp', '14dp')
 
-        MDTextField:
-            hint_text:'Username'
-			icon_left:"account"
-            size_hint:.9,None
-            pos_hint:{'center_x':.5}
-            font_size:'19sp'
+        CustomTextField:
+            icon_left:"account"
+            hint_text:"Username"
 
-        MDTextField:
-            hint_text:'Password'
-			password:True
-			icon_left:"lock"
-            size_hint:.9,None
-            pos_hint:{'center_x':.5}
-            font_size:'19sp'
+        CustomTextField:
+            icon_left:"lock"
+            hint_text:"Password"
+            
+            MDTextFieldTrailingIcon:
+                icon:"eye"
+                theme_icon_color:"Custom"
+                icon_color_normal:app.theme_cls.primaryColor
+                icon_color_focus:app.theme_cls.primaryColor
 
-        MDRectangleFlatButton:
-        	text:"Login"
+        MDExtendedFabButton:
         	size_hint:.9,None
             pos_hint:{'center_x':.5}
-        	font_size:'19sp'
-        	text_color:"white"
-			md_bg_color:app.theme_cls.primary_color
-			ripple_color:app.theme_cls.primary_dark
+            theme_bg_color:"Custom"
+			md_bg_color:app.theme_cls.inversePrimaryColor
+			ripple_color:app.theme_cls.primaryColor
+            
+            MDExtendedFabButtonText:
+                text:"Login"
+                theme_font_size:"Custom"
+                font_size:"19sp"
+                theme_text_color:"Custom"
 
-        MDTextButton:
-            text:"Or Create an Account"
-            halign:'center'
-            size_hint:1,None
-            color:0,0,1,.8
+		MDButton:
+            style:"text"
+            pos_hint:{'center_x':.5}
 			on_press:
 				root.manager_screens.current="signup sub screen"
+			MDButtonText:
+				text:"Or Create an Account"
+				color:0,0,1,.8
 
 	Widget:
 	MDBoxLayout:
 		adaptive_height:True
-        padding: ('9dp', '19dp', '9dp', '1dp')
+        padding: ('9dp', '7dp', '9dp', '1dp')
 
-		MDSeparator:
+		MDDivider:
 
 		MDLabel:
 			id:centered_text
 			adaptive_width:True
 			text:" or Login with"
 
-		MDSeparator:
+		MDDivider:
 
 	MDAnchorLayout:
 		anchor_x:"center"
 		radius:[15]
 		size_hint_y:None
 
-		MDBoxLayout:
+		MDGridLayout:
 			adaptive_size:True
 			padding:"7dp","7dp","7dp","7dp"
+            cols:2
 
-			MDIconButton:
-				icon:f"{app.image_library_path}/basic/google64.png"
-				icon_size:"45sp"
+            MDAnchorLayout:
+                size_hint:None,None
+                MDIconButton:
+                    icon:"blank"
+                    size_hint:1,1
+                    theme_font_size:"Custom"
+                    font_size:"51sp"
+                    
+                FitImage:
+                    source:f"{app.image_library_path}/basic/google64.png"
+                    size_hint:None,None
+                    size:"45dp","45dp"
 
-			MDIconButton:
-				icon:"github"
-				theme_icon_color:"Custom"
-				icon_color:"black"
-				icon_size:"51sp"
+            MDAnchorLayout:
+                size_hint:None,None
+                MDIconButton:
+                    icon:"github"
+                    size_hint:1,1
+                    theme_icon_color:"Custom"
+                    icon_color:"black"
+                    theme_font_size:"Custom"
+                    font_size:"51sp"
 
 <SignupSubScreen@MDScreen>:
 	manager_screens:None
@@ -149,7 +168,7 @@
             MDIconButton:
                 icon:'arrow-left'
                 theme_icon_color:"Custom"
-                icon_color:app.theme_cls.primary_dark
+                icon_color:"midnightblue"
                 elevation:1
                 on_press:
                     app.manager_screens.current='home screen'
@@ -176,9 +195,10 @@
 
         MDLabel:
             text:'Signup for Novfensec Inc.'
-            color:app.theme_cls.primary_color
+            color:app.theme_cls.primaryColor
 			multiline:True
             halign:'center'
+            theme_font_size:"Custom"
             font_size:'25sp'
             size_hint_y:None
             height:self.texture_size[1]
@@ -194,97 +214,112 @@
 
             FitImage:
                 id:avatar
-                source:f"{app.image_library_path}/basic/signup_avatar128.png"
+                source:f"{app.image_library_path}/basic/signup_illustration.png"
                 size_hint: None,None
-                size:"95sp","95sp"
+                size:"145sp","125sp"
 				radius:[19]
 
     MDBoxLayout:
     	orientation: 'vertical'
         adaptive_height:True
-        md_bg_color:0,0,1,.09
+        md_bg_color:0.75,0.7,0.9,0.2
         spacing: '11dp'
         radius:[19]
         padding: ('9dp', '14dp', '9dp', '14dp')
 
-        MDTextField:
-            hint_text:'Username'
-			icon_left:"account"
-            size_hint:.9,None
-            pos_hint:{'center_x':.5}
-            font_size:'19sp'
+        CustomTextField:
+            icon_left:"account"
+            hint_text:"Username"
 
-        MDTextField:
-            hint_text:'Email Address'
-			email:True
-			icon_left:"email"
-            size_hint:.9,None
-            pos_hint:{'center_x':.5}
-            font_size:'19sp'
+        CustomTextField:
+            icon_left:"email"
+            hint_text:"Email Address"
+            email:True
 
-        MDTextField:
-            hint_text:'Password'
-			password:True
-			icon_left:"lock"
-            size_hint:.9,None
-            pos_hint:{'center_x':.5}
-            font_size:'19sp'
+        CustomTextField:
+            icon_left:"lock"
+            hint_text:"Password"
+            MDTextFieldTrailingIcon:
+                icon:"eye"
+                theme_icon_color:"Custom"
+                icon_color_normal:app.theme_cls.primaryColor
+                icon_color_focus:app.theme_cls.primaryColor
 
-		MDTextField:
-            hint_text:'Confirm Password'
-			password:True
-			icon_left:"lock"
-            size_hint:.9,None
-            pos_hint:{'center_x':.5}
-            font_size:'19sp'
+        CustomTextField:
+            icon_left:"lock"
+            hint_text:"Confirm Password"
+            MDTextFieldTrailingIcon:
+                icon:"eye"
+                theme_icon_color:"Custom"
+                icon_color_normal:app.theme_cls.primaryColor
+                icon_color_focus:app.theme_cls.primaryColor
 
-        MDRectangleFlatButton:
-        	text:"Signup"
+        MDExtendedFabButton:
+
         	size_hint:.9,None
             pos_hint:{'center_x':.5}
-        	font_size:'19sp'
-        	text_color:"white"
-			md_bg_color:app.theme_cls.primary_color
-			ripple_color:app.theme_cls.primary_dark
+            theme_bg_color:"Custom"
+			md_bg_color:app.theme_cls.inversePrimaryColor
+			ripple_color:app.theme_cls.primaryColor
+            
+            MDExtendedFabButtonText:
+                text:"Signup"
+                theme_font_size:"Custom"
+                font_size:"19sp"
+                theme_text_color:"Custom"
 
-        MDTextButton:
-            text:"Or Login to your Account"
-            halign:'center'
-            size_hint:1,None
-            color:0,0,1,.8
+		MDButton:
+            style:"text"
+            pos_hint:{'center_x':.5}
 			on_press:
 				root.manager_screens.current="login sub screen"
+			MDButtonText:
+				text:"Or Login to your Account"
+				color:0,0,1,.8
 
 	Widget:
 	MDBoxLayout:
 		adaptive_height:True
-        padding: ('9dp', '19dp', '9dp', '1dp')
+        padding: ('9dp', '7dp', '9dp', '1dp')
 
-		MDSeparator:
+		MDDivider:
 
 		MDLabel:
 			id:centered_text
 			adaptive_width:True
-			halign:"center"
 			text:" or Signup with"
 
-		MDSeparator:
+		MDDivider:
 
 	MDAnchorLayout:
 		anchor_x:"center"
 		radius:[15]
 		size_hint_y:None
 
-		MDBoxLayout:
+		MDGridLayout:
 			adaptive_size:True
 			padding:"7dp","7dp","7dp","7dp"
+            cols:2
 
-			MDIconButton:
-				icon:f"{app.image_library_path}/basic/google64.png"
-				icon_size:"45sp"
+            MDAnchorLayout:
+                size_hint:None,None
+                MDIconButton:
+                    icon:"blank"
+                    size_hint:1,1
+                    theme_font_size:"Custom"
+                    font_size:"51sp"
+                    
+                FitImage:
+                    source:f"{app.image_library_path}/basic/google64.png"
+                    size_hint:None,None
+                    size:"45dp","45dp"
 
-			MDIconButton:
-				icon:"github"
-				theme_icon_color:"Custom"
-				icon_color:"black"
-				icon_size:"51sp"
+            MDAnchorLayout:
+                size_hint:None,None
+                MDIconButton:
+                    icon:"github"
+                    size_hint:1,1
+                    theme_icon_color:"Custom"
+                    icon_color:"black"
+                    theme_font_size:"Custom"
+                    font_size:"51sp"

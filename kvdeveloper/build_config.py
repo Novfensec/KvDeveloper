@@ -1,6 +1,7 @@
 import os
 from .config import BUILD_DIR
 from .module import console
+import typer
 
 
 def generate_build_files(platform: str, external: str) -> None:

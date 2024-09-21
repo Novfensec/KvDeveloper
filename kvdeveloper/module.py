@@ -28,6 +28,35 @@ def replace_placeholders(content: str, variables: Dict[str, str]) -> str:
     return content
 
 
+def add_extensions(template_name: str, destination: str) -> None:
+    """
+    Adds extensions.py to required dirs.
+    """
+    template_path = os.path.join(TEMPLATES_DIR, template_name)
+    if not os.path.isdir(template_path):
+        typer.echo(f"Template '{template_name}' not found.")
+        raise typer.Exit(code=1)
+
+    for root, _, files in os.walk(template_path):
+        relative_path = os.path.relpath(root, template_path)
+        target_dir = os.path.join(destination, relative_path)
+
+        for file_name in files:
+            if file_name=="extensions.py":
+                template_file_path = os.path.join(root, file_name)
+                target_file_path = os.path.join(target_dir, file_name)
+
+                with open(template_file_path, "r", encoding="utf-8") as template_file:
+                    content = template_file.read()
+
+                with open(target_file_path, "w", encoding="utf-8") as target_file:
+                    target_file.write(content)
+
+                console.print(
+                    f"Created file: [bright_white]{target_file_path}[/bright_white]"
+                )
+
+
 def create_from_template(
     template_name: str, destination: str, variables: Dict[str, str]
 ) -> None:
@@ -43,10 +72,10 @@ def create_from_template(
         typer.echo(f"Template '{template_name}' not found.")
         raise typer.Exit(code=1)
 
-    for root, _, files in os.walk(template_path):
+    for root, dirs, files in os.walk(template_path):
         relative_path = os.path.relpath(root, template_path)
         # Skip the __pycache__ directory
-        if "__pycache__" in relative_path:
+        if "__pycache__" in dirs:
             continue
         target_dir = os.path.join(destination, relative_path)
         os.makedirs(target_dir, exist_ok=True)
@@ -121,7 +150,7 @@ def create_from_structure(
         raise typer.Exit(code=1)
 
     """
-    updating base screen components.
+    ipdating base screen components.
     """
     with open(
         f"{template_path}/View/base_screen.kv", "r", encoding="utf-8"
@@ -138,9 +167,8 @@ def create_from_structure(
         )
 
     """
-    Updating screen styles.
+    updating screen styles.
     """
-
     for name_view in parsed_screens_list:
         parsed_name = name_parser(name_view, "screen")
         snake_name_view = name_parser_snake(parsed_name)
@@ -176,6 +204,11 @@ def create_from_structure(
         console.print(
             f"Updated file: [bright_white]{destination}/main.py[/bright_white]"
         )
+
+    """
+    adding extended functions and classes.
+    """
+    add_extensions(template_name,destination)
 
     """
     updating README.md.
@@ -390,10 +423,10 @@ def add_from_default(
 
                 elif os.path.isdir(template_path):
                     # Template exists; copy and process files from the template
-                    for root, _, files in os.walk(template_path):
+                    for root, dirs, files in os.walk(template_path):
                         relative_path = os.path.relpath(root, template_path)
                         # Skip the __pycache__ directory
-                        if "__pycache__" in relative_path:
+                        if "__pycache__" in dirs:
                             continue
                         target_dir = os.path.join(destination, relative_path)
                         os.makedirs(target_dir, exist_ok=True)

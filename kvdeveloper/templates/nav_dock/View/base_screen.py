@@ -1,9 +1,8 @@
 from kivy.properties import ObjectProperty
 from kivymd.app import MDApp
-from kivymd.theming import ThemableBehavior
 from kivymd.uix.screen import MDScreen
 
-class BaseScreenView(ThemableBehavior, MDScreen):
+class BaseScreenView(MDScreen):
     
     manager_screens = ObjectProperty()
     """

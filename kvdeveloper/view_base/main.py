@@ -34,24 +34,19 @@ import webbrowser
 from kvdeveloper.config import IMAGE_LIBRARY
 from kivy.clock import Clock
 
-Clock.max_iteration=30
+Clock.max_iteration = 30
 
 Window.keyboard_anim_args={"d": .2, "t": "in_out_expo"}
-Window.softinput_mode="below_target"
+Window.softinput_mode = "below_target"
 
 class {{project_name}}(MDApp):
-    DEBUG=True
+    DEBUG = True
     KV_DIRS = [os.path.join(os.getcwd(), "View")]
     
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.theme_cls.primary_palette="Indigo"
-        self.theme_cls.primary_dark_hue="800"
-        self.theme_cls.primary_light_hue="50"
-        self.theme_cls.accent_palette="Indigo"
-        self.theme_cls.accent_dark_hue="600"
-        self.theme_cls.accent_light_hue="100"
-        self.image_library_path=IMAGE_LIBRARY
+        self.theme_cls.primary_palette = "Midnightblue"
+        self.image_library_path = IMAGE_LIBRARY
         self.apply_styles("Light")
 
     def build_app(self) -> MDScreenManager:
@@ -63,7 +58,7 @@ class {{project_name}}(MDApp):
         import View.screens
 
         self.manager_screens = MDScreenManager()
-        Window.bind(on_key_down=self.on_keyboard_down)
+        Window.bind(on_key_down = self.on_keyboard_down)
         importlib.reload(View.screens)
         screens = View.screens.screens
 
@@ -77,8 +72,8 @@ class {{project_name}}(MDApp):
             
         return self.manager_screens
 
-    def apply_styles(self,style="Light") -> None:
-        self.theme_cls.theme_style=style
+    def apply_styles(self, style: str = "Light") -> None:
+        self.theme_cls.theme_style = style
         
     def on_keyboard_down(self, window, keyboard, keycode, text, modifiers) -> None:
         """
@@ -91,7 +86,7 @@ class {{project_name}}(MDApp):
         if "meta" in modifiers or "ctrl" in modifiers and text == "r":
             self.rebuild()
 
-    def web_open(self, url) -> None:
+    def web_open(self, url: str) -> None:
         webbrowser.open_new_tab(url)
 
 if __name__ == '__main__':
@@ -139,20 +134,15 @@ if __name__ == '__main__':
 # Window.top = 30
 # Window.left = resolution[0] - Window.width
 
-# Window.keyboard_anim_args={"d": .2, "t": "in_out_expo"}
-# Window.softinput_mode="below_target"
+# Window.keyboard_anim_args = {"d": .2, "t": "in_out_expo"}
+# Window.softinput_mode = "below_target"
 
 # class {{project_name}}(MDApp):
 #     def __init__(self, **kwargs):
 #         super().__init__(**kwargs)
 #         self.load_all_kv_files(self.directory)
-#         self.theme_cls.primary_palette="Indigo"
-#         self.theme_cls.primary_dark_hue="800"
-#         self.theme_cls.primary_light_hue="50"
-#         self.theme_cls.accent_palette="Indigo"
-#         self.theme_cls.accent_dark_hue="600"
-#         self.theme_cls.accent_light_hue="100"
-#         self.image_library_path=IMAGE_LIBRARY
+#         self.theme_cls.primary_palette = "Midnightblue"
+#         self.image_library_path = IMAGE_LIBRARY
 #         self.apply_styles("Light")
 #         # This is the screen manager that will contain all the screens of your application.
 #         self.manager_screens = MDScreenManager()
@@ -160,7 +150,7 @@ if __name__ == '__main__':
 #     def build(self) -> MDScreenManager:
 #         self.generate_application_screens()
 #         self.set_bars_colors()
-#         self.manager_screens.current="home screen"
+#         self.manager_screens.current = "home screen"
 #         return self.manager_screens
 
 #     def generate_application_screens(self) -> None:
@@ -188,10 +178,10 @@ if __name__ == '__main__':
 #             "Light",                       # icons color of status bar
 #         )
 
-#     def apply_styles(self,style="Light") -> None:
-#         self.theme_cls.theme_style=style
+#     def apply_styles(self,style: str = "Light") -> None:
+#         self.theme_cls.theme_style = style
         
-#     def web_open(self, url) -> None:
+#     def web_open(self, url: str) -> None:
 #         webbrowser.open_new_tab(url)
 
 # if __name__ == '__main__':

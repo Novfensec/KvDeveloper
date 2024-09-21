@@ -27,7 +27,7 @@ readme = "README.md"
 license = {file = "LICENSE"}
 keywords = ["kivy", "open source", "kivymd", "kvdeveloper", "kartavya shukla", "android", "novfensec", "kv"]
 classifiers = [
-  "Development Status :: 4 - Beta",
+  "Development Status :: 3 - Alpha",
   "Intended Audience :: Developers",
   "Topic :: Software Development :: Build Tools",
   "License :: OSI Approved :: MIT License",

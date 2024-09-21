@@ -27,12 +27,7 @@ class {{project_name}}(MDApp):
         self.KV_DIRS=[
             os.path.join(os.getcwd(),"View"),
         ]
-        self.theme_cls.primary_palette="Indigo"
-        self.theme_cls.primary_dark_hue="800"
-        self.theme_cls.primary_light_hue="50"
-        self.theme_cls.accent_palette="Indigo"
-        self.theme_cls.accent_dark_hue="600"
-        self.theme_cls.accent_light_hue="100"
+        self.theme_cls.primary_palette = "Midnightblue"
 
     def build_app(self) -> UI:
         self.manager_screens=UI()
@@ -69,18 +64,13 @@ For Production uncomment the below code and comment out the above code
 #     def __init__(self, *args,**kwargs):
 #         super({{project_name}}, self).__init__(*args,**kwargs)
 #         self.load_all_kv_files(self.directory)
-#         self.theme_cls.primary_palette="Indigo"
-#         self.theme_cls.primary_dark_hue="800"
-#         self.theme_cls.primary_light_hue="50"
-#         self.theme_cls.accent_palette="Indigo"
-#         self.theme_cls.accent_dark_hue="600"
-#         self.theme_cls.accent_light_hue="100"
+#         self.theme_cls.primary_palette = "Midnightblue"
 #         self.manager_screens=UI()
-        
+
 #     def build(self) -> UI:
 #         self.generate_application_screens()
 #         return self.manager_screens
-    
+
 #     def generate_application_screens(self) -> None:
 #        # adds different screen widgets to the screen manager 
 #         import View.screens

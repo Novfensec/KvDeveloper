@@ -1,79 +1,96 @@
-<ContentNavigationDrawer@MDNavigationDrawer>:
-    width: "240dp"
-    md_bg_color:1,1,1,0
-    padding:0
+#: import DrawerClickableItem View.extensions.DrawerClickableItem
+#: import CustomTextField View.extensions.CustomTextField
 
-<ContentNavigationLayout@MDBoxLayout>:
+<BaseScreenView>:
+    md_bg_color:app.theme_cls.surfaceColor
+
+<DrawerClickableItem>
+    md_bg_color:app.theme_cls.primaryContainerColor
+    ripple_color:app.theme_cls.inversePrimaryColor
+    inactive_indicator_color:app.theme_cls.primaryContainerColor
+    active_indicator_color:app.theme_cls.inversePrimaryColor
+    
+    MDNavigationDrawerItemLeadingIcon:
+        icon:root.icon
+
+    MDNavigationDrawerItemText:
+        text:root.text
+
+<ContentNavigationDrawer@MDNavigationDrawerMenu>:
+    spacing:"4dp"
     MDNavigationDrawerHeader:
-        title:"KvDeveloper"
-		title_color:app.theme_cls.primary_dark
-        padding: ('7dp', '7dp', '7dp', '7dp')
-    MDSeparator:
+        orientation:"vertical"
+        adaptive_height:True
+
+        MDLabel:
+            text: "KvDeveloper"
+            theme_text_color: "Custom"
+            theme_line_height: "Custom"
+            line_height: 0
+            text_color:app.theme_cls.onPrimaryFixedColor
+            adaptive_height: True
+            font_style: "Display"
+            role:"small"
+
+    MDNavigationDrawerDivider:
     MDBoxLayout:
         adaptive_height:True
         orientation:"vertical"
         padding: ('9dp', '9dp', '9dp', '9dp')
         spacing: '11dp'
 
-        MDBoxLayout:
-            orientation: 'vertical'
-            adaptive_height:True
-            MDAnchorLayout:
-                anchor_x: 'left'
-                anchor_y: 'top'
-                size_hint_y:None
-                height:avatar.height
-
-                FitImage:
-                    id:avatar
-                    source:f"{app.image_library_path}/kvdeveloper/kvdeveloper_logo128.png"
-					size_hint: None,None
-                    size:"95sp","95sp"
+        FitImage:
+            id:avatar
+            source:f"{app.image_library_path}/kvdeveloper/kvdeveloper_logo128.png"
+            size_hint: None,None
+            size:"100sp","100sp"
         Widget:
 
         MDLabel:
-            font_style:"Body1"
             text: 'Novfensec Inc.'
-            color: app.theme_cls.primary_dark
-            font_size:"18sp"
+            color: app.theme_cls.primaryColor
+            style:"Body"
+            role:"large"
 
         Widget:
 
-    MDSeparator:
-	
-    MDNavigationDrawerMenu:
-        id:navigation_drawer_menu
+    MDNavigationDrawerDivider:
+            
+    DrawerClickableItem:
+        icon:"source-pull"
+        text:"Screen 1"
 
-        DrawerClickableItem:
-			icon:"source-pull"
-            text:"Screen 1"
+    DrawerClickableItem:
+        icon:"source-branch"
+        text:"Screen 2"
 
-        DrawerClickableItem:
-			icon:"source-branch"
-            text:"Screen 2"
+    DrawerClickableItem:
+        icon:"source-repository-multiple"
+        text:"Screen 3"
+        
+<CustomTextField>:
+    helper_text:""
+    hint_text:""
+    icon_left:"blank"
+    mode:"filled"
+    theme_bg_color:"Custom"
+    fill_color_normal:app.theme_cls.transparentColor
+    fill_color_focus:self.fill_color_normal
+    theme_line_color:"Custom"
+    line_color_normal:app.theme_cls.transparentColor
+    line_color_focus:self.fill_color_normal
+    radius:[10]
 
-        DrawerClickableItem:
-			icon:"source-repository-multiple"
-            text:"Screen 3"
+    MDTextFieldLeadingIcon:
+        icon:root.icon_left
+        theme_icon_color:"Custom"
+        icon_color_normal:app.theme_cls.primaryColor
+        icon_color_focus:app.theme_cls.primaryColor 
+        
+    MDTextFieldHintText:
+        text:root.hint_text
+        theme_text_color:"Custom"
+        text_color_normal:0,0,0,.6
 
-    MDAnchorLayout:
-        anchor_y: 'bottom'
-        MDBoxLayout:
-            adaptive_height:True
-            orientation: 'vertical'
-            spacing: '14dp'
-
-            MDFillRoundFlatIconButton:
-                icon:"copyright"
-                text:"Novfensec Inc."
-                icon_color:app.theme_cls.primary_dark
-                text_color:app.theme_cls.primary_dark
-                ripple_color:self.text_color
-                md_bg_color:app.theme_cls.accent_light
-
-<DrawerClickableItem@MDNavigationDrawerItem>:
-    focus_color:app.theme_cls.accent_light
-    unfocus_color:app.theme_cls.primary_light
-    text_color:"black"
-    ripple_color:app.theme_cls.accent_light
-    selected_color:app.theme_cls.primary_dark
+    MDTextFieldHelperText:
+        text:root.helper_text
