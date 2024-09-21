@@ -15,7 +15,7 @@ dependencies = [
   "pyqt5",
   "pyqtwebengine",
 ]
-requires-python = ">=3.1"
+requires-python = ">=3.9"
 authors = [
   {name = "Kartavya Shukla", email = "novfensec@protonmail.com"},
 ]
