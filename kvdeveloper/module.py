@@ -72,7 +72,7 @@ def create_from_template(
         typer.echo(f"Template '{template_name}' not found.")
         raise typer.Exit(code=1)
 
-    for root, dirs, files in os.walk(template_path):
+    for root, _, files in os.walk(template_path):
         relative_path = os.path.relpath(root, template_path)
         target_dir = os.path.join(destination, relative_path)
         os.makedirs(target_dir, exist_ok=True)
@@ -126,6 +126,8 @@ def create_from_structure(
     parsed_screens_list = []
     dir_list = os.listdir(f"{template_path}/View")
     for name_view in dir_list:
+        if name_view == "__pycache__":
+            continue
         if os.path.isdir(f"{template_path}/View/{name_view}"):
             # Parse screen name to PascalCase
             parsed_name = name_parser(name_view, "screen")
@@ -353,6 +355,8 @@ def add_from_default(
     :param destination: The destination path where the files will be created.
     """
     for name_view in name_screen:
+        if name_view == "__pycache__":
+            continue
         # Parse screen name to PascalCase
         parsed_name = name_parser(name_view, "screen")
         # A snake that parses a name.
@@ -420,7 +424,7 @@ def add_from_default(
 
                 elif os.path.isdir(template_path):
                     # Template exists; copy and process files from the template
-                    for root, dirs, files in os.walk(template_path):
+                    for root, _, files in os.walk(template_path):
                         relative_path = os.path.relpath(root, template_path)
                         target_dir = os.path.join(destination, relative_path)
                         os.makedirs(target_dir, exist_ok=True)
@@ -522,6 +526,8 @@ def add_from_structure(
     """
     parsed_screens_list = []
     for name_view in name_screen:
+        if name_view == "__pycache__":
+            continue
         # Parse screen name to PascalCase
         parsed_name = name_parser(name_view, "screen")
         parsed_screens_list.append(parsed_name)
