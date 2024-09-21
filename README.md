@@ -51,7 +51,7 @@ If you encounter any issues or have questions, feel free to reach out to the com
 
 - kivy>=2.2.0 `(recommended kivy==2.3.0)`
 
-- kivymd>=1.1.1 `(recommended kivymd==1.1.1)`
+- kivymd>=2.0.0 `(recommended kivymd==2.0.1.dev0)`
 
 - pillow>=10.0.0
 
