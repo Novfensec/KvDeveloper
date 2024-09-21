@@ -229,10 +229,9 @@ def create_from_structure(
     """
     Installing requirements with pip.
     """
+    envbin = "bin"
     if os.name == "nt":
         envbin = "scripts"
-    else:
-        envbin = "bin"
     console.print(f"\n[green]Installing requirements with pip.[/green]\n")
     try:
         subprocess.run(
@@ -324,8 +323,6 @@ def update_requirements(template_path: str, destination: str) -> None:
     from kvdeveloper import __version__ as kvdeveloper_version
 
     install_variables = {
-        "kivymd_version": "1.1.1",
-        "kivy_version": "2.3.0",
         "kvdeveloper_version": kvdeveloper_version,
     }
     with open(
