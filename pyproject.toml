@@ -25,9 +25,9 @@ maintainers = [
 description = "KvDeveloper is a PyPI module designed to streamline the development of Kivy and KivyMD applications. Inspired by Expo CLI for React Native, KvDeveloper provides starter templates and essential functionalities to kickstart your projects with ease."
 readme = "README.md"
 license = {file = "LICENSE"}
-keywords = ["kivy", "open source", "kivymd", "kvdeveloper", "kartavya shukla", "android", "novfensec", "kv"]
+keywords = ["kivy", "kivymd", "open source", "kvdeveloper", "kartavya shukla", "novfensec", "kv"]
 classifiers = [
-  "Development Status :: 3 - Alpha",
+  "Development Status :: 4 - Beta",
   "Intended Audience :: Developers",
   "Topic :: Software Development :: Build Tools",
   "License :: OSI Approved :: MIT License",
