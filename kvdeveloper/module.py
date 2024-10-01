@@ -4,7 +4,13 @@ import platform
 import subprocess
 import re
 from typing import Dict, List, Literal
-from .config import TEMPLATES_DIR, TEMPLATES, STRUCTURES_DIR, STRUCTURES, VIEW_BASE
+from kvdeveloper.config import (
+    TEMPLATES_DIR,
+    TEMPLATES,
+    STRUCTURES_DIR,
+    STRUCTURES,
+    VIEW_BASE,
+)
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
@@ -41,7 +47,7 @@ def add_extensions(template_name: str, destination: str) -> None:
         target_dir = os.path.join(destination, relative_path)
 
         for file_name in files:
-            if file_name=="extensions.py":
+            if file_name == "extensions.py":
                 template_file_path = os.path.join(root, file_name)
                 target_file_path = os.path.join(target_dir, file_name)
 
@@ -206,7 +212,7 @@ def create_from_structure(
     """
     adding extended functions and classes.
     """
-    add_extensions(template_name,destination)
+    add_extensions(template_name, destination)
 
     """
     updating README.md.

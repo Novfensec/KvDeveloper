@@ -2,8 +2,14 @@ import typer
 import os
 from typing import Optional, List
 from kvdeveloper import __app_name__, __version__
-from .config import app, DEFAULT_TEMPLATE, DEFAULT_STRUCTURE, STRUCTURES, TEMPLATES
-from .module import (
+from kvdeveloper.config import (
+    app,
+    DEFAULT_TEMPLATE,
+    DEFAULT_STRUCTURE,
+    STRUCTURES,
+    TEMPLATES,
+)
+from kvdeveloper.module import (
     console,
     create_from_template,
     create_from_structure,
@@ -12,8 +18,8 @@ from .module import (
     setup_build,
     project_info,
 )
-from .info_reader import info_reader
-from .build_config import generate_build_files
+from kvdeveloper.info_reader import info_reader
+from kvdeveloper.build_config import generate_build_files
 from rich.panel import Panel
 from rich.text import Text
 from rich.table import Table
@@ -63,9 +69,11 @@ def create(
     variables = {
         "project_name": project_name,
     }
-    funcs={
-        "none" : lambda : create_from_template(template, destination, variables),
-        "MVC" : lambda : create_from_structure(template, structure, destination, variables),
+    funcs = {
+        "none": lambda: create_from_template(template, destination, variables),
+        "MVC": lambda: create_from_structure(
+            template, structure, destination, variables
+        ),
     }
     task = funcs.get(structure)()
     build_variables = {
@@ -187,7 +195,6 @@ def list_templates() -> None:
     typer.secho(help_text, fg=typer.colors.BRIGHT_WHITE)
     console.print(templates_box)
     console.print(templates_info_box)
-    raise typer.Exit()
 
 
 @app.command()
@@ -206,7 +213,6 @@ def list_structures() -> None:
     )
     typer.secho(help_text, fg=typer.colors.BRIGHT_WHITE)
     console.print(structures_box)
-    raise typer.Exit()
 
 
 def _version_callback(value: bool) -> None:

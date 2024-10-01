@@ -8,7 +8,7 @@ def_dir = Path(__file__).parent
 TEMPLATES = {
     "blank": "Basic structure with a SampleScreen component.",
     "nav_toolbar": "Navigation and toolbar screens with HomeScreen and LoginScreen components.",
-    "nav_dock":  "Navigation and toolbar screens with BottomNavigation, HomeScreen, LoginScreen and SettingsScreen components.",
+    "nav_dock": "Navigation and toolbar screens with BottomNavigation, HomeScreen, LoginScreen and SettingsScreen components.",
 }
 TEMPLATES_DIR = f"{def_dir}/templates"
 STRUCTURES = {

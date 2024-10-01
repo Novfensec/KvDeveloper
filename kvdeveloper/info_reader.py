@@ -4,8 +4,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWebEngineWidgets import QWebEngineView, QWebEngineSettings
 from markdown2 import markdown
-from typing import Optional
-from .config import def_dir, IMAGE_LIBRARY, app
+from kvdeveloper.config import def_dir, IMAGE_LIBRARY
 
 
 class MarkdownDisplayer(QMainWindow):

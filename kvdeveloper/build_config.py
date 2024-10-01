@@ -1,6 +1,6 @@
 import os
-from .config import BUILD_DIR
-from .module import console
+from kvdeveloper.config import BUILD_DIR
+from kvdeveloper.module import console
 import typer
 
 
