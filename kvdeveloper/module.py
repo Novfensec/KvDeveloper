@@ -3,12 +3,18 @@ import typer
 import platform
 import subprocess
 import re
-from typing import Dict, List, Literal
+from typing import Dict, List
+from kvdeveloper.utils import (
+    name_parser,
+    name_parser_snake,
+    replace_placeholders,
+)
 from kvdeveloper.config import (
     TEMPLATES_DIR,
     TEMPLATES,
     STRUCTURES_DIR,
     STRUCTURES,
+    LAYOUTS_DIR,
     VIEW_BASE,
 )
 from rich.console import Console
@@ -20,26 +26,19 @@ from rich.prompt import Prompt
 console = Console()
 
 
-def replace_placeholders(content: str, variables: Dict[str, str]) -> str:
-    """
-    Replace placeholders in the content with provided variables.
-
-    :param content: The content with placeholders.
-    :param variables: A dictionary of variables to replace in the content.
-    :return: The content with replaced variables.
-    """
-    for placeholder, value in variables.items():
-        content = content.replace(f"{{{{{placeholder}}}}}", value)
-    return content
-
-
-def add_extensions(template_name: str, destination: str) -> None:
+def add_extensions(
+    template_name: str, destination: str, layout_name: str = None, index: str = "1"
+) -> None:
     """
     Adds extensions.py to required dirs.
     """
-    template_path = os.path.join(TEMPLATES_DIR, template_name)
+    if layout_name != None:
+        template_path = os.path.join(LAYOUTS_DIR, layout_name, index)
+    else:
+        template_path = os.path.join(TEMPLATES_DIR, template_name)
+
     if not os.path.isdir(template_path):
-        typer.echo(f"Template '{template_name}' not found.")
+        typer.echo(f"Path '{template_path}' not found.")
         raise typer.Exit(code=1)
 
     for root, _, files in os.walk(template_path):
@@ -357,8 +356,6 @@ def add_from_default(
     :param destination: The destination path where the files will be created.
     """
     for name_view in name_screen:
-        if name_view == "__pycache__":
-            continue
         # Parse screen name to PascalCase
         parsed_name = name_parser(name_view, "screen")
         # A snake that parses a name.
@@ -517,7 +514,10 @@ def update_screens_file(
 
 
 def add_from_structure(
-    name_screen: List[str], use_template: str, destination: str
+    name_screen: List[str],
+    destination: str,
+    use_template: str = None,
+    layout: str = None,
 ) -> None:
     """
     Add screens to the project using a custom structure.
@@ -552,6 +552,7 @@ def add_from_structure(
         )
         if prompt == "y":
             add_from_default(name_screen, use_template, destination)
+            apply_layout(name_screen, layout, destination)
         else:
             raise typer.Exit(code=1)
 
@@ -575,6 +576,7 @@ def add_from_structure(
                 typer.echo(
                     f"View '{parsed_name}' not found in template '{use_template}'."
                 )
+            apply_layout(name_screen, layout, destination)
         elif os.path.isdir(template_path):
             # Template exists; process files from the template
             with open(
@@ -592,72 +594,174 @@ def add_from_structure(
                 console.print(
                     f"\nUpdated file: [bright_white]{view_path}/{snake_name_view}.kv[/bright_white]"
                 )
+            add_extensions(f"{use_template}/View", destination)
 
 
-def name_parser_snake(name: str) -> str:
+def add_from_layout(name_screen: List[str], layout: str, destination: str):
     """
-    Convert a PascalCase name to snake_case.
+    Add screens to the project with a specified layout and a default structure.
 
-    :param name: The name to be converted.
-    :return: The converted snake_case name.
+    :param name_screen: A list of screen names to be added.
+    :param layout: The layout of the screen.
+    :param destination: The destination path where the files will be created.
     """
-    # Convert name to lowercase and ensure 'screen' is separated with '_'
-    snake_case = name.lower()
-    snake_case = re.sub(r"_?screen", "_screen", snake_case)
-    return snake_case
+    for name_view in name_screen:
+        # Parse screen name to PascalCase
+        parsed_name = name_parser(name_view, "screen")
+        # A snake that parses a name.
+        snake_name_view = name_parser_snake(parsed_name)
+        console.print(
+            f"Creating Screen with name [bold cyan]{parsed_name}[/bold cyan]."
+        )
 
+        # Construct the view path
+        view_path = os.path.join(destination, parsed_name)
 
-def name_parser(name: str, parse_type: Literal["screen", "project"]) -> str:
-    """
-    Parse the name according to the given parse type.
+        if not os.path.isdir(view_path):
+            variables = {"parsed_name": parsed_name}
+            try:
+                # Construct the layout path
 
-    :param name: The name to be parsed.
-    :param parse_type: The type of parsing to perform ("screen" or "project").
-    :return: The parsed name in PascalCase.
-    :raises ValueError: If the name is invalid.
-    :raises TypeError: If the parse type is invalid.
-    """
-    name = name.lower()
+                layout = name_parser(layout, "screen").strip("Screen")
+                layout, index = re.findall(r"[A-Za-z]+|\d+", layout)
+                layout_path = os.path.join(LAYOUTS_DIR, layout, index)
 
-    if parse_type == "screen":
-        # Validate and format screen name
-        if name and name[0].isdigit():
-            raise ValueError("The name of the screen should not start with a number.")
-        elif "screen" not in name:
-            name += "Screen"
-        elif name.lower() == "screen":
-            raise ValueError(
-                "The name of the screen cannot be only 'screen' or 'Screen'."
+                os.makedirs(view_path, exist_ok=True)
+
+                # Create the .py file using the default template
+                with open(
+                    f"{VIEW_BASE}/default_screen.py", "r", encoding="utf-8"
+                ) as view_file:
+                    content = view_file.read()
+                content = replace_placeholders(content, variables)
+                with open(
+                    f"{view_path}/{snake_name_view}.py", "w", encoding="utf-8"
+                ) as target_file:
+                    target_file.write(content)
+                    console.print(
+                        f"\nCreated file: [bright_white]{view_path}/{snake_name_view}.py[/bright_white]"
+                    )
+
+                # Create an empty __init__.py File
+                with open(
+                    f"{view_path}/__init__.py", "w", encoding="utf-8"
+                ) as init_file:
+                    init_file.write("# Empty __init__.py file")
+
+                if not os.path.isdir(layout_path):
+                    # Layout does not exist; create files with a blank template
+                    # Create the .kv file using the default template
+                    with open(
+                        f"{VIEW_BASE}/default_screen.kv", "r", encoding="utf-8"
+                    ) as view_file:
+                        content = view_file.read()
+
+                    content = replace_placeholders(content, variables)
+
+                    with open(
+                        f"{view_path}/{snake_name_view}.kv", "w", encoding="utf-8"
+                    ) as target_file:
+                        target_file.write(content)
+
+                        console.print(
+                            f"\nCreated file: [bright_white]{view_path}/{snake_name_view}.kv[/bright_white]"
+                        )
+
+                elif os.path.isdir(layout_path):
+                    # Layout exists; copy and process files from the layout
+                    # Create the .kv file using the layout
+                    name_layout = name_parser(layout, "screen")
+                    snake_name_layout = name_parser_snake(name_layout)
+                    with open(
+                        f"{layout_path}/{snake_name_layout}.kv", "r", encoding="utf-8"
+                    ) as view_file:
+                        content = view_file.read()
+
+                    content = replace_placeholders(content, variables)
+
+                    with open(
+                        f"{view_path}/{snake_name_view}.kv", "w", encoding="utf-8"
+                    ) as target_file:
+                        target_file.write(content)
+
+                        console.print(
+                            f"\nCreated file: [bright_white]{view_path}/{snake_name_view}.kv[/bright_white]"
+                        )
+                    add_extensions(
+                        template_name=None,
+                        destination=view_path,
+                        layout_name=layout,
+                        index=index,
+                    )
+                update_screens_file(parsed_name, snake_name_view, destination)
+            except Exception as e:
+                typer.secho(f"Error: {e}", err=True)
+        else:
+            console.print(
+                f"Screen with name [green]{parsed_name}[/green] already exists. Try a different name."
             )
 
-        # Extract and capitalize words
-        words = re.split(r"[^a-zA-Z0-9]", name)
-        pascal_case = "".join(
-            word.capitalize() if word.lower() != "screen" else "Screen"
-            for word in words
-            if word
-        )
-        pascal_case = re.sub(r"Screen", "Screen", pascal_case, flags=re.IGNORECASE)
-    elif parse_type == "project":
-        # Validate and format project name
-        if name and name[0].isdigit():
-            raise ValueError("The name of the project should not start with a number.")
-        elif "app" not in name:
-            name += "App"
-        elif name.lower() == "app":
-            raise ValueError("The name of the project cannot be only 'app' or 'App'.")
 
-        # Extract and capitalize words
-        words = re.split(r"[^a-zA-Z0-9]", name)
-        pascal_case = "".join(
-            word.capitalize() if word.lower() != "app" else "App"
-            for word in words
-            if word
-        )
-        pascal_case = re.sub(r"App", "App", pascal_case, flags=re.IGNORECASE)
-    else:
-        raise TypeError(
-            f"Invalid parse type: '{parse_type}'. Should be one of ['screen', 'project']"
-        )
+def apply_layout(name_screen: List[str], layout: str, destination: str):
+    """
+    Apply layout to a screen with specified layout type.
 
-    return pascal_case
+    :param name_screen: The list containing the names of the screens.
+    :param layout: The name of the layout for the screens.
+    :param destination: The destination path where the files will be created and updated.
+    """
+    layout = name_parser(layout, "screen").strip("Screen")
+    layout, index = re.findall(r"[A-Za-z]+|\d+", layout)
+    layout_path = os.path.join(LAYOUTS_DIR, layout, index)
+    if not os.path.isdir(layout_path):
+        typer.echo(f"Layout '{layout}' not found.")
+        raise typer.Exit(code=1)
+
+    parsed_screens_list = []
+    for name_view in name_screen:
+        if name_view == "__pycache__":
+            continue
+        # Parse screen name to PascalCase
+        parsed_name = name_parser(name_view, "screen")
+        parsed_screens_list.append(parsed_name)
+
+    # Parse required names for the layout
+    name_layout = name_parser(layout, "screen")
+    snake_name_layout = name_parser_snake(name_layout)
+
+    for parsed_name in parsed_screens_list:
+        # Construct the view path
+        view_path = os.path.join(destination, parsed_name)
+        # A snake that parses a name.
+        snake_name_view = name_parser_snake(parsed_name)
+
+        if os.path.isdir(view_path):
+            variables = {"parsed_name": parsed_name}
+            try:
+                with open(
+                    f"{layout_path}/{snake_name_layout}.kv", "r", encoding="utf-8"
+                ) as view_file:
+                    content = view_file.read()
+
+                content = replace_placeholders(content, variables)
+
+                with open(
+                    f"{view_path}/{snake_name_view}.kv", "w", encoding="utf-8"
+                ) as target_file:
+                    target_file.write(content)
+
+                    console.print(
+                        f"\nUpdated file: [bright_white]{view_path}/{snake_name_view}.kv[/bright_white]"
+                    )
+                add_extensions(
+                    template_name=None,
+                    destination=view_path,
+                    layout_name=layout,
+                    index=index,
+                )
+            except Exception as e:
+                typer.secho(f"Error: {e}", err=True)
+        else:
+            console.print(
+                f"Screen with name [green]{parsed_name}[/green] does not exists. Try a different name."
+            )

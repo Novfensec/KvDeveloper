@@ -15,6 +15,8 @@ from kvdeveloper.module import (
     create_from_structure,
     add_from_default,
     add_from_structure,
+    add_from_layout,
+    apply_layout,
     setup_build,
     project_info,
 )
@@ -90,6 +92,7 @@ def add_screen(
     use_template: Optional[str] = typer.Option(
         None, help="Name of the template if the specified view exists in it."
     ),
+    layout: str = typer.Option(None, help="Layout of the screen."),
     structure: str = typer.Option(DEFAULT_STRUCTURE, help="Structure of the project."),
 ) -> None:
     """
@@ -97,16 +100,42 @@ def add_screen(
 
     :param name_screen: The name of the screen.
     :param use_template: The name of the template to be used for creating the view if it pre-exists.
+    :param layout: The name of the layout.
     :param structure: The name of the structure folder.
     """
     destination = os.path.join(os.getcwd(), "View")
     if structure == "none":
-        add_from_default(name_screen, use_template, destination)
+        if layout != None:
+            add_from_layout(name_screen, layout, destination)
+        elif layout == None:
+            add_from_default(name_screen, use_template, destination)
     elif structure == "MVC":
-        add_from_structure(name_screen, use_template, destination)
+        if layout != None:
+            add_from_structure(name_screen, layout, destination)
+        if layout == None:
+            add_from_structure(name_screen, use_template, destination)
     else:
         console.print("Structure for name [green]{structure}[/green] not found.")
         raise typer.Exit(code=0)
+
+
+@app.command()
+def add_layout(
+    name_screen: List[str] = typer.Option(
+        help="List containig the name of the screens."
+    ),
+    layout: str = typer.Argument(None, help="The name of the layout for the screens."),
+):
+    """
+    Apply layout to a screen with specified layout type.
+
+    :param name_screen: The list containing the names of the screens.
+    :param layout: The name of the layout for the screens.
+    :param destination: The destination path where the files will be created and updated.
+    """
+    destination = os.path.join(os.getcwd(), "View")
+
+    apply_layout(name_screen, layout, destination)
 
 
 @app.command()

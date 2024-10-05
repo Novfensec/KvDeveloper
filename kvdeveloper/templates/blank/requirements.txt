@@ -1,5 +1,5 @@
-kivy==2.3.0
-kivymd==2.0.1
-watchdog==4.0.1
-pillow==10.3.0
+kivy>=2.0.0
+kivymd>=2.0.0
+watchdog>=4.0.1
+pillow>=10.0.0
 kvdeveloper=={{kvdeveloper_version}}
