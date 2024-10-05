@@ -28,9 +28,10 @@ If you encounter any issues or have questions, feel free to reach out to the com
 
 ## Features
 - **Starter Templates**: Quickly create new Kivy and KivyMD projects with predefined templates.
+- **Layouts**: Build standard screens rapidly with prebuilt designs. Add layouts to any screen with a single command, making the development process faster and more efficient.
 - **MVC Structure**: Includes templates with Model-View-Controller (MVC) architecture. `(recommended KivyMD==1.1.1)`
 - **Navigation and Toolbar**: Templates with built-in navigation and toolbar screens.
-- **Customizable**: Easily extend and customize the templates to fit your project needs.
+- **Customizable**: Easily extend and customize the templates and layouts to fit your project needs.
 - **Build Workflows and Jupyter Notebooks**: Generates build workflows for github based conversions and jupyter notebooks for colab based converions.
 
 ## Installation
@@ -49,7 +50,7 @@ If you encounter any issues or have questions, feel free to reach out to the com
 ## Requirements
 - **Python**>=3.9
 
-- kivy>=2.2.0 `(recommended kivy==2.3.0)`
+- kivy>=2.0.0 `(recommended kivy==2.3.0)`
 
 - kivymd>=2.0.0 `(recommended kivymd==2.0.1.dev0)`
 
@@ -67,15 +68,23 @@ If you encounter any issues or have questions, feel free to reach out to the com
 
 ## Usage
 - Create a new KivyMD project with a blank template:
-
     ```bash
     kvdeveloper create my_project --template blank
     ```
 
 - Create a new KivyMD project with navigation and toolbar with MVC architecture.:
-
     ```bash
     kvdeveloper create my_project --template nav_toolbar --structure MVC
+    ```
+
+- Add a screen with a specific layout (e.g., Auth type 1):
+    ```bash
+    kvdeveloper add-screen TestScreen --layout auth1
+    ```
+
+- Add a layout to an existing screen (Auth type 1):
+    ```bash
+    kvdeveloper add-layout auth1 --name_screen TestScreen Test1Screen
     ```
 
 - Get info about the template used for the project:
@@ -128,15 +137,15 @@ You can contribute by:
 
 For more detailed instructions, please visit our [Contributing](https://github.com/Novfensec/KvDeveloper/blob/main/CONTRIBUTING.md) page.
 
-## License
-
-KvDeveloper is released under the [MIT License](https://github.com/Novfensec/KvDeveloper/blob/main/LICENSE). You're free to use, modify, and distribute this software as long as you adhere to the terms of the license.
-
 ## Acknowledgements
 
 [Kivy](https://github.com/kivy)
 
 [KivyMD](https://github.com/kivymd)
+
+## License
+
+KvDeveloper is released under the [MIT License](https://github.com/Novfensec/KvDeveloper/blob/main/LICENSE). You're free to use, modify, and distribute this software as long as you adhere to the terms of the license.
 
 ## Contact
 For any inquiries, please contact us at [novfensec@protonmail.com](mailto:novfensec@protonmail.com).
