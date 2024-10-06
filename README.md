@@ -9,11 +9,28 @@
                                          |_|              
 ```
 
+[![PyPI version](https://img.shields.io/pypi/v/kvdeveloper.svg?color=blueviolet&logo=pypi&logoColor=white)](https://pypi.org/project/kvdeveloper)
+[![Supported Python versions](https://img.shields.io/pypi/pyversions/kvdeveloper.svg?color=yellow&logo=python&logoColor=ffd43b)](#Installation)
+[![Downloads](https://pepy.tech/badge/kvdeveloper)](https://pepy.tech/project/kvdeveloper)
+[![Code style: Black](https://img.shields.io/badge/code%20style-black-000000.svg?color=purple)](https://github.com/psf/black)
+
+[![GitHub stars](https://img.shields.io/github/stars/Novfensec/KvDeveloper)](https://github.com/Novfensec/KvDeveloper/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/Novfensec/KvDeveloper)](https://github.com/Novfensec/KvDeveloper/network)
+[![GitHub repo size](https://img.shields.io/github/repo-size/Novfensec/KvDeveloper?color=red&logo=github&logoColor=white)](https://github.com/Novfensec/KvDeveloper)
+[![GitHub issues](https://img.shields.io/github/issues/Novfensec/KvDeveloper?color=blueviolet&logo=github&logoColor=white)](https://github.com/Novfensec/KvDeveloper/issues)
+
 <img src="https://raw.githubusercontent.com/Novfensec/KvDeveloper/main/kvdeveloper/assets/image_library/kvdeveloper/kvdeveloper_logo256.png" height="178" align="right" padding="11"/>
 
 <p>KvDeveloper is a PyPI module designed to streamline the development of Kivy and KivyMD applications. Inspired by Expo CLI for React Native, it offers starter templates and essential functionalities to kickstart your projects with ease. With features like predefined templates, MVC architecture support, and customizable options, KvDeveloper simplifies creating robust and organized Kivy projects. It supports Python 3.1+, Kivy 2.2.0+, and KivyMD 1.1.1+, making it a versatile tool for developers looking to enhance their Kivy development workflow.</p>
 
 ## Community and Support
+[![Discord](https://img.shields.io/discord/566880874789076992?style=for-the-badge&color=7289da&logo=discord&logoColor=7289da)](https://discord.com/invite/U9bfkD6A4c)
+[![Stack Overflow](https://img.shields.io/static/v1?label=stackoverflow&message=questions&style=for-the-badge&color=orange&logo=stackoverflow&logoColor=fe7a17)](https://stackoverflow.com/users/16486510/novfensec)
+[![Reddit](https://img.shields.io/static/v1?label=reddit&message=KvDeveloper&style=for-the-badge&color=orangered&logo=reddit&logoColor=orangered)](https://reddit.com/r/KvDeveloper)
+[![GitHub Discussions](https://img.shields.io/static/v1?label=GitHub%20Discussions&message=ask%20questions&style=for-the-badge&color=blueviolet&logo=github&logoColor=white)](https://github.com/Novfensec/KvDeveloper/discussions)
+
+[![YouTube Admin](https://img.shields.io/static/v1?label=Youtube%20Admin&message=Novfensec%20Inc&color=black&logo=youtube&logoColor=ff0000)](https://youtube.com/@NovfensecInc)
+[![YouTube KvDeveloper](https://img.shields.io/static/v1?label=Youtube&message=KvDeveloper&color=blue&logo=youtube&logoColor=ff0000)](https://youtube.com/@KvDeveloper)
 
 Join the KvDeveloper community to get support, share your projects, and collaborate with other developers. Here are some ways you can connect with us:
 
