@@ -1,0 +1,72 @@
+#: import on_switch_tabs View.{{parsed_name}}.extensions.on_switch_tabs
+#: import BaseNavigationItem View.{{parsed_name}}.extensions.BaseNavigationItem
+
+<{{parsed_name}}View>:
+    MDScreenManager:
+        id:sub_manager_screens
+
+        MDScreen:
+            name:"home"
+
+			MDBoxLayout:
+                orientation:"vertical"
+
+                MDLabel:
+                    text:"Home"
+                    style:"Body"
+                    role:"large"
+                    halign:"center"
+
+        MDScreen:
+            name:"login"
+
+			MDBoxLayout:
+                orientation:"vertical"
+
+                MDLabel:
+                    text:"Login"
+                    style:"Body"
+                    role:"large"
+                    halign:"center"
+
+        MDScreen:
+            name:"settings"
+
+			MDBoxLayout:
+                orientation:"vertical"
+
+                MDLabel:
+                    text:"Settings"
+                    style:"Body"
+                    role:"large"
+                    halign:"center"
+
+    MDNavigationBar:
+        on_switch_tabs:on_switch_tabs(*args,sub_manager_screens)
+
+        BaseNavigationItem:
+			text:"Home"
+			icon:"home"
+            active:True
+
+        BaseNavigationItem:
+			text:"Login"
+			icon:"login"
+
+        BaseNavigationItem:
+			text:"Settings"
+			icon:"cog"
+
+    MDStackLayout:
+        size_hint: 1, 1
+
+        MDBoxLayout:
+            adaptive_height:True
+            padding:"4dp","4dp","4dp","4dp"
+
+            MDIconButton:
+                icon: "menu"
+                style:"tonal"
+                color_map:"secodary"
+                theme_bg_color:"Custom"
+                md_bg_color:0.5,0.6,1,0.1
