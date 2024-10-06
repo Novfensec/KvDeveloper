@@ -125,7 +125,7 @@ def add_layout(
         help="List containig the name of the screens."
     ),
     layout: str = typer.Argument(None, help="The name of the layout for the screens."),
-):
+) -> None:
     """
     Apply layout to a screen with specified layout type.
 
