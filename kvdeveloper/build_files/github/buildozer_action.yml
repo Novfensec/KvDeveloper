@@ -25,12 +25,12 @@ jobs:
         shell: bash
 
       - name: Cache Buildozer global directory
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: .buildozer_global
           key: buildozer-global-${{ hashFiles('buildozer.spec') }}
 
-      - uses: actions/cache@v3
+      - uses: actions/cache@v4
         with:
           path: .buildozer
           key: ${{ runner.os }}-${{ steps.get-date.outputs.date }}-${{ hashFiles('buildozer.spec') }}

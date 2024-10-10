@@ -1,9 +1,11 @@
 #: import on_switch_tabs View.{{parsed_name}}.extensions.on_switch_tabs
 #: import BaseNavigationItem View.{{parsed_name}}.extensions.BaseNavigationItem
+#: import SWT kivymd.uix.transition.MDSwapTransition
 
 <{{parsed_name}}View>:
     MDScreenManager:
         id:sub_manager_screens
+        transition:SWT()
 
         MDScreen:
             name:"home"
@@ -70,3 +72,12 @@
                 color_map:"secodary"
                 theme_bg_color:"Custom"
                 md_bg_color:0.5,0.6,1,0.1
+
+<BaseNavigationItem>:
+
+    MDNavigationItemIcon:
+        icon: root.icon
+
+    MDNavigationItemLabel:
+        text: root.text
+		text_color_active: app.theme_cls.onPrimaryFixedColor

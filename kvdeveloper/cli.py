@@ -8,6 +8,7 @@ from kvdeveloper.config import (
     DEFAULT_STRUCTURE,
     STRUCTURES,
     TEMPLATES,
+    COMPONENTS_DIR,
 )
 from kvdeveloper.module import (
     console,
@@ -136,6 +137,48 @@ def add_layout(
     destination = os.path.join(os.getcwd(), "View")
 
     apply_layout(name_screen, layout, destination)
+
+
+@app.command()
+def add_component(
+    name_component: List[str] = typer.Argument(
+        help="List containing the names of the components."
+    ),
+) -> None:
+    list_component_path = []
+    for components in name_component:
+        component_path = os.path.join(COMPONENTS_DIR, components)
+        if not os.path.isdir(component_path):
+            typer.secho(f"Component {components} does not exists.")
+            continue
+        list_component_path.append(component_path)
+
+    destination = os.path.join(os.getcwd(), "Components")
+    if not os.path.isdir(destination):
+        os.makedirs("Components", exist_ok=True)
+
+    for component_path in list_component_path:
+        for root, _, files in os.walk(component_path):
+            relative_path = os.path.relpath(root, component_path)
+            target_dir = os.path.join(destination, relative_path)
+            os.makedirs(target_dir, exist_ok=True)
+
+            for file_name in files:
+                # Skip .pyc and .pyo files
+                if file_name.endswith((".pyc", ".pyo")):
+                    continue
+                template_file_path = os.path.join(root, file_name)
+                target_file_path = os.path.join(target_dir, file_name)
+
+                with open(template_file_path, "r", encoding="utf-8") as template_file:
+                    content = template_file.read()
+
+                with open(target_file_path, "w", encoding="utf-8") as target_file:
+                    target_file.write(content)
+
+                console.print(
+                    f"Created file: [bright_white]{target_file_path}[/bright_white]"
+                )
 
 
 @app.command()

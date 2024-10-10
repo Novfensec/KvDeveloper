@@ -1,0 +1,50 @@
+#: import BaseNavigationRailItem View.{{parsed_name}}.extensions.BaseNavigationRailItem
+
+<{{parsed_name}}View>:
+    MDStackLayout:
+        size_hint:1,1
+        
+        MDLabel:
+            text:"Home"
+            font_style:"Body"
+            role:"large"
+            halign:"center"
+
+    MDNavigationRail:
+        type: "labeled"
+        anchor:"top"
+        md_bg_color:app.theme_cls.surfaceContainerHighColor
+
+        MDNavigationRailMenuButton:
+            icon: "menu"
+
+        BaseNavigationRailItem:
+            icon: "home-variant-outline"
+            text: "Home"
+            active: True
+
+        BaseNavigationRailItem:
+            icon: "message-text-outline"
+            text: "Chats"
+
+        BaseNavigationRailItem:
+            icon: "phone-log-outline"
+            text: "Calls"
+
+        BaseNavigationRailItem:
+            icon: "bell-outline"
+            text: "Notifications"
+
+        BaseNavigationRailItem:
+            icon: "account-outline"
+            text: "Account"
+
+<BaseNavigationRailItem>:
+
+    MDNavigationRailItemIcon:
+        icon: root.icon
+        theme_font_size:"Custom"
+        font_size:"25sp"
+
+    MDNavigationRailItemLabel:
+        text: root.text

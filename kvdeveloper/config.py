@@ -26,3 +26,5 @@ IMAGE_LIBRARY = f"{def_dir}/assets/image_library"
 BUILD_DIR = f"{def_dir}/build_files"
 
 LAYOUTS_DIR = f"{def_dir}/layouts"
+
+COMPONENTS_DIR = f"{def_dir}/components"
