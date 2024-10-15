@@ -1,0 +1,1 @@
+import kvdeveloper.components.factory_registers
