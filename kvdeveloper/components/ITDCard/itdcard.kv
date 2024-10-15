@@ -1,0 +1,48 @@
+<ITDCard>:
+    orientation: 'vertical'
+    adaptive_height:True
+    padding:[5,10,5,10]
+    spacing:12
+    theme_bg_color:"Custom"
+    md_bg_color: app.theme_cls.surfaceContainerLowestColor
+
+    MDAnchorLayout:
+        size_hint:1, None
+        height: root.image_height
+        FitImage:
+            id: image
+            size_hint:1,1
+            radius:self.parent.radius
+            source: root.source
+
+    MDDivider:
+
+    MDBoxLayout:
+        orientation: 'vertical'
+        adaptive_height:True
+        padding:[10,0,10,0]
+        spacing:5
+
+        MDLabel:
+            text: root.title
+            font_style:"Title"
+            role:"large"
+            bold:True
+            valign:"center"
+            adaptive_height:True
+
+        MDLabel:
+            text: root.desc
+            font_style:"Body"
+            role:"large"
+            color:app.theme_cls.onSurfaceVariantColor
+            valign:"center"
+            adaptive_height:True
+
+    MDLabel:
+        font_style:"Body"
+        role:"large"
+        text:f"continue reading..."
+        color:"blue"
+        adaptive_height:True
+        halign:"right"
