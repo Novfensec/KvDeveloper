@@ -161,7 +161,7 @@ def add_component(
 
     for component_path in list_component_path:
         for root, _, files in os.walk(component_path):
-            relative_path = os.path.relpath(root, component_path)
+            relative_path = os.path.relpath(root, COMPONENTS_DIR)
             target_dir = os.path.join(destination, relative_path)
             os.makedirs(target_dir, exist_ok=True)
 
