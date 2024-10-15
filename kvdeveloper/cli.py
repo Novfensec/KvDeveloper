@@ -1,5 +1,6 @@
 import typer
 import os
+import re
 from typing import Optional, List
 from kvdeveloper import __app_name__, __version__
 from kvdeveloper.config import (
@@ -9,6 +10,7 @@ from kvdeveloper.config import (
     STRUCTURES,
     TEMPLATES,
     COMPONENTS_DIR,
+    VIEW_BASE,
 )
 from kvdeveloper.module import (
     console,
@@ -182,6 +184,66 @@ def add_component(
 
 
 @app.command()
+def register() -> None:
+    """
+    Add registers.py to recursively register all additional fonts and components to the kivy bases.
+    """
+    main_file_path = os.path.join(os.getcwd(), "main.py")
+    if not os.path.isfile(main_file_path):
+        typer.secho("File 'main.py' does not exists.", err=True)
+        raise typer.Exit(code=0)
+
+    registers_file_path = os.path.join(os.getcwd(), "registers.py")
+    if not os.path.isfile(registers_file_path):
+        # Read the content of the `kvdeveloper/view_base/registers.py` file
+        template_file_path = os.path.join(VIEW_BASE, "registers.py")
+        with open(template_file_path, "r", encoding="utf-8") as template_file:
+            content = template_file.read()
+
+        with open(registers_file_path, "w", encoding="utf-8") as registers_file:
+            registers_file.write(content)
+
+        console.print(
+            f"Created file: [bright_white]{registers_file_path}[/bright_white]"
+        )
+
+    # Read the content of the `main.py` file
+    with open(main_file_path, "r", encoding="utf-8") as main_file:
+        content = main_file.read()
+
+    # Regular expression to match import statements
+    import_pattern = r"^(import\s+\S+|from\s+\S+\s+import\s+\S+)"
+
+    # Search for import statements
+    imports = re.findall(import_pattern, content, re.MULTILINE)
+
+    # Check if 'import registers' is already present
+    if "import registers" not in imports:
+        # Find the last import statement
+        last_import_match = re.search(
+            f"({import_pattern})(\n|$)", content, re.MULTILINE
+        )
+
+        if last_import_match:
+            # Insert 'import registers' after the last import statement
+            insertion_point = last_import_match.end()
+            updated_content = (
+                content[:insertion_point]
+                + "\nimport registers\n"
+                + content[insertion_point:]
+            )
+        else:
+            # If no import statement is found, add it at the beginning
+            updated_content = "import registers\n" + content
+    else:
+        updated_content = content  # No change needed
+
+    # Write the updated content back to the file
+    with open(main_file_path, "w", encoding="utf-8") as file:
+        file.write(updated_content)
+
+
+@app.command()
 def config_build_setup(
     platform: str = typer.Argument(help="Platform specific to setup build files."),
     external: str = typer.Option(help="External Build Environment."),
@@ -204,10 +266,9 @@ def config_build_setup(
     available_platforms = [
         "android",
     ]
-    for platforms in available_platforms:
-        if platform != platforms:
-            typer.secho("Unavailable platform.", err=True)
-            raise typer.Exit(code=0)
+    if not platform in available_platforms:
+        typer.secho("Unavailable platform.", err=True)
+        raise typer.Exit(code=0)
 
     generate_build_files(platform, external)
     spec_file_path = os.path.join(os.getcwd(), "buildozer.spec")
