@@ -163,7 +163,8 @@ def add_component(
         for root, _, files in os.walk(component_path):
             relative_path = os.path.relpath(root, COMPONENTS_DIR)
             target_dir = os.path.join(destination, relative_path)
-            os.makedirs(target_dir, exist_ok=True)
+            if not "__pycache__" in target_dir:
+                os.makedirs(target_dir, exist_ok=True)
 
             for file_name in files:
                 # Skip .pyc and .pyo files
