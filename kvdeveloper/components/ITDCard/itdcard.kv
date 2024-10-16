@@ -2,24 +2,22 @@
     orientation: 'vertical'
     adaptive_height:True
     padding:[5,10,5,10]
-    spacing:12
+    spacing:7
     theme_bg_color:"Custom"
     md_bg_color: app.theme_cls.surfaceContainerLowestColor
 
-    MDAnchorLayout:
-        size_hint:1, None
+    FitImage:
+        id: image
+        size_hint:1,None
+        radius:self.parent.radius
         height: root.image_height
-        FitImage:
-            id: image
-            size_hint:1,1
-            radius:self.parent.radius
-            source: root.source
+        source: root.source
 
     MDDivider:
 
     MDBoxLayout:
         orientation: 'vertical'
-        adaptive_height:True
+        size_hint: 1, None
         padding:[10,0,10,0]
         spacing:5
 
