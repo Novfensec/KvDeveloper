@@ -10,19 +10,18 @@ set DEBUG=1 && python main.py
 
 import importlib
 import os
-from pathlib import Path
 
 from kivy import Config
-from PIL import ImageGrab
-
-# TODO: You may know an easier way to get the size of a computer display.
-resolution = ImageGrab.grab().size
 
 # Change the values of the application window size as you need.
 Config.set("graphics", "height", "715")
 Config.set("graphics", "width", "317")
 
+# TODO: You may know an easier way to get the size of a computer display.
+from PIL import ImageGrab
 from kivy.core.window import Window
+
+resolution = ImageGrab.grab().size
 
 # Place the application window on the right side of the computer screen.
 Window.top = 28

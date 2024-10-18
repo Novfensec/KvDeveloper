@@ -1,12 +1,8 @@
 import os
 import importlib
-from kivymd.tools.hotreload.app import MDApp
-from kivymd.uix.screenmanager import MDScreenManager
 from kivy.core.window import Window
 from kivy import Config
 from PIL import ImageGrab
-import webbrowser
-from kvdeveloper.config import IMAGE_LIBRARY
 
 resolution = ImageGrab.grab().size
 
@@ -20,6 +16,11 @@ Window.left = resolution[0] - Window.width + 5
 
 Window.keyboard_anim_args = {"d": .2, "t": "in_out_expo"}
 Window.softinput_mode = "below_target"
+
+from kivymd.tools.hotreload.app import MDApp
+from kivymd.uix.screenmanager import MDScreenManager
+import webbrowser
+from kvdeveloper.config import IMAGE_LIBRARY
 
 class UI(MDScreenManager):
     def __init__(self, *args,**kwargs):

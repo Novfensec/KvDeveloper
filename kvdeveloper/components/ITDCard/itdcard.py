@@ -1,5 +1,4 @@
 from kivy.properties import StringProperty, NumericProperty, ListProperty
-from typing import List
 from kivy.uix.widget import Widget
 from kivymd.uix.card import MDCard
 

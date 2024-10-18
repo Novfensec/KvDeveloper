@@ -1,12 +1,8 @@
 import os
 import importlib
-from kivymd.tools.hotreload.app import MDApp
-from kivymd.uix.screenmanager import MDScreenManager
 from kivy.core.window import Window
 from kivy import Config
 from PIL import ImageGrab
-import webbrowser
-from kvdeveloper.config import IMAGE_LIBRARY
 
 resolution = ImageGrab.grab().size
 
@@ -21,16 +17,21 @@ Window.left = resolution[0] - Window.width + 5
 Window.keyboard_anim_args = {"d": .2, "t": "in_out_expo"}
 Window.softinput_mode = "below_target"
 
+from kivymd.tools.hotreload.app import MDApp
+from kivymd.uix.screenmanager import MDScreenManager
+import webbrowser
+from kvdeveloper.config import IMAGE_LIBRARY
+
 class UI(MDScreenManager):
-    def __init__(self, *args,**kwargs):
-        super(UI, self).__init__(*args,**kwargs)
+    def __init__(self, *args, **kwargs):
+        super(UI, self).__init__(*args, **kwargs)
 
 class {{project_name}}(MDApp):
-    def __init__(self, *args,**kwargs):
-        super({{project_name}}, self).__init__(*args,**kwargs)
+    def __init__(self, *args, **kwargs):
+        super({{project_name}}, self).__init__(*args, **kwargs)
         self.DEBUG = True
         self.KV_DIRS = [
-            os.path.join(os.getcwd(),"View"),
+            os.path.join(os.getcwd(), "View"),
         ]
         self.theme_cls.primary_palette = "Midnightblue"
         self.image_library_path = IMAGE_LIBRARY
@@ -75,12 +76,12 @@ For Production uncomment the below code and comment out the above code
 # Window.softinput_mode = "below_target"
 
 # class UI(MDScreenManager):
-#     def __init__(self, *args,**kwargs):
-#         super(UI, self).__init__(*args,**kwargs)
+#     def __init__(self, *args, **kwargs):
+#         super(UI, self).__init__(*args, **kwargs)
 
 # class {{project_name}}(MDApp):
-#     def __init__(self, *args,**kwargs):
-#         super({{project_name}}, self).__init__(*args,**kwargs)
+#     def __init__(self, *args, **kwargs):
+#         super({{project_name}}, self).__init__(*args, **kwargs)
 #         self.load_all_kv_files(self.directory)
 #         self.theme_cls.primary_palette = "Midnightblue"
 #         self.image_library_path = IMAGE_LIBRARY

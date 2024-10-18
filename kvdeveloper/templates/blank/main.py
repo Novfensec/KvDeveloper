@@ -1,7 +1,5 @@
 import os
 import importlib
-from kivymd.tools.hotreload.app import MDApp
-from kivymd.uix.screenmanager import MDScreenManager
 from kivy.core.window import Window
 from kivy import Config
 from PIL import ImageGrab
@@ -15,6 +13,9 @@ Config.set("graphics", "width", "317")
 # Place the application window on the right side of the computer screen.
 Window.top = 30
 Window.left = resolution[0] - Window.width + 5
+
+from kivymd.tools.hotreload.app import MDApp
+from kivymd.uix.screenmanager import MDScreenManager
 
 class UI(MDScreenManager):
     def __init__(self, *args,**kwargs):

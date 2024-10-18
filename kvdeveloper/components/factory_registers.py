@@ -13,3 +13,4 @@ Once registered, the components can be used without explicitly importing them el
 # Register the component with Kivy's Factory
 register("Container", module="kvdeveloper.components.Container")
 register("ITDCard", module="kvdeveloper.components.ITDCard")
+register("ResponsiveGrid", module="kvdeveloper.components.ResponsiveGrid")

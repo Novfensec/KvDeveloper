@@ -7,7 +7,7 @@ class Container(MDBoxLayout, StateLayerBehavior):
     type = OptionProperty(
         "fluid",
         options=("fluid", "small", "medium", "large"),
-        )
+    )
     """
     The type of the conatiner.  
     """
