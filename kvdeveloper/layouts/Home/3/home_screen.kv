@@ -1,0 +1,198 @@
+<{{parsed_name}}View>:
+    MDNavigationLayout:
+        MDScreenManager:
+            MDScreen:
+                MDStackLayout:
+                    size_hint: 1, 1
+
+                    MDBoxLayout:
+                        adaptive_height:True
+                        spacing:"2dp"
+
+                        MDIconButton:
+                            icon: "menu"
+                            style:"standard"
+                            theme_icon_color:"Custom"
+                            icon_color:"midnightblue"
+
+                        MDLabel:
+                            text: "KvDeveloper"
+                            font_style:"Title"
+                            adaptive_height:True
+                            theme_text_color:"Custom"
+                            text_color: "midnightblue"
+
+                        MDBoxLayout:
+                            adaptive_width:True
+                            MDAnchorLayout:
+                                anchor_x: 'right'
+                                MDGridLayout:
+                                    rows:1
+                                    adaptive_size:True
+
+                                    MDIconButton:
+                                        icon: "login"
+                                        theme_icon_color:"Custom"
+                                        icon_color:"midnightblue"
+
+					MDBoxLayout:
+						orientation:"vertical"
+						ScrollView:
+							always_overscroll:False
+							{{parsed_name}}Context:
+								orientation:'vertical'
+								padding:"7dp","7dp","7dp","7dp"
+								adaptive_height:True
+
+								Widget:
+									size_hint:1,None
+
+        MDNavigationDrawer:
+            id:nav_drawer
+            radius:[0,15,15,0]
+            orientation:"vertical"
+            md_bg_color:app.theme_cls.primaryContainerColor
+            
+            ContentNavigationDrawer:
+
+            MDBoxLayout:
+                adaptive_height:True
+                MDAnchorLayout:
+                    anchor_y: 'bottom'
+                    anchor_x:"left"
+
+                    MDButton:
+                        style:"filled"
+                        theme_bg_color:"Custom"
+                        md_bg_color:app.theme_cls.inversePrimaryColor
+                        
+                        MDButtonIcon:
+                            icon:"copyright"
+                            color:app.theme_cls.onPrimaryFixedColor
+                        
+                        MDButtonText:
+                            text:"Novfensec Inc."
+                            color:app.theme_cls.onPrimaryFixedColor
+
+<{{parsed_name}}Context@MDBoxLayout>:
+	MDBoxLayout:
+		orientation:"vertical"
+		adaptive_height:True
+		padding:"7dp","7dp","7dp","7dp"
+		spacing:"7dp"
+		radius:[25]
+        md_bg_color:0,0,0,0.025
+		MDBoxLayout:
+			adaptive_height:True
+			padding:"7dp","7dp","7dp","7dp"
+			MDBoxLayout:
+				adaptive_height:True
+				orientation:"vertical"
+				MDLabel:
+					text:"KvDeveloper"
+					font_style:"Headline"
+					role:"medium"
+					theme_text_color:"Custom"
+					text_color:"midnightblue"
+
+			MDBoxLayout:
+				orientation: 'vertical'
+				adaptive_size:True
+				MDAnchorLayout:
+					anchor_x: 'right'
+					anchor_y: 'top'
+					size_hint_y:None
+					height:avatar.height
+
+					FitImage:
+						id:avatar
+						source:f"{app.image_library_path}/kvdeveloper/kvdeveloper_logo128.png"
+						size_hint: None,None
+						size:"95sp","95sp"
+		MDDivider:
+		MDBoxLayout:
+			orientation: 'vertical'
+			adaptive_height:True
+			spacing:"11dp"
+			padding:"7dp","7dp","7dp","7dp"
+
+			MDLabel:
+				multiline:True
+                theme_font_size:"Custom"
+                font_size:"16sp"
+				adaptive_height:True
+				text:
+                    "KvDeveloper is a PyPI module designed to streamline the development of Kivy and KivyMD applications. Inspired by Expo CLI for React Native, it offers starter templates and essential functionalities to kickstart your projects with ease. With features like predefined templates, MVC architecture support, and customizable options, KvDeveloper simplifies creating robust and organized Kivy projects."
+
+			MDDivider:
+			MDGridLayout:
+				cols:2
+				adaptive_height:True
+				padding:"7dp","7dp","7dp","7dp"
+				spacing:"15dp"
+
+				MDAnchorLayout:
+					md_bg_color:0,.4,1,.05
+					radius:[15]
+					size_hint_y:None
+
+					MDIconButton:
+						icon:"youtube"
+						theme_icon_color:"Custom"
+						icon_color:"red"
+						theme_font_size:"Custom"
+						size_hint:1,1
+						font_size:"75sp"
+						on_press:
+							app.web_open("https://youtube.com/@NovfensecInc")
+
+				MDAnchorLayout:
+					md_bg_color:0,.4,1,.05
+					radius:[15]
+					size_hint_y:None
+
+					MDIconButton:
+						icon:"github"
+						theme_icon_color:"Custom"
+						icon_color:"black"
+						theme_font_size:"Custom"
+						size_hint:1,1
+						font_size:"75sp"
+						on_press:
+							app.web_open("https://github.com/Novfensec/KvDeveloper")
+
+				MDAnchorLayout:
+					md_bg_color:0,.4,1,.05
+					radius:[15]
+					size_hint_y:None
+
+					MDIconButton:
+                        icon:"blank"
+                        theme_font_size:"Custom"
+						size_hint:1,1
+						font_size:"75sp"
+						on_press:
+							app.web_open("https://discord.com/invite/U9bfkD6A4c")
+
+                    FitImage:
+                        source:f"{app.image_library_path}/basic/discord128.png"
+                        size_hint:None,None
+                        size:"85dp","85dp"
+
+				MDAnchorLayout:
+					md_bg_color:0,.4,1,.05
+					radius:[15]
+					size_hint_y:None
+
+					MDIconButton:
+                        icon:"blank"
+                        theme_font_size:"Custom"
+						size_hint:1,1
+						font_size:"75sp"
+						on_press:
+							app.web_open("https://stackoverflow.com/users/16486510/novfensec")
+                            
+                    FitImage:
+                        source:f"{app.image_library_path}/basic/stack_overflow128.png"
+                        size_hint:None,None
+                        size:"75dp","75dp"
