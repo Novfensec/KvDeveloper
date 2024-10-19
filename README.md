@@ -41,6 +41,8 @@ Join the KvDeveloper community to get support, share your projects, and collabor
 - **Youtube - Admin**: Follow [@NovfensecInc](https://youtube.com/@NovfensecInc) to learn by building futuristic projects.
 - **YouTube - KvDeveloper**: Follow us on YouTube [@KvDeveloper](https://youtube.com/@KvDeveloper) for updates and announcements.
 
+[Documentation](https://novfensec.github.io/KvDeveloper.docs): Read the documentation.
+
 If you encounter any issues or have questions, feel free to reach out to the community or submit an issue on GitHub.
 
 ## Features
@@ -99,9 +101,14 @@ If you encounter any issues or have questions, feel free to reach out to the com
     kvdeveloper add-screen TestScreen --layout auth1
     ```
 
-- Add a layout to an existing screen (Auth type 1):
+- Add a layout to an existing screen (e.g., Home type 1):
     ```bash
-    kvdeveloper add-layout auth1 --name_screen TestScreen Test1Screen
+    kvdeveloper add-layout home1 --name_screen TestScreen Test1Screen
+    ```
+
+- Add bootstrap like customizable components to the project directly:
+    ```git
+    kvdeveloper add-component Container ResponsiveGrid ITDCard
     ```
 
 - Get info about the template used for the project:
@@ -141,6 +148,15 @@ If you encounter any issues or have questions, feel free to reach out to the com
     </p>
 
 - **MVC Architecture**: A template add-on following the MVC architecture.
+
+## Components
+Create customizable bootstrap like components directly in your project.
+
+- **Container**: A responsive container with pre-defined padding calculations.
+
+- **ResponsiveGrid**: A responsive grid with pre-defined column calculations.
+
+- **ITDCard (Image Title Description Card)**: A responsive boostrap like card with image aspect-ratio calculations.
 
 ## Contributing
 
