@@ -294,6 +294,16 @@ def show_readme(
 
     :param directory: The directory containig the README.md file.
     """
+    import pkg_resources
+
+    if not (
+        pkg_resources.get_distribution("pyqt5")
+        and pkg_resources.get_distribution("pyqtwebengine")
+    ):
+        typer.secho(
+            f"Requires the following optional dependencies:\n - PyQt5\n - PyQtWebEngine"
+        )
+        raise typer.Exit(code=0)
     readme_path = os.path.join(directory, "README.md")
     if not os.path.isfile(readme_path):
         typer.echo(f"File '{readme_path}' not found.")
