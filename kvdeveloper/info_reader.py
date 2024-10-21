@@ -63,19 +63,19 @@ class MarkdownDisplayer(QMainWindow):
 
         # Load CSS and JavaScript for styling and syntax highlighting
         with open(
-            os.path.join(def_dir, "assets/css/github-markdown.css"),
+            os.path.join(def_dir, "assets", "css", "github-markdown.css"),
             "r",
             encoding="utf-8",
         ) as css_file:
             css_content = css_file.read()
 
         with open(
-            os.path.join(def_dir, "assets/js/prism.js"), "r", encoding="utf-8"
+            os.path.join(def_dir, "assets", "js", "prism.js"), "r", encoding="utf-8"
         ) as js_file:
             js_content = js_file.read()
 
         with open(
-            os.path.join(def_dir, "assets/css/prism.css"), "r", encoding="utf-8"
+            os.path.join(def_dir, "assets", "css", "prism.css"), "r", encoding="utf-8"
         ) as highlight_file:
             highlight_content = highlight_file.read()
 

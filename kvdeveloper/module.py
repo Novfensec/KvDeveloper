@@ -128,11 +128,11 @@ def create_from_structure(
         raise typer.Exit(code=1)
 
     parsed_screens_list = []
-    dir_list = os.listdir(f"{template_path}/View")
+    dir_list = os.listdir(os.path.join(template_path, "View"))
     for name_view in dir_list:
         if name_view == "__pycache__":
             continue
-        if os.path.isdir(f"{template_path}/View/{name_view}"):
+        if os.path.isdir(os.path.join(template_path, "View", name_view)):
             # Parse screen name to PascalCase
             parsed_name = name_parser(name_view, "screen")
             parsed_screens_list.append(parsed_name)
@@ -156,12 +156,12 @@ def create_from_structure(
     ipdating base screen components.
     """
     with open(
-        f"{template_path}/View/base_screen.kv", "r", encoding="utf-8"
+        os.path.join(template_path, "View", "base_screen.kv"), "r", encoding="utf-8"
     ) as template_file:
         content = template_file.read()
 
     with open(
-        f"{destination}/View/base_screen.kv", "w", encoding="utf-8"
+        os.path.join(destination, "View", "base_screen.kv"), "w", encoding="utf-8"
     ) as target_file:
         target_file.write(content)
 
@@ -176,14 +176,14 @@ def create_from_structure(
         parsed_name = name_parser(name_view, "screen")
         snake_name_view = name_parser_snake(parsed_name)
         with open(
-            f"{template_path}/View/{parsed_name}/{snake_name_view}.kv",
+            os.path.join(template_path, "View", parsed_name, f"{snake_name_view}.kv"),
             "r",
             encoding="utf-8",
         ) as template_file:
             content = template_file.read()
 
         with open(
-            f"{destination}/View/{parsed_name}/{snake_name_view}.kv",
+            os.path.join(destination, "View", parsed_name, f"{snake_name_view}.kv"),
             "w",
             encoding="utf-8",
         ) as target_file:
@@ -196,12 +196,16 @@ def create_from_structure(
     """
     updating main.py.
     """
-    with open(f"{VIEW_BASE}/main.py", "r", encoding="utf-8") as template_file:
+    with open(
+        os.path.join(VIEW_BASE, "main.py"), "r", encoding="utf-8"
+    ) as template_file:
         content = template_file.read()
 
     content = replace_placeholders(content, variables)
 
-    with open(f"{destination}/main.py", "w", encoding="utf-8") as target_file:
+    with open(
+        os.path.join(destination, "main.py"), "w", encoding="utf-8"
+    ) as target_file:
         target_file.write(content)
 
         console.print(
@@ -216,10 +220,14 @@ def create_from_structure(
     """
     updating README.md.
     """
-    with open(f"{template_path}/README.md", "r", encoding="utf-8") as template_file:
+    with open(
+        os.path.join(template_path, "README.md"), "r", encoding="utf-8"
+    ) as template_file:
         content = template_file.read()
 
-    with open(f"{destination}/README.md", "w", encoding="utf-8") as target_file:
+    with open(
+        os.path.join(destination, "README.md"), "w", encoding="utf-8"
+    ) as target_file:
         target_file.write(content)
 
         console.print(
@@ -241,12 +249,12 @@ def create_from_structure(
     try:
         subprocess.run(
             [
-                f"{variables['project_name']}\\venv\\{envbin}\\python",
+                os.path.join(variables["project_name", "venv", envbin, "python"]),
                 "-m",
                 "pip",
                 "install",
                 "-r",
-                f"{destination}/requirements.txt",
+                os.path.join(destination, "requirements.txt"),
             ],
         )
     except Exception as e:
@@ -261,13 +269,15 @@ def setup_build(project_name: str, destination: str, variables: Dict[str, str]) 
     :param destination: The destination path where file should be created.
     :param variables: A dictionary of variables to replace in the structure files.
     """
-    with open(f"{VIEW_BASE}/buildozer.spec", "r", encoding="utf-8") as build_file:
+    with open(
+        os.path.join(VIEW_BASE, "buildozer.spec"), "r", encoding="utf-8"
+    ) as build_file:
         content = build_file.read()
 
     content = replace_placeholders(content, variables)
 
     with open(
-        f"{destination}/buildozer.spec", "w", encoding="utf-8"
+        os.path.join(destination, "buildozer.spec"), "w", encoding="utf-8"
     ) as target_build_file:
         target_build_file.write(content)
 
@@ -331,13 +341,15 @@ def update_requirements(template_path: str, destination: str) -> None:
         "kvdeveloper_version": kvdeveloper_version,
     }
     with open(
-        f"{template_path}/requirements.txt", "r", encoding="utf-8"
+        os.path.join(template_path, "requirements.txt"), "r", encoding="utf-8"
     ) as template_file:
         content = template_file.read()
 
     content = replace_placeholders(content, install_variables)
 
-    with open(f"{destination}/requirements.txt", "w", encoding="utf-8") as target_file:
+    with open(
+        os.path.join(destination, "requirements.txt"), "w", encoding="utf-8"
+    ) as target_file:
         target_file.write(content)
 
         console.print(
@@ -372,7 +384,7 @@ def add_from_default(
             try:
                 # Construct the template path
                 template_path = os.path.join(
-                    TEMPLATES_DIR, f"{use_template}/View/{parsed_name}"
+                    TEMPLATES_DIR, use_template, "View", parsed_name
                 )
 
                 if not os.path.isdir(template_path):
@@ -385,12 +397,16 @@ def add_from_default(
 
                     # Create the .py file using the default template
                     with open(
-                        f"{VIEW_BASE}/default_screen.py", "r", encoding="utf-8"
+                        os.path.join(VIEW_BASE, "default_screen.py"),
+                        "r",
+                        encoding="utf-8",
                     ) as view_file:
                         content = view_file.read()
                     content = replace_placeholders(content, variables)
                     with open(
-                        f"{view_path}/{snake_name_view}.py", "w", encoding="utf-8"
+                        os.path.join(view_path, f"{snake_name_view}.py"),
+                        "w",
+                        encoding="utf-8",
                     ) as target_file:
                         target_file.write(content)
                         console.print(
@@ -399,14 +415,18 @@ def add_from_default(
 
                     # Create the .kv file using the default template
                     with open(
-                        f"{VIEW_BASE}/default_screen.kv", "r", encoding="utf-8"
+                        os.path.join(VIEW_BASE, "default_screen.kv"),
+                        "r",
+                        encoding="utf-8",
                     ) as view_file:
                         content = view_file.read()
 
                     content = replace_placeholders(content, variables)
 
                     with open(
-                        f"{view_path}/{snake_name_view}.kv", "w", encoding="utf-8"
+                        os.path.join(view_path, f"{snake_name_view}.kv"),
+                        "w",
+                        encoding="utf-8",
                     ) as target_file:
                         target_file.write(content)
 
@@ -417,7 +437,7 @@ def add_from_default(
 
                     # Create an empty __init__.py File
                     with open(
-                        f"{view_path}/__init__.py", "w", encoding="utf-8"
+                        os.path.join(view_path, "__init__.py"), "w", encoding="utf-8"
                     ) as init_file:
                         init_file.write("# Empty __init__.py file")
 
@@ -558,9 +578,7 @@ def add_from_structure(
 
     for parsed_name in parsed_screens_list:
         # Construct the template path
-        template_path = os.path.join(
-            TEMPLATES_DIR, f"{use_template}/View/{parsed_name}"
-        )
+        template_path = os.path.join(TEMPLATES_DIR, use_template, "View", parsed_name)
 
         # Construct the view path
         view_path = os.path.join(destination, parsed_name)
@@ -580,21 +598,23 @@ def add_from_structure(
         elif os.path.isdir(template_path):
             # Template exists; process files from the template
             with open(
-                f"{template_path}/{snake_name_view}.kv", "r", encoding="utf-8"
+                os.path.join(template_path, f"{snake_name_view}.kv"),
+                "r",
+                encoding="utf-8",
             ) as template_file:
                 content = template_file.read()
 
             content = replace_placeholders(content, variables)
 
             with open(
-                f"{view_path}/{snake_name_view}.kv", "w", encoding="utf-8"
+                os.path.join(view_path, f"{snake_name_view}.kv"), "w", encoding="utf-8"
             ) as target_file:
                 target_file.write(content)
 
                 console.print(
                     f"\nUpdated file: [bright_white]{view_path}/{snake_name_view}.kv[/bright_white]"
                 )
-            add_extensions(f"{use_template}/View", destination)
+            add_extensions(os.path.join(use_template, "View"), destination)
 
 
 def add_from_layout(name_screen: List[str], layout: str, destination: str):
@@ -630,12 +650,14 @@ def add_from_layout(name_screen: List[str], layout: str, destination: str):
 
                 # Create the .py file using the default template
                 with open(
-                    f"{VIEW_BASE}/default_screen.py", "r", encoding="utf-8"
+                    os.path.join(VIEW_BASE, "default_screen.py"), "r", encoding="utf-8"
                 ) as view_file:
                     content = view_file.read()
                 content = replace_placeholders(content, variables)
                 with open(
-                    f"{view_path}/{snake_name_view}.py", "w", encoding="utf-8"
+                    os.path.join(view_path, f"{snake_name_view}.py"),
+                    "w",
+                    encoding="utf-8",
                 ) as target_file:
                     target_file.write(content)
                     console.print(
@@ -644,7 +666,7 @@ def add_from_layout(name_screen: List[str], layout: str, destination: str):
 
                 # Create an empty __init__.py File
                 with open(
-                    f"{view_path}/__init__.py", "w", encoding="utf-8"
+                    os.path.join(view_path, "__init__.py"), "w", encoding="utf-8"
                 ) as init_file:
                     init_file.write("# Empty __init__.py file")
 
@@ -652,14 +674,18 @@ def add_from_layout(name_screen: List[str], layout: str, destination: str):
                     # Layout does not exist; create files with a blank template
                     # Create the .kv file using the default template
                     with open(
-                        f"{VIEW_BASE}/default_screen.kv", "r", encoding="utf-8"
+                        os.path.join(VIEW_BASE, "default_screen.kv"),
+                        "r",
+                        encoding="utf-8",
                     ) as view_file:
                         content = view_file.read()
 
                     content = replace_placeholders(content, variables)
 
                     with open(
-                        f"{view_path}/{snake_name_view}.kv", "w", encoding="utf-8"
+                        os.path.join(view_path, f"{snake_name_view}.kv"),
+                        "w",
+                        encoding="utf-8",
                     ) as target_file:
                         target_file.write(content)
 
@@ -673,14 +699,18 @@ def add_from_layout(name_screen: List[str], layout: str, destination: str):
                     name_layout = name_parser(layout, "screen")
                     snake_name_layout = name_parser_snake(name_layout)
                     with open(
-                        f"{layout_path}/{snake_name_layout}.kv", "r", encoding="utf-8"
+                        os.path.join(layout_path, f"{snake_name_layout}.kv"),
+                        "r",
+                        encoding="utf-8",
                     ) as view_file:
                         content = view_file.read()
 
                     content = replace_placeholders(content, variables)
 
                     with open(
-                        f"{view_path}/{snake_name_view}.kv", "w", encoding="utf-8"
+                        os.path.join(view_path, f"{snake_name_view}.kv"),
+                        "w",
+                        encoding="utf-8",
                     ) as target_file:
                         target_file.write(content)
 
@@ -739,14 +769,18 @@ def apply_layout(name_screen: List[str], layout: str, destination: str):
             variables = {"parsed_name": parsed_name}
             try:
                 with open(
-                    f"{layout_path}/{snake_name_layout}.kv", "r", encoding="utf-8"
+                    os.path.join(layout_path, f"{snake_name_layout}.kv"),
+                    "r",
+                    encoding="utf-8",
                 ) as view_file:
                     content = view_file.read()
 
                 content = replace_placeholders(content, variables)
 
                 with open(
-                    f"{view_path}/{snake_name_view}.kv", "w", encoding="utf-8"
+                    os.path.join(view_path, f"{snake_name_view}.kv"),
+                    "w",
+                    encoding="utf-8",
                 ) as target_file:
                     target_file.write(content)
 
