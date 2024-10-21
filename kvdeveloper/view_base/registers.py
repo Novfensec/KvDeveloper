@@ -41,7 +41,7 @@ for component_path in component_dirs:
 
             # Register the component with Kivy's Factory
             component_register(module_name, module=module_import_path)
-            
+
 
 """
 Registers custom fonts to the Kivy LabelBase.
@@ -80,6 +80,7 @@ font_register = LabelBase.register
 # Get the absolute path to the "assets/fonts" directory
 font_dir = os.path.join(os.getcwd(), "assets", "fonts")
 
+
 def get_font_path(directory: str, font_name: str, style: str) -> Optional[str]:
     """
     Helper function to construct and check the path for a specific font style.
@@ -95,18 +96,19 @@ def get_font_path(directory: str, font_name: str, style: str) -> Optional[str]:
     font_path = os.path.join(directory, f"{font_name.lower()}-{style}.ttf")
     return font_path if os.path.isfile(font_path) else None
 
+
 # Iterate over the fonts in the directory
 for font_name in os.listdir(font_dir):
     target_dir = os.path.join(font_dir, font_name)
 
     # Check if it's a directory (excluding '__pycache__')
     if os.path.isdir(target_dir) and font_name != "__pycache__":
-        
+
         # Fetch paths for different font styles if available
         regular_font = get_font_path(target_dir, font_name, "regular")
         italic_font = get_font_path(target_dir, font_name, "italic")
         bold_font = get_font_path(target_dir, font_name, "bold")
         bolditalic_font = get_font_path(target_dir, font_name, "bolditalic")
-        
+
         # Register the font with the LabelBase
         font_register(font_name, regular_font, italic_font, bold_font, bolditalic_font)
