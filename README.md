@@ -88,12 +88,12 @@ If you encounter any issues or have questions, feel free to reach out to the com
 ## Usage
 - Create a new KivyMD project with a blank template:
     ```bash
-    kvdeveloper create my_project --template blank
+    kvdeveloper create TestProject --template blank
     ```
 
 - Create a new KivyMD project with navigation and toolbar with MVC architecture.:
     ```bash
-    kvdeveloper create my_project --template nav_toolbar --structure MVC
+    kvdeveloper create TestProject --template nav_toolbar --structure MVC
     ```
 
 - Add a screen with a specific layout (e.g., Auth type 1):
@@ -107,13 +107,18 @@ If you encounter any issues or have questions, feel free to reach out to the com
     ```
 
 - Add bootstrap like customizable components to the project directly:
-    ```git
+    ```bash
     kvdeveloper add-component Container ResponsiveGrid ITDCard
+    ```
+
+- Register all custom fonts and components to Kivy bases:
+    ```bash
+    kvdeveloper register
     ```
 
 - Get info about the template used for the project:
     ```bash
-    kvdeveloper show-readme my_project
+    kvdeveloper show-readme TestProject
     ```
 
 - Generate github buildozer workflows for android conversion:
