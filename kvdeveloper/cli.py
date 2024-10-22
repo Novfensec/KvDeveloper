@@ -23,7 +23,6 @@ from kvdeveloper.module import (
     setup_build,
     project_info,
 )
-from kvdeveloper.info_reader import info_reader
 from kvdeveloper.build_config import generate_build_files
 from rich.panel import Panel
 from rich.text import Text
@@ -308,7 +307,7 @@ def show_readme(
     if not os.path.isfile(readme_path):
         typer.echo(f"File '{readme_path}' not found.")
         raise typer.Exit(code=1)
-
+    from kvdeveloper.info_reader import info_reader
     info_reader(directory)
 
 
