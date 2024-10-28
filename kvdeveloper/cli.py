@@ -96,7 +96,7 @@ def add_screen(
         help="List containing the name of the screens."
     ),
     use_template: Optional[str] = typer.Option(
-        DEFAULT_TEMPLATE,
+        None,
         help="Name of the template if the specified views exists in it.",
     ),
     layout: str = typer.Option(None, help="Layout of the screens."),
@@ -131,7 +131,7 @@ def remove_screen(
     structure: str = typer.Option(DEFAULT_STRUCTURE, help="Structure of the project."),
 ) -> None:
     """
-    Remove screens of specified structure.
+    Remove screen-specific directories and files associated with specified structure.
 
     :param name_screen: List containing the name of the screens.
     :param structure: The name of the structure folder.
@@ -141,9 +141,7 @@ def remove_screen(
         raise typer.Exit("'View' directory not found.", code=1)
 
     remove_from_default(name_screen, destination)
-    if structure == "none":
-        pass
-    elif structure == "MVC":
+    if structure != "none":
         remove_from_structure(name_screen, destination, structure)
 
 

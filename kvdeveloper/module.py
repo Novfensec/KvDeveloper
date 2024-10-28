@@ -502,7 +502,7 @@ def update_screens_file(
     screen_entry = f"\n    '{snake_name_view.replace('_', ' ')}': {{\n        'object': {parsed_name}View(),\n    }},"
 
     # Read the contents of the screens.py file
-    with open(file_path, "r") as file:
+    with open(file_path, "r", encoding="utf-8") as file:
         content = file.read()
 
     # Check if the import statement already exists
@@ -511,9 +511,15 @@ def update_screens_file(
     else:
         # Insert the import statement at the top of the file (after the first import block)
         # Finds the first occurrence of `from View...` and inserts new import below it
-        content = re.sub(
-            r"(from View\..*\n)+", r"\g<0>" + import_statement, content, count=1
-        )
+        # Check if the import block exists
+        if re.search(r"(from View\..*\n)+", content):
+            # If found, insert the new import statement below the first occurrence
+            content = re.sub(
+                r"(from View\..*\n)+", r"\g<0>" + import_statement, content, count=1
+            )
+        else:
+            # If not found, insert the new import statement at the top of the file
+            content = import_statement + "\n" + content
 
     # Check if the screen entry already exists
     screen_key = snake_name_view.replace("_", " ")
@@ -530,9 +536,8 @@ def update_screens_file(
     # Write the updated content back to the screens.py file
     with open(file_path, "w", encoding="utf-8") as file:
         file.write(content)
-
     console.print(
-        f"[bright cyan]screens.py[/bright cyan] has been successfully updated with {parsed_name}View."
+        f"\nUpdated file: [green]{destination}/screens.py[/green] with [green]{parsed_name}View[/green]."
     )
 
 
@@ -575,11 +580,15 @@ def add_from_structure(
         )
         if prompt == "y":
             add_from_default(name_screen, use_template, destination)
-            if layout is not None:
+            if layout != None:
                 apply_layout(name_screen, layout, destination)
             raise typer.Exit(code=0)
         else:
             raise typer.Exit(code=1)
+
+    if layout != None:
+        apply_layout(name_screen, layout, destination)
+        raise typer.Exit(code=0)
 
     for parsed_name in parsed_screens_list:
         # Construct the template path
@@ -595,11 +604,11 @@ def add_from_structure(
 
         if not os.path.isdir(template_path):
             # Template does not exist;
-            if use_template is not "blank":
+            if use_template and (layout == None):
                 typer.echo(
                     f"View '{parsed_name}' not found in template '{use_template}'."
                 )
-            if layout is not None:
+            if layout != None:
                 apply_layout(name_screen, layout, destination)
         elif os.path.isdir(template_path):
             # Template exists; process files from the template
@@ -622,8 +631,6 @@ def add_from_structure(
                 )
             add_extensions(os.path.join(use_template, "View"), destination)
 
-    if layout is not None:
-        apply_layout(name_screen, layout, destination)
 
 def add_from_layout(name_screen: List[str], layout: str, destination: str):
     """
@@ -813,34 +820,114 @@ def apply_layout(name_screen: List[str], layout: str, destination: str):
 
 def remove_from_default(name_screen: List[str], destination: str) -> None:
     """
-    Remove common folders.
+    Remove screen-specific directories and their entries from screens.py.
 
-    :param name_screen: List containing the name of the screens.
-    :param destination: The destination path from where the files will be removed.
+    :param name_screen: List of screen names to remove.
+    :param destination: Path where screen files and directories are located.
     """
     parsed_screens_list = []
+
+    # Convert screen names to PascalCase, skipping __pycache__ directories
     for name_view in name_screen:
         if name_view == "__pycache__":
             continue
-        # Parse screen name to PascalCase
-        parsed_name = name_parser(name_view, "screen")
+        parsed_name = name_parser(name_view, "screen")  # Convert to PascalCase
         parsed_screens_list.append(parsed_name)
 
     for parsed_name in parsed_screens_list:
-        # Construct the view path
+        # Construct the view path and remove directory if it exists
         view_path = os.path.join(destination, parsed_name)
         if os.path.isdir(view_path):
             rmtree(view_path)
             console.print(f"Deleted: [red]{view_path}[/red]")
+
+        # Convert PascalCase to snake_case for import statements
+        snake_name_view = name_parser_snake(parsed_name)
+
+        # Define import statements to remove for the specified screen
+        import_view_statement = (
+            f"from View.{parsed_name}.{snake_name_view} import {parsed_name}View\n"
+        )
+        import_model_statement = (
+            f"from Model.{snake_name_view} import {parsed_name}Model\n"
+        )
+        import_controller_statement = (
+            f"from Controller.{snake_name_view} import {parsed_name}Controller\n"
+        )
+
+        # Regular expression pattern to match the dictionary entry, regardless of content inside
+        screen_entry_pattern = rf"    '{snake_name_view.replace('_', ' ')}': {{.*?}},\n"
+
+        try:
+            # Read content of screens.py
+            with open(
+                os.path.join(destination, "screens.py"), "r", encoding="utf-8"
+            ) as file:
+                content = file.read()
+
+            # Remove import statements and dictionary entry from screens.py
+            content = (
+                content.replace(import_view_statement, "")
+                .replace(import_model_statement, "")
+                .replace(import_controller_statement, "")
+            )
+            content = re.sub(screen_entry_pattern, "", content, flags=re.DOTALL)
+
+            # Write the updated content back to screens.py
+            with open(
+                os.path.join(destination, "screens.py"), "w", encoding="utf-8"
+            ) as file:
+                file.write(content)
+
+            console.print(f"\nUpdated file: [green]{destination}/screens.py[/green]")
+        except Exception as e:
+            console.print(f"Error: [red]{e}[/red]")
 
 
 def remove_from_structure(
     name_screen: List[str], destination: str, structure: str
 ) -> None:
     """
-    Remove and update files for a specified structure.
+    Remove and update files associated with a specified structure (e.g., MVC) for screens.
 
-    :param name_screen: List containing the name of the screens.
-    :param destination: The destination path from where the files will be removed.
-    :param structure: The name of the structure folder.
+    :param name_screen: List of screen names to process.
+    :param destination: Path where the screen-related files are stored.
+    :param structure: Name of the structure folder (e.g., "MVC").
     """
+    # Define structure path and validate existence
+    structure_path = os.path.join(STRUCTURES_DIR, structure)
+    if not os.path.isdir(structure_path):
+        typer.echo(f"Structure '{structure}' not found.")
+        raise typer.Exit(code=1)
+
+    root_directory = os.path.dirname(destination)
+    parsed_screens_list = []
+
+    # Parse screen names into PascalCase format
+    for name_view in name_screen:
+        if name_view == "__pycache__":
+            continue
+        parsed_name = name_parser(name_view, "screen")
+        parsed_screens_list.append(parsed_name)
+
+    if structure == "MVC":
+        for parsed_name in parsed_screens_list:
+            snake_name_view = name_parser_snake(parsed_name)
+            try:
+                # Define paths for model and controller files in the MVC structure
+                model_file_path = os.path.join(
+                    root_directory, "Model", f"{snake_name_view}.py"
+                )
+                controller_file_path = os.path.join(
+                    root_directory, "Controller", f"{snake_name_view}.py"
+                )
+
+                # Remove model and controller files if they exist
+                if os.path.exists(model_file_path):
+                    os.remove(model_file_path)
+                    console.print(f"\nDeleted: [red]{model_file_path}[/red]")
+                if os.path.exists(controller_file_path):
+                    os.remove(controller_file_path)
+                    console.print(f"\nDeleted: [red]{controller_file_path}[/red]")
+            except Exception as e:
+                console.print(f"Error: [red]{e}[/red]")
