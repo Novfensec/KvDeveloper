@@ -27,6 +27,6 @@ class ResponsiveGrid(MDGridLayout):
         width, height = self.size
 
         for x in range(self.min_cols, -~self.max_cols):
-            if (self.scale_width * x) < width < (self.scale_width * (x+1)):
+            if (self.scale_width * x) < width < (self.scale_width * (x + 1)):
                 self.cols = x
                 break

@@ -2,6 +2,7 @@ from kivy.properties import StringProperty, NumericProperty, ListProperty
 from kivy.uix.widget import Widget
 from kivymd.uix.card import MDCard
 
+
 class ITDCard(MDCard):
 
     title = StringProperty()
@@ -31,7 +32,7 @@ class ITDCard(MDCard):
 
     def __init__(self, *args, **kwargs):
         super(ITDCard, self).__init__(*args, **kwargs)
-        self.bind(size = self.adjust_image_size)
+        self.bind(size=self.adjust_image_size)
 
     def adjust_image_size(self, *args) -> None:
         w_ratio, h_ratio = self.image_ratio
