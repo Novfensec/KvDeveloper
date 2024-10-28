@@ -20,6 +20,8 @@ from kvdeveloper.module import (
     add_from_structure,
     add_from_layout,
     apply_layout,
+    remove_from_default,
+    remove_from_structure,
     setup_build,
     project_info,
 )
@@ -90,18 +92,21 @@ def create(
 
 @app.command()
 def add_screen(
-    name_screen: List[str] = typer.Argument(help="Name of the screen."),
-    use_template: Optional[str] = typer.Option(
-        None, help="Name of the template if the specified view exists in it."
+    name_screen: List[str] = typer.Argument(
+        help="List containing the name of the screens."
     ),
-    layout: str = typer.Option(None, help="Layout of the screen."),
+    use_template: Optional[str] = typer.Option(
+        DEFAULT_TEMPLATE,
+        help="Name of the template if the specified views exists in it.",
+    ),
+    layout: str = typer.Option(None, help="Layout of the screens."),
     structure: str = typer.Option(DEFAULT_STRUCTURE, help="Structure of the project."),
 ) -> None:
     """
     Create screens with specified template and structure.
 
-    :param name_screen: The name of the screen.
-    :param use_template: The name of the template to be used for creating the view if it pre-exists.
+    :param name_screen: List containing the name of the screens.
+    :param use_template: The name of the template to be used for creating the views if it pre-exists.
     :param layout: The name of the layout.
     :param structure: The name of the structure folder.
     """
@@ -112,13 +117,34 @@ def add_screen(
         elif layout == None:
             add_from_default(name_screen, use_template, destination)
     elif structure == "MVC":
-        if layout != None:
-            add_from_structure(name_screen, layout, destination)
-        if layout == None:
-            add_from_structure(name_screen, use_template, destination)
+        add_from_structure(name_screen, use_template, layout, destination)
     else:
         console.print("Structure for name [green]{structure}[/green] not found.")
         raise typer.Exit(code=0)
+
+
+@app.command()
+def remove_screen(
+    name_screen: List[str] = typer.Argument(
+        help="List containing the name of the screens."
+    ),
+    structure: str = typer.Option(DEFAULT_STRUCTURE, help="Structure of the project."),
+) -> None:
+    """
+    Remove screens of specified structure.
+
+    :param name_screen: List containing the name of the screens.
+    :param structure: The name of the structure folder.
+    """
+    destination = os.path.join(os.getcwd(), "View")
+    if not os.path.isdir(destination):
+        raise typer.Exit("'View' directory not found.", code=1)
+
+    remove_from_default(name_screen, destination)
+    if structure == "none":
+        pass
+    elif structure == "MVC":
+        remove_from_structure(name_screen, destination, structure)
 
 
 @app.command()
@@ -307,7 +333,9 @@ def show_readme(
     if not os.path.isfile(readme_path):
         typer.echo(f"File '{readme_path}' not found.")
         raise typer.Exit(code=1)
+
     from kvdeveloper.info_reader import info_reader
+
     info_reader(directory)
 
 

@@ -3,6 +3,7 @@ import typer
 import platform
 import subprocess
 import re
+from shutil import rmtree
 from typing import Dict, List
 from kvdeveloper.utils import (
     name_parser,
@@ -249,7 +250,7 @@ def create_from_structure(
     try:
         subprocess.run(
             [
-                os.path.join(variables["project_name", "venv", envbin, "python"]),
+                os.path.join(variables["project_name"], "venv", envbin, "python"),
                 "-m",
                 "pip",
                 "install",
@@ -286,7 +287,9 @@ def setup_build(project_name: str, destination: str, variables: Dict[str, str]) 
         )
 
 
-def project_info(project_name, template, structure, destination) -> None:
+def project_info(
+    project_name: str, template: str, structure: str, destination: str
+) -> None:
     """
     Display Project Info.
 
@@ -535,9 +538,9 @@ def update_screens_file(
 
 def add_from_structure(
     name_screen: List[str],
+    use_template: str,
+    layout: str,
     destination: str,
-    use_template: str = None,
-    layout: str = None,
 ) -> None:
     """
     Add screens to the project using a custom structure.
@@ -572,7 +575,9 @@ def add_from_structure(
         )
         if prompt == "y":
             add_from_default(name_screen, use_template, destination)
-            apply_layout(name_screen, layout, destination)
+            if layout is not None:
+                apply_layout(name_screen, layout, destination)
+            raise typer.Exit(code=0)
         else:
             raise typer.Exit(code=1)
 
@@ -590,11 +595,12 @@ def add_from_structure(
 
         if not os.path.isdir(template_path):
             # Template does not exist;
-            if use_template:
+            if use_template is not "blank":
                 typer.echo(
                     f"View '{parsed_name}' not found in template '{use_template}'."
                 )
-            apply_layout(name_screen, layout, destination)
+            if layout is not None:
+                apply_layout(name_screen, layout, destination)
         elif os.path.isdir(template_path):
             # Template exists; process files from the template
             with open(
@@ -616,6 +622,8 @@ def add_from_structure(
                 )
             add_extensions(os.path.join(use_template, "View"), destination)
 
+    if layout is not None:
+        apply_layout(name_screen, layout, destination)
 
 def add_from_layout(name_screen: List[str], layout: str, destination: str):
     """
@@ -641,8 +649,7 @@ def add_from_layout(name_screen: List[str], layout: str, destination: str):
             variables = {"parsed_name": parsed_name}
             try:
                 # Construct the layout path
-
-                layout = name_parser(layout, "screen").strip("Screen")
+                layout = name_parser(layout, "screen").replace("Screen", "")
                 layout, index = re.findall(r"[A-Za-z]+|\d+", layout)
                 layout_path = os.path.join(LAYOUTS_DIR, layout, index)
 
@@ -673,6 +680,9 @@ def add_from_layout(name_screen: List[str], layout: str, destination: str):
                 if not os.path.isdir(layout_path):
                     # Layout does not exist; create files with a blank template
                     # Create the .kv file using the default template
+                    console.print(
+                        f"Layout {layout} not found. Creating screen with a blank layout."
+                    )
                     with open(
                         os.path.join(VIEW_BASE, "default_screen.kv"),
                         "r",
@@ -740,7 +750,7 @@ def apply_layout(name_screen: List[str], layout: str, destination: str):
     :param layout: The name of the layout for the screens.
     :param destination: The destination path where the files will be created and updated.
     """
-    layout = name_parser(layout, "screen").strip("Screen")
+    layout = name_parser(layout, "screen").replace("Screen", "")
     layout, index = re.findall(r"[A-Za-z]+|\d+", layout)
     layout_path = os.path.join(LAYOUTS_DIR, layout, index)
     if not os.path.isdir(layout_path):
@@ -799,3 +809,38 @@ def apply_layout(name_screen: List[str], layout: str, destination: str):
             console.print(
                 f"Screen with name [green]{parsed_name}[/green] does not exists. Try a different name."
             )
+
+
+def remove_from_default(name_screen: List[str], destination: str) -> None:
+    """
+    Remove common folders.
+
+    :param name_screen: List containing the name of the screens.
+    :param destination: The destination path from where the files will be removed.
+    """
+    parsed_screens_list = []
+    for name_view in name_screen:
+        if name_view == "__pycache__":
+            continue
+        # Parse screen name to PascalCase
+        parsed_name = name_parser(name_view, "screen")
+        parsed_screens_list.append(parsed_name)
+
+    for parsed_name in parsed_screens_list:
+        # Construct the view path
+        view_path = os.path.join(destination, parsed_name)
+        if os.path.isdir(view_path):
+            rmtree(view_path)
+            console.print(f"Deleted: [red]{view_path}[/red]")
+
+
+def remove_from_structure(
+    name_screen: List[str], destination: str, structure: str
+) -> None:
+    """
+    Remove and update files for a specified structure.
+
+    :param name_screen: List containing the name of the screens.
+    :param destination: The destination path from where the files will be removed.
+    :param structure: The name of the structure folder.
+    """
