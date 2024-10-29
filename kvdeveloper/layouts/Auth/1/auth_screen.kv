@@ -3,55 +3,59 @@
 <{{parsed_name}}View>:
     MDStackLayout:
         size_hint: 1, 1
-        spacing:"10dp"
+        spacing: "10dp"
+
         MDBoxLayout:
             orientation: 'vertical'
             adaptive_height: True
-            padding:1
+            padding: 5
 
             MDIconButton:
                 style: "standard"
                 icon: "arrow-left"
+
         MDScrollView:
             MDGridLayout:
-                cols:1
-                adaptive_height:True
-                spacing:"7dp"
+                cols: 1
+                adaptive_height: True
+                spacing: "7dp"
+
                 LoginBoxLayout:
                     orientation: 'vertical'
-                    adaptive_height:True
-                    spacing:"7dp"
+                    adaptive_height: True
+                    spacing: "7dp"
 
                 MDWidget:
                     size_hint: 1, None
                     height: dp(45)
 
 <LoginBoxLayout@MDBoxLayout>:
-
     MDBoxLayout:
         orientation: 'vertical'
         adaptive_height: True
-        spacing:"10dp"
+        spacing: "10dp"
 
         MDLabel:
             text: "Login"
             font_style: "Display"
             role: "small"
             halign: "center"
-            adaptive_height:True
+            adaptive_height: True
             theme_text_color: "Custom"
             text_color: app.theme_cls.primaryColor
+
         MDWidget:
             size_hint: 1, None
             height: dp(4)
 
         MDAnchorLayout:
-            size_hint:1, None
-            padding:"4dp"
+            size_hint: 1, None
+            padding: "4dp"
             FitImage:
-                source:f"{images}/basic/login_illustration400.png"
+                source: f"{images}/basic/login_illustration400.png"
                 size_hint: None, None
-                size:"215dp", "145dp"
+                size: "215dp", "145dp"
+
     MDWidget:
         size_hint: 1, None
         height: dp(8)
@@ -59,37 +63,39 @@
     MDBoxLayout:
         orientation: 'vertical'
         adaptive_height: True
-        padding:"7dp", "7dp", "7dp", "7dp"
-        spacing:"14dp"
+        padding: ["7dp", "7dp", "7dp", "7dp"]
+        spacing: "14dp"
 
         LoginForm:
             orientation: 'vertical'
-            adaptive_height:True
-            padding:"3dp", "7dp", "3dp", "7dp"
-            spacing:"12dp"
-        
+            adaptive_height: True
+            padding: ["3dp", "7dp", "3dp", "7dp"]
+            spacing: "12dp"
+
         RelLayout:
 
         MDAnchorLayout:
             size_hint: 1, None
             height: content.height
+
             ExternalLoginSite:
-                id:content
+                id: content
                 orientation: 'vertical'
-                adaptive_size:True
-                padding:"3dp", "7dp", "3dp", "7dp"
+                adaptive_size: True
+                padding: ["3dp", "7dp", "3dp", "7dp"]
 
 <RelLayout@MDBoxLayout>:
-    adaptive_height:True
+    adaptive_height: True
+
     MDDivider:
         size_hint: None, None
-    
+
     MDLabel:
-        text:"Or Login with"
-        font_style:"Body"
-        role:"medium"
-        halign:"center"
-        valign:"center"
+        text: "Or Login with"
+        font_style: "Body"
+        role: "medium"
+        halign: "center"
+        valign: "center"
 
     MDDivider:
         size_hint: None, None
@@ -97,107 +103,104 @@
 
 <ExternalLoginSite@MDBoxLayout>:
     MDGridLayout:
-        rows:2
-        cols:2
-        adaptive_size:True
+        rows: 2
+        cols: 2
+        adaptive_size: True
 
         MDAnchorLayout:
-            size_hint:None, None
+            size_hint: None, None
 
             FitImage:
-                source:f"{images}/basic/google128.png"
+                source: f"{images}/basic/google128.png"
                 size_hint: None, None
-                size:"65sp","65sp"
+                size: "65sp","65sp"
 
             MDIconButton:
-                icon:"blank"
-                size_hint:1, 1
+                icon: "blank"
+                size_hint: 1, 1
 
         MDAnchorLayout:
-            size_hint:None, None
+            size_hint: None, None
 
             MDIconButton:
-                icon:"github"
-                size_hint:1, 1
-                theme_icon_color:"Custom"
-                icon_color:"black"
-                theme_font_size:"Custom"
-                font_size:"75sp"
+                icon: "github"
+                size_hint: 1, 1
+                theme_icon_color: "Custom"
+                icon_color: "black"
+                theme_font_size: "Custom"
+                font_size: "75sp"
 
-        
         MDAnchorLayout:
-            size_hint:None, None
+            size_hint: None, None
 
             FitImage:
-                source:f"{images}/basic/stack_overflow128.png"
+                source: f"{images}/basic/stack_overflow128.png"
                 size_hint: None, None
-                size:"75sp","75sp"
+                size: "75sp","75sp"
 
             MDIconButton:
-                icon:"blank"
-                size_hint:1, 1
+                icon: "blank"
+                size_hint: 1, 1
 
-        
         MDAnchorLayout:
-            size_hint:None, None
+            size_hint: None, None
 
             FitImage:
-                source:f"{images}/kvdeveloper/kvdeveloper_logo128.png"
+                source: f"{images}/kvdeveloper/kvdeveloper_logo128.png"
                 size_hint: None, None
-                size:"75sp","75sp"
+                size: "75sp","75sp"
 
             MDIconButton:
-                icon:"blank"
-                size_hint:1, 1
+                icon: "blank"
+                size_hint: 1, 1
 
 <LoginForm@MDBoxLayout>:
     MDTextField:
-        mode:"filled"
-        theme_line_color:"Custom"
-        line_color_normal:1,1,1,0
+        mode: "filled"
+        theme_line_color: "Custom"
+        line_color_normal: 1,1,1,0
 
         MDTextFieldLeadingIcon:
-            icon:"account"
-            theme_icon_color:"Custom"
-            icon_color_normal:app.theme_cls.primaryColor
-            icon_color_focus:app.theme_cls.primaryColor
+            icon: "account"
+            theme_icon_color: "Custom"
+            icon_color_normal: app.theme_cls.primaryColor
+            icon_color_focus: app.theme_cls.primaryColor
 
         MDTextFieldHintText:
-            text:"Username"
-            theme_text_color:"Custom"
-            text_color_normal:0,0,0,.7
+            text: "Username"
+            theme_text_color: "Custom"
+            text_color_normal: 0,0,0,.7
 
     MDTextField:
-        mode:"filled"
-        theme_line_color:"Custom"
-        line_color_normal:1,1,1,0
-        
+        mode: "filled"
+        theme_line_color: "Custom"
+        line_color_normal: 1,1,1,0
 
         MDTextFieldLeadingIcon:
-            icon:"lock"
-            theme_icon_color:"Custom"
-            icon_color_normal:app.theme_cls.primaryColor
-            icon_color_focus:app.theme_cls.primaryColor
+            icon: "lock"
+            theme_icon_color: "Custom"
+            icon_color_normal: app.theme_cls.primaryColor
+            icon_color_focus: app.theme_cls.primaryColor
 
         MDTextFieldHintText:
-            text:"Password"
-            theme_text_color:"Custom"
-            text_color_normal:0,0,0,.7
+            text: "Password"
+            theme_text_color: "Custom"
+            text_color_normal: 0,0,0,.7
 
         MDTextFieldTrailingIcon:
-            icon:"eye"
-            theme_icon_color:"Custom"
-            icon_color_normal:app.theme_cls.primaryColor
-            icon_color_focus:app.theme_cls.primaryColor
+            icon: "eye"
+            theme_icon_color: "Custom"
+            icon_color_normal: app.theme_cls.primaryColor
+            icon_color_focus: app.theme_cls.primaryColor
 
     MDExtendedFabButton:
-        pos_hint:{"center_x":.5}
-        size_hint:1,None
-        theme_bg_color:"Custom"
-        fab_state:"expand"
-        md_bg_color:app.theme_cls.secondaryFixedDimColor
+        pos_hint: {"center_x": 0.5}
+        size_hint: 1, None
+        theme_bg_color: "Custom"
+        fab_state: "expand"
+        md_bg_color: app.theme_cls.secondaryFixedDimColor
 
         MDExtendedFabButtonText:
-            text:"Login"
-            theme_font_size:"Custom"
-            font_size:"19sp"
+            text: "Login"
+            theme_font_size: "Custom"
+            font_size: "19sp"

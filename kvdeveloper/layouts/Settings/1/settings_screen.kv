@@ -1,39 +1,52 @@
 #: import IconListItem View.{{parsed_name}}.extensions.IconListItem
 
-<{{parsed_name}}View>:
+<{{parsed_name}}View>
     MDStackLayout:
-        size_hint: 1, None
-        
+        size_hint: 1, 1 
+        spacing: "10dp"
+
+        MDBoxLayout:
+            orientation: 'vertical'
+            adaptive_height: True
+            padding: 5
+
+            MDIconButton:
+                style: "standard"
+                icon: "arrow-left"
+
         MDScrollView:
-            {{parsed_name}}Context:
+            SampleScreenContext:
                 orientation: 'vertical'
                 adaptive_height: True
-                padding: [10, 10, 10, 10]
+                padding: [10, 5, 10, 10]
 
 <{{parsed_name}}Context@MDBoxLayout>:
 	MDBoxLayout:
 		orientation:"vertical"
 		adaptive_height:True
-		spacing:"7dp"
 		radius:[25]
 
-		MDRelativeLayout:
-			size_hint:1,None
-			height:text_field.height
-            md_bg_color:0.7,0.7,1,0.2
-			radius:[15]
+        MDTextField:
+            mode: "filled"
+            theme_line_color: "Custom"
+            line_color_normal: 1,1,1,0
 
-			CustomTextField:
-				id:text_field
-				mode:"filled"
-                icon_left:"magnify"
-                hint_text:"Search Settings"
+            MDTextFieldLeadingIcon:
+                icon: "magnify"
+                theme_icon_color: "Custom"
+                icon_color_normal: app.theme_cls.primaryColor
+                icon_color_focus: app.theme_cls.primaryColor
 
-                MDTextFieldTrailingIcon:
-                    icon:"microphone"
-                    theme_icon_color:"Custom"
-                    icon_color_normal:app.theme_cls.primaryColor
-                    icon_color_focus:app.theme_cls.primaryColor
+            MDTextFieldHintText:
+                text: "Search"
+                theme_text_color: "Custom"
+                text_color_normal: 0,0,0,.7
+
+            MDTextFieldTrailingIcon:
+                icon:"microphone"
+                theme_icon_color:"Custom"
+                icon_color_normal:app.theme_cls.primaryColor
+                icon_color_focus:app.theme_cls.primaryColor
 
 	MDBoxLayout:
 		orientation:"vertical"
