@@ -10,6 +10,7 @@ from kvdeveloper.config import (
     STRUCTURES,
     TEMPLATES,
     COMPONENTS_DIR,
+    COMPONENTS,
     VIEW_BASE,
 )
 from kvdeveloper.module import (
@@ -54,20 +55,20 @@ def create(
     try:
         template_info = TEMPLATES[f"{template}"]
     except:
-        console.print(f" Template for name [green]{template}[/green] not found.")
+        console.print(f"\nTemplate for name [green]{template}[/green] not found.")
         raise typer.Exit(code=0)
     try:
         structure_info = STRUCTURES[f"{structure}"]
     except:
-        console.print(f" Structure for name [green]{structure}[/green] not found.")
+        console.print(f"\nStructure for name [green]{structure}[/green] not found.")
         raise typer.Exit(code=0)
 
     typer.secho(
-        f"Creating project '{project_name}' with template '{template}': {template_info}\n",
+        f"\nCreating project '{project_name}' with template '{template}': {template_info}",
         fg=typer.colors.BRIGHT_MAGENTA,
     )
     typer.secho(
-        f"Applying structure '{structure}': {structure_info}\n",
+        f"\nApplying structure '{structure}': {structure_info}",
         fg=typer.colors.BRIGHT_CYAN,
     )
 
@@ -119,7 +120,7 @@ def add_screen(
     elif structure == "MVC":
         add_from_structure(name_screen, use_template, layout, destination)
     else:
-        console.print("Structure for name [green]{structure}[/green] not found.")
+        console.print("\nStructure for name [green]{structure}[/green] not found.")
         raise typer.Exit(code=0)
 
 
@@ -138,7 +139,7 @@ def remove_screen(
     """
     destination = os.path.join(os.getcwd(), "View")
     if not os.path.isdir(destination):
-        raise typer.Exit("'View' directory not found.", code=1)
+        raise typer.Exit("\n'View' directory not found.", code=1)
 
     remove_from_default(name_screen, destination)
     if structure != "none":
@@ -174,7 +175,7 @@ def add_component(
     for components in name_component:
         component_path = os.path.join(COMPONENTS_DIR, components)
         if not os.path.isdir(component_path):
-            typer.secho(f"Component {components} does not exists.")
+            typer.secho(f"\nComponent {components} does not exists.")
             continue
         list_component_path.append(component_path)
 
@@ -188,6 +189,8 @@ def add_component(
             target_dir = os.path.join(destination, relative_path)
             if not "__pycache__" in target_dir:
                 os.makedirs(target_dir, exist_ok=True)
+
+            console.print(f"\nCreating Component [bold cyan]{os.path.basename(component_path)}[/bold cyan]")
 
             for file_name in files:
                 # Skip .pyc and .pyo files
@@ -203,7 +206,7 @@ def add_component(
                     target_file.write(content)
 
                 console.print(
-                    f"Created file: [bright_white]{target_file_path}[/bright_white]"
+                    f"\nCreated file: [bright_white]{target_file_path}[/bright_white]"
                 )
 
 
@@ -214,7 +217,7 @@ def register() -> None:
     """
     main_file_path = os.path.join(os.getcwd(), "main.py")
     if not os.path.isfile(main_file_path):
-        typer.secho("File 'main.py' does not exists.", err=True)
+        typer.secho("\nFile 'main.py' does not exists.", err=True)
         raise typer.Exit(code=0)
 
     registers_file_path = os.path.join(os.getcwd(), "registers.py")
@@ -228,7 +231,7 @@ def register() -> None:
             registers_file.write(content)
 
         console.print(
-            f"Created file: [bright_white]{registers_file_path}[/bright_white]"
+            f"\nCreated file: [bright_white]{registers_file_path}[/bright_white]"
         )
 
     # Read the content of the `main.py` file
@@ -291,7 +294,7 @@ def config_build_setup(
         "android",
     ]
     if not platform in available_platforms:
-        typer.secho("Unavailable platform.", err=True)
+        typer.secho("\nUnavailable platform.", err=True)
         raise typer.Exit(code=0)
 
     generate_build_files(platform, external)
@@ -347,7 +350,7 @@ def list_templates() -> None:
         ("All the templates have inbuilt"), (" hot reload", "bright_red"), (" system.")
     )
     template_table = Table(show_header=False, box=None)
-    template_table.add_column("Template Name", style="bold cyan", width=21)
+    template_table.add_column("Name", style="bold cyan", width=21)
     template_table.add_column("Description")
     for template, description in TEMPLATES.items():
         template_table.add_row(template, description)
@@ -373,7 +376,7 @@ def list_structures() -> None:
     """
     help_text = Text("\n Available Structures\n")
     structure_table = Table(show_header=False, box=None)
-    structure_table.add_column("Template Name", style="bold cyan", width=21)
+    structure_table.add_column("Name", style="bold cyan", width=21)
     structure_table.add_column("Description")
     for structure, description in STRUCTURES.items():
         structure_table.add_row(structure, description)
@@ -382,6 +385,24 @@ def list_structures() -> None:
     )
     typer.secho(help_text, fg=typer.colors.BRIGHT_WHITE)
     console.print(structures_box)
+
+
+@app.command()
+def list_components() -> None:
+    """
+    List all available components.
+    """
+    help_text = Text("\n Available Components\n")
+    component_table = Table(show_header=False, box=None)
+    component_table.add_column("Name", style="bold cyan", width=21)
+    component_table.add_column("Description")
+    for component, description in COMPONENTS.items():
+        component_table.add_row(component, description)
+    components_box = Panel(
+        component_table, title="Components", title_align="left", expand=True
+    )
+    typer.secho(help_text, fg=typer.colors.BRIGHT_WHITE)
+    console.print(components_box)
 
 
 def _version_callback(value: bool) -> None:

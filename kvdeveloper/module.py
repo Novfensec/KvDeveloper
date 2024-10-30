@@ -39,7 +39,7 @@ def add_extensions(
         template_path = os.path.join(TEMPLATES_DIR, template_name)
 
     if not os.path.isdir(template_path):
-        typer.echo(f"Path '{template_path}' not found.")
+        typer.echo(f"\nPath '{template_path}' not found.")
         raise typer.Exit(code=1)
 
     for root, _, files in os.walk(template_path):
@@ -58,7 +58,7 @@ def add_extensions(
                     target_file.write(content)
 
                 console.print(
-                    f"Created file: [bright_white]{target_file_path}[/bright_white]"
+                    f"\nCreated file: [bright_white]{target_file_path}[/bright_white]"
                 )
 
 
@@ -74,7 +74,7 @@ def create_from_template(
     """
     template_path = os.path.join(TEMPLATES_DIR, template_name)
     if not os.path.isdir(template_path):
-        typer.echo(f"Template '{template_name}' not found.")
+        typer.echo(f"\nTemplate '{template_name}' not found.")
         raise typer.Exit(code=1)
 
     for root, _, files in os.walk(template_path):
@@ -98,7 +98,7 @@ def create_from_template(
                 target_file.write(content)
 
             console.print(
-                f"Created file: [bright_white]{target_file_path}[/bright_white]"
+                f"\nCreated file: [bright_white]{target_file_path}[/bright_white]"
             )
 
     """
@@ -120,12 +120,12 @@ def create_from_structure(
     """
     template_path = os.path.join(TEMPLATES_DIR, template_name)
     if not os.path.isdir(template_path):
-        typer.echo(f"Template '{template_name}' not found.")
+        typer.echo(f"\nTemplate '{template_name}' not found.")
         raise typer.Exit(code=1)
 
     structure_path = os.path.join(STRUCTURES_DIR, structure_name)
     if not os.path.isdir(structure_path):
-        typer.echo(f"Structure '{structure_name}' not found.")
+        typer.echo(f"\nStructure '{structure_name}' not found.")
         raise typer.Exit(code=1)
 
     parsed_screens_list = []
@@ -167,7 +167,7 @@ def create_from_structure(
         target_file.write(content)
 
         console.print(
-            f"Updated file: [bright_white]{destination}/View/base_screen.kv[/bright_white]"
+            f"\nUpdated file: [bright_white]{destination}/View/base_screen.kv[/bright_white]"
         )
 
     """
@@ -191,7 +191,7 @@ def create_from_structure(
             target_file.write(content)
 
             console.print(
-                f"Updated file: [bright_white]{destination}/View/{parsed_name}/{snake_name_view}.kv[/bright_white]"
+                f"\nUpdated file: [bright_white]{destination}/View/{parsed_name}/{snake_name_view}.kv[/bright_white]"
             )
 
     """
@@ -210,7 +210,7 @@ def create_from_structure(
         target_file.write(content)
 
         console.print(
-            f"Updated file: [bright_white]{destination}/main.py[/bright_white]"
+            f"\nUpdated file: [bright_white]{destination}/main.py[/bright_white]"
         )
 
     """
@@ -232,7 +232,7 @@ def create_from_structure(
         target_file.write(content)
 
         console.print(
-            f"Updated file: [bright_white]{destination}/README.md[/bright_white]"
+            f"\nUpdated file: [bright_white]{destination}/README.md[/bright_white]"
         )
 
     """
@@ -376,7 +376,7 @@ def add_from_default(
         # A snake that parses a name.
         snake_name_view = name_parser_snake(parsed_name)
         console.print(
-            f"Creating Screen with name [bold cyan]{parsed_name}[/bold cyan]."
+            f"\nCreating Screen with name [bold cyan]{parsed_name}[/bold cyan]."
         )
 
         # Construct the view path
@@ -394,7 +394,7 @@ def add_from_default(
                     # Template does not exist; create files with a blank template
                     if use_template:
                         typer.echo(
-                            f"View '{parsed_name}' not found in template '{use_template}'. Creating '{parsed_name}' with a blank template."
+                            f"\nView '{parsed_name}' not found in template '{use_template}'. Creating '{parsed_name}' with a blank template."
                         )
                     os.makedirs(view_path, exist_ok=True)
 
@@ -470,7 +470,7 @@ def add_from_default(
                                 target_file.write(content)
 
                                 console.print(
-                                    f"Created file: [bright_white]{target_file_path}[/bright_white]"
+                                    f"\nCreated file: [bright_white]{target_file_path}[/bright_white]"
                                 )
                             update_screens_file(
                                 parsed_name, snake_name_view, destination
@@ -479,7 +479,7 @@ def add_from_default(
                 typer.secho(f"Error: {e}", err=True)
         else:
             console.print(
-                f"Screen with name [green]{parsed_name}[/green] already exists. Try a different name."
+                f"\nScreen with name [green]{parsed_name}[/green] already exists. Try a different name."
             )
 
 
@@ -507,7 +507,7 @@ def update_screens_file(
 
     # Check if the import statement already exists
     if re.search(re.escape(import_statement.strip()), content):
-        print(f"The import statement for {parsed_name}View already exists.")
+        print(f"\nThe import statement for {parsed_name}View already exists.")
     else:
         # Insert the import statement at the top of the file (after the first import block)
         # Finds the first occurrence of `from View...` and inserts new import below it
@@ -524,7 +524,7 @@ def update_screens_file(
     # Check if the screen entry already exists
     screen_key = snake_name_view.replace("_", " ")
     if re.search(re.escape(f"'{screen_key}':"), content):
-        print(f"The screen entry for {snake_name_view} already exists.")
+        print(f"\nThe screen entry for {snake_name_view} already exists.")
     else:
         # Insert the new screen entry before the last closing curly brace of the dictionary
         content = re.sub(
@@ -606,7 +606,7 @@ def add_from_structure(
             # Template does not exist;
             if use_template and (layout == None):
                 typer.echo(
-                    f"View '{parsed_name}' not found in template '{use_template}'."
+                    f"\nView '{parsed_name}' not found in template '{use_template}'."
                 )
             if layout != None:
                 apply_layout(name_screen, layout, destination)
@@ -646,7 +646,7 @@ def add_from_layout(name_screen: List[str], layout: str, destination: str):
         # A snake that parses a name.
         snake_name_view = name_parser_snake(parsed_name)
         console.print(
-            f"Creating Screen with name [bold cyan]{parsed_name}[/bold cyan]."
+            f"\nCreating Screen with name [bold cyan]{parsed_name}[/bold cyan]."
         )
 
         # Construct the view path
@@ -688,7 +688,7 @@ def add_from_layout(name_screen: List[str], layout: str, destination: str):
                     # Layout does not exist; create files with a blank template
                     # Create the .kv file using the default template
                     console.print(
-                        f"Layout {layout} not found. Creating screen with a blank layout."
+                        f"\nLayout {layout} not found. Creating screen with a blank layout."
                     )
                     with open(
                         os.path.join(VIEW_BASE, "default_screen.kv"),
@@ -745,7 +745,7 @@ def add_from_layout(name_screen: List[str], layout: str, destination: str):
                 typer.secho(f"Error: {e}", err=True)
         else:
             console.print(
-                f"Screen with name [green]{parsed_name}[/green] already exists. Try a different name."
+                f"\nScreen with name [green]{parsed_name}[/green] already exists. Try a different name."
             )
 
 
@@ -814,7 +814,7 @@ def apply_layout(name_screen: List[str], layout: str, destination: str):
                 typer.secho(f"Error: {e}", err=True)
         else:
             console.print(
-                f"Screen with name [green]{parsed_name}[/green] does not exists. Try a different name."
+                f"\nScreen with name [green]{parsed_name}[/green] does not exists. Try a different name."
             )
 
 
@@ -839,7 +839,7 @@ def remove_from_default(name_screen: List[str], destination: str) -> None:
         view_path = os.path.join(destination, parsed_name)
         if os.path.isdir(view_path):
             rmtree(view_path)
-            console.print(f"Deleted: [red]{view_path}[/red]")
+            console.print(f"\nDeleted: [red]{view_path}[/red]")
 
         # Convert PascalCase to snake_case for import statements
         snake_name_view = name_parser_snake(parsed_name)
@@ -897,7 +897,7 @@ def remove_from_structure(
     # Define structure path and validate existence
     structure_path = os.path.join(STRUCTURES_DIR, structure)
     if not os.path.isdir(structure_path):
-        typer.echo(f"Structure '{structure}' not found.")
+        typer.echo(f"\nStructure '{structure}' not found.")
         raise typer.Exit(code=1)
 
     root_directory = os.path.dirname(destination)

@@ -27,4 +27,9 @@ BUILD_DIR = f"{def_dir}/build_files"
 
 LAYOUTS_DIR = f"{def_dir}/layouts"
 
+COMPONENTS = {
+    "Container": "A responsive container with pre-defined padding calculations.",
+    "ITCard": "(Image Title Description Card) A responsive boostrap like card with image aspect-ratio calculations.",
+    "ResponsiveGrid": " A responsive grid with pre-defined column calculations.",
+}
 COMPONENTS_DIR = f"{def_dir}/components"
