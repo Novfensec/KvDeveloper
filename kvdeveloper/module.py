@@ -590,6 +590,9 @@ def add_from_structure(
         apply_layout(name_screen, layout, destination)
         raise typer.Exit(code=0)
 
+    if use_template == None:
+        raise typer.Exit(code=0)
+
     for parsed_name in parsed_screens_list:
         # Construct the template path
         template_path = os.path.join(TEMPLATES_DIR, use_template, "View", parsed_name)
