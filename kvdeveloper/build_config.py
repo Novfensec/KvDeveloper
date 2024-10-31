@@ -6,7 +6,7 @@ import typer
 
 def generate_build_files(platform: str, external: str) -> None:
     """
-    Create necessary files.
+    Create necessary build files.
 
     :param external: External Build Environment.
     """

@@ -44,7 +44,9 @@ def create(
     Create a new project with the specified template and structure.
 
     :param project_name: The name of the project.
+
     :param template: The name of the template folder.
+
     :param structure: The name of the structure folder.
     """
 
@@ -107,8 +109,11 @@ def add_screen(
     Create screens with specified template and structure.
 
     :param name_screen: List containing the name of the screens.
+
     :param use_template: The name of the template to be used for creating the views if it pre-exists.
+
     :param layout: The name of the layout.
+
     :param structure: The name of the structure folder.
     """
     destination = os.path.join(os.getcwd(), "View")
@@ -135,6 +140,7 @@ def remove_screen(
     Remove screen-specific directories and files associated with specified structure.
 
     :param name_screen: List containing the name of the screens.
+
     :param structure: The name of the structure folder.
     """
     destination = os.path.join(os.getcwd(), "View")
@@ -157,7 +163,9 @@ def add_layout(
     Apply layout to a screen with specified layout type.
 
     :param name_screen: The list containing the names of the screens.
+
     :param layout: The name of the layout for the screens.
+
     :param destination: The destination path where the files will be created and updated.
     """
     destination = os.path.join(os.getcwd(), "View")
@@ -171,6 +179,11 @@ def add_component(
         help="List containing the names of the components."
     ),
 ) -> None:
+    """
+    Add Components to the project.
+
+    :param name_component: List containing the names of the components. (Case Sensitive Names)
+    """
     list_component_path = []
     for components in name_component:
         component_path = os.path.join(COMPONENTS_DIR, components)
@@ -190,7 +203,9 @@ def add_component(
             if not "__pycache__" in target_dir:
                 os.makedirs(target_dir, exist_ok=True)
 
-            console.print(f"\nCreating Component [bold cyan]{os.path.basename(component_path)}[/bold cyan]")
+            console.print(
+                f"\nCreating Component [bold cyan]{os.path.basename(component_path)}[/bold cyan]"
+            )
 
             for file_name in files:
                 # Skip .pyc and .pyo files
@@ -279,15 +294,18 @@ def config_build_setup(
     Generates necessary build files for external build environments and linux systems.
 
     - buildozer.spec: Buildozer configurations file.
+
     - Github:
         buildozer_action.yml: CI/CD worflow file for github actions.
+
     - Colab:
-        buildozer_action.ipynb: Jupyter notebook for google colab environment.
+        `buildozer_action.ipynb`: Jupyter notebook for google colab environment.
 
     Setup build files for platforms Android and IOS.
     `Currently supporting Android conversions build system.`
 
     :param platform: Platform specific to setup build files.
+
     :param external: External Build Environment.
     """
     available_platforms = [
@@ -322,14 +340,15 @@ def show_readme(
     """
     import pkg_resources
 
-    if not (
+    try:
         pkg_resources.get_distribution("pyqt5")
-        and pkg_resources.get_distribution("pyqtwebengine")
-    ):
+        pkg_resources.get_distribution("pyqtwebengine")
+    except pkg_resources.DistributionNotFound:
         typer.secho(
-            f"Requires the following optional dependencies:\n - PyQt5\n - PyQtWebEngine"
+            f"Requires the following optional dependencies:\n - [bright_white]PyQt5[/bright_white]\n - [bright_white]PyQtWebEngine[/bright_white]"
         )
         raise typer.Exit(code=0)
+
     readme_path = os.path.join(directory, "README.md")
     if not os.path.isfile(readme_path):
         typer.echo(f"File '{readme_path}' not found.")
