@@ -387,7 +387,7 @@ def add_from_default(
             try:
                 # Construct the template path
                 template_path = os.path.join(
-                    TEMPLATES_DIR, use_template, "View", parsed_name
+                    TEMPLATES_DIR, str(use_template), "View", parsed_name
                 )
 
                 if not os.path.isdir(template_path):
