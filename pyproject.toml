@@ -43,6 +43,7 @@ version = {attr = "kvdeveloper.__version__"}
 
 [project.scripts]
 kvdeveloper = "kvdeveloper.__main__:main"
+kvd = "kvdeveloper.__main__:main"
 
 [project.optional-dependencies]
 all = [

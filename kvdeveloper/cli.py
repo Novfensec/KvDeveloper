@@ -117,6 +117,10 @@ def add_screen(
     :param structure: The name of the structure folder.
     """
     destination = os.path.join(os.getcwd(), "View")
+    if not os.path.isdir(destination):
+        typer.secho("\n'View' directory not found.", err=True)
+        raise typer.Exit(code=0)
+
     if structure == "none":
         if layout != None:
             add_from_layout(name_screen, layout, destination)

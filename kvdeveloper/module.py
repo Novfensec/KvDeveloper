@@ -564,27 +564,30 @@ def add_from_structure(
 
     parsed_screens_string = " ".join(parsed_screens_list)
 
-    output = subprocess.run(
-        f"python -m kivymd.tools.patterns.add_view MVC . {parsed_screens_string}",
-        shell=True,
-    )
-
-    if output.returncode != 0:
+    for parsed_name in parsed_screens_list:
         console.print(
-            "\nThis project may not be following [green]MVC[/green] architecture.\n"
+            f"\nCreating Screen with name [bold cyan]{parsed_name}[/bold cyan]."
         )
-        prompt = Prompt.ask(
-            f"Want to add screen using structure [[green]none: {STRUCTURES['none']}[/green]] ?",
-            choices=["y", "n"],
-            default="n",
+        output = subprocess.run(
+            f"python -m kivymd.tools.patterns.add_view MVC . {parsed_name}",
+            shell=True,
         )
-        if prompt == "y":
-            add_from_default(name_screen, use_template, destination)
-            if layout != None:
-                apply_layout(name_screen, layout, destination)
-            raise typer.Exit(code=0)
-        else:
-            raise typer.Exit(code=1)
+        if output.returncode != 0:
+            console.print(
+                f"\nThis project may not be following [green]MVC[/green] architecture.\n"
+            )
+            prompt = Prompt.ask(
+                f"Want to add screen using structure [[green]none: {STRUCTURES['none']}[/green]] ?",
+                choices=["y", "n"],
+                default="n",
+            )
+            if prompt == "y":
+                add_from_default(name_screen, use_template, destination)
+                if layout != None:
+                    apply_layout(name_screen, layout, destination)
+                raise typer.Exit(code=0)
+            else:
+                raise typer.Exit(code=1)
 
     if layout != None:
         apply_layout(name_screen, layout, destination)
