@@ -562,8 +562,6 @@ def add_from_structure(
         parsed_name = name_parser(name_view, "screen")
         parsed_screens_list.append(parsed_name)
 
-    parsed_screens_string = " ".join(parsed_screens_list)
-
     for parsed_name in parsed_screens_list:
         console.print(
             f"\nCreating Screen with name [bold cyan]{parsed_name}[/bold cyan]."
