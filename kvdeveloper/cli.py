@@ -348,7 +348,7 @@ def show_readme(
         pkg_resources.get_distribution("pyqt5")
         pkg_resources.get_distribution("pyqtwebengine")
     except pkg_resources.DistributionNotFound:
-        typer.secho(
+        console.print(
             f"Requires the following optional dependencies:\n - [bright_white]PyQt5[/bright_white]\n - [bright_white]PyQtWebEngine[/bright_white]"
         )
         raise typer.Exit(code=0)
