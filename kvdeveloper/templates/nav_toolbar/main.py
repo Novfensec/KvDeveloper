@@ -1,6 +1,5 @@
 import os
 import importlib
-from kivy.core.window import Window
 from kivy import Config
 from PIL import ImageGrab
 
@@ -9,6 +8,8 @@ resolution = ImageGrab.grab().size
 # Change the values of the application window size as you need.
 Config.set("graphics", "height", "690")
 Config.set("graphics", "width", "317")
+
+from kivy.core.window import Window
 
 # Place the application window on the right side of the computer screen.
 Window.top = 30
@@ -19,12 +20,14 @@ Window.softinput_mode = "below_target"
 
 from kivymd.tools.hotreload.app import MDApp
 from kivymd.uix.screenmanager import MDScreenManager
+from kivymd.uix.transition import MDSharedAxisTransition as SAT
 import webbrowser
 from kvdeveloper.config import IMAGE_LIBRARY
 
 class UI(MDScreenManager):
     def __init__(self, *args, **kwargs):
         super(UI, self).__init__(*args, **kwargs)
+        self.transition = SAT()
 
 class {{project_name}}(MDApp):
     def __init__(self, *args, **kwargs):
@@ -65,9 +68,10 @@ if __name__ == '__main__':
 For Production uncomment the below code and comment out the above code
 '''
 
+# import webbrowser
 # from kivymd.app import MDApp
 # from kivymd.uix.screenmanager import MDScreenManager
-# import webbrowser
+# from kivymd.uix.transition import MDSharedAxisTransition as SAT
 # from kvdeveloper.config import IMAGE_LIBRARY
 # from kivymd.utils.set_bars_colors import set_bars_colors
 # from kivy.core.window import Window
@@ -78,6 +82,7 @@ For Production uncomment the below code and comment out the above code
 # class UI(MDScreenManager):
 #     def __init__(self, *args, **kwargs):
 #         super(UI, self).__init__(*args, **kwargs)
+#         self.transition = SAT()
 
 # class {{project_name}}(MDApp):
 #     def __init__(self, *args, **kwargs):
@@ -105,8 +110,8 @@ For Production uncomment the below code and comment out the above code
 
 #     def set_bars_colors(self) -> None:
 #         set_bars_colors(
-#             self.theme_cls.primary_color,  # status bar color
-#             self.theme_cls.primary_color,  # navigation bar color
+#             self.theme_cls.primaryColor,  # status bar color
+#             self.theme_cls.primaryColor,  # navigation bar color
 #             "Light",                       # icons color of status bar
 #         )
 

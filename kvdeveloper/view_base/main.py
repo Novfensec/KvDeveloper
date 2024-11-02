@@ -27,9 +27,10 @@ resolution = ImageGrab.grab().size
 Window.top = 28
 Window.left = resolution[0] - Window.width +3
 
+import webbrowser
 from kivymd.tools.hotreload.app import MDApp
 from kivymd.uix.screenmanager import MDScreenManager
-import webbrowser
+from kivymd.uix.transition import MDSharedAxisTransition as SAT
 from kvdeveloper.config import IMAGE_LIBRARY
 from kivy.clock import Clock
 
@@ -37,6 +38,11 @@ Clock.max_iteration = 30
 
 Window.keyboard_anim_args={"d": .2, "t": "in_out_expo"}
 Window.softinput_mode = "below_target"
+
+class UI(MDScreenManager):
+    def __init__(self, *args, **kwargs):
+        super(UI, self).__init__(*args, **kwargs)
+        self.transition = SAT()
 
 class {{project_name}}(MDApp):
     DEBUG = True
@@ -48,7 +54,7 @@ class {{project_name}}(MDApp):
         self.image_library_path = IMAGE_LIBRARY
         self.apply_styles("Light")
 
-    def build_app(self) -> MDScreenManager:
+    def build_app(self) -> UI:
         """
         In this method, you don't need to change anything other than the
         application theme.
@@ -56,7 +62,7 @@ class {{project_name}}(MDApp):
 
         import View.screens
 
-        self.manager_screens = MDScreenManager()
+        self.manager_screens = UI()
         Window.bind(on_key_down = self.on_keyboard_down)
         importlib.reload(View.screens)
         screens = View.screens.screens
@@ -107,10 +113,11 @@ if __name__ == '__main__':
 # https://en.wikipedia.org/wiki/Model–view–controller
 # """
 # 
+# import webbrowser 
 # from kivymd.app import MDApp
 # from kivymd.uix.screenmanager import MDScreenManager
+# from kivymd.uix.transition import MDSharedAxisTransition as SAT
 # from kivymd.utils.set_bars_colors import set_bars_colors
-# import webbrowser
 # from kvdeveloper.config import IMAGE_LIBRARY
 
 # from kivy.clock import Clock
@@ -136,6 +143,11 @@ if __name__ == '__main__':
 # Window.keyboard_anim_args = {"d": .2, "t": "in_out_expo"}
 # Window.softinput_mode = "below_target"
 
+# class UI(MDScreenManager):
+#     def __init__(self, *args, **kwargs):
+#         super(UI, self).__init__(*args, **kwargs)
+#         self.transition = SAT()
+
 # class {{project_name}}(MDApp):
 #     def __init__(self, **kwargs):
 #         super().__init__(**kwargs)
@@ -144,9 +156,9 @@ if __name__ == '__main__':
 #         self.image_library_path = IMAGE_LIBRARY
 #         self.apply_styles("Light")
 #         # This is the screen manager that will contain all the screens of your application.
-#         self.manager_screens = MDScreenManager()
+#         self.manager_screens = UI()
         
-#     def build(self) -> MDScreenManager:
+#     def build(self) -> UI:
 #         self.generate_application_screens()
 #         self.set_bars_colors()
 #         self.manager_screens.current = "home screen"
@@ -172,12 +184,12 @@ if __name__ == '__main__':
 
 #     def set_bars_colors(self) -> None:
 #         set_bars_colors(
-#             self.theme_cls.primary_color,  # status bar color
-#             self.theme_cls.primary_color,  # navigation bar color
+#             self.theme_cls.primaryColor,  # status bar color
+#             self.theme_cls.primaryColor,  # navigation bar color
 #             "Light",                       # icons color of status bar
 #         )
 
-#     def apply_styles(self,style: str = "Light") -> None:
+#     def apply_styles(self, style: str = "Light") -> None:
 #         self.theme_cls.theme_style = style
         
 #     def web_open(self, url: str) -> None:

@@ -1,6 +1,5 @@
 import os
 import importlib
-from kivy.core.window import Window
 from kivy import Config
 from PIL import ImageGrab
 
@@ -9,6 +8,8 @@ resolution = ImageGrab.grab().size
 # Change the values of the application window size as you need.
 Config.set("graphics", "height", "690")
 Config.set("graphics", "width", "317")
+
+from kivy.core.window import Window
 
 # Place the application window on the right side of the computer screen.
 Window.top = 30
@@ -26,7 +27,7 @@ class {{project_name}}(MDApp):
         super({{project_name}}, self).__init__(*args,**kwargs)
         self.DEBUG=True
         self.KV_DIRS=[
-            os.path.join(os.getcwd(),"View"),
+            os.path.join(os.getcwd(), "View"),
         ]
         self.theme_cls.primary_palette = "Midnightblue"
 
