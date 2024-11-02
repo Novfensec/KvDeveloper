@@ -2,6 +2,7 @@ import os
 import typer
 import platform
 import subprocess
+import sys
 import re
 from shutil import rmtree
 from typing import Dict, List
@@ -146,7 +147,7 @@ def create_from_structure(
     There is no point of writing MVC implementation from scratch so I used subprocess to run KivyMD's inbuilt create_project script simplifying development workflow.
     """
     output = subprocess.run(
-        f"python -m kivymd.tools.patterns.create_project MVC . {variables['project_name']} python{python_version} master --use_hotreload yes --name_screen {parsed_screens_string}",
+        f"{sys.executable} -m kivymd.tools.patterns.create_project MVC . {variables['project_name']} python{python_version} master --use_hotreload yes --name_screen {parsed_screens_string}",
         shell=True,
     )
 
@@ -250,7 +251,7 @@ def create_from_structure(
     try:
         subprocess.run(
             [
-                os.path.join(variables["project_name"], "venv", envbin, "python"),
+                os.path.join(variables["project_name"], "venv", envbin, f"{sys.executable}"),
                 "-m",
                 "pip",
                 "install",
@@ -567,7 +568,7 @@ def add_from_structure(
             f"\nCreating Screen with name [bold cyan]{parsed_name}[/bold cyan]."
         )
         output = subprocess.run(
-            f"python -m kivymd.tools.patterns.add_view MVC . {parsed_name}",
+            f"{sys.executable} -m kivymd.tools.patterns.add_view MVC . {parsed_name}",
             shell=True,
         )
         if output.returncode != 0:
@@ -927,10 +928,10 @@ def remove_from_structure(
                 )
 
                 # Remove model and controller files if they exist
-                if os.path.exists(model_file_path):
+                if os.path.isfile(model_file_path):
                     os.remove(model_file_path)
                     console.print(f"\nDeleted: [red]{model_file_path}[/red]")
-                if os.path.exists(controller_file_path):
+                if os.path.isfile(controller_file_path):
                     os.remove(controller_file_path)
                     console.print(f"\nDeleted: [red]{controller_file_path}[/red]")
             except Exception as e:
