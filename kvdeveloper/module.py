@@ -102,6 +102,13 @@ def create_from_template(
                 f"\nCreated file: [bright_white]{target_file_path}[/bright_white]"
             )
 
+    assets_path = os.path.join(destination, "assets")
+    fonts_path = os.path.join(assets_path, "fonts")
+    images_path = os.path.join(assets_path, "images")
+    os.makedirs(assets_path, exist_ok=True)
+    os.makedirs(fonts_path, exist_ok=True)
+    os.makedirs(images_path, exist_ok=True)
+
     """
     Updating requirements.txt.
     """
@@ -155,7 +162,7 @@ def create_from_structure(
         raise typer.Exit(code=1)
 
     """
-    ipdating base screen components.
+    Updating base screen components.
     """
     with open(
         os.path.join(template_path, "View", "base_screen.kv"), "r", encoding="utf-8"
@@ -172,7 +179,7 @@ def create_from_structure(
         )
 
     """
-    updating screen styles.
+    Updating screen styles.
     """
     for name_view in parsed_screens_list:
         parsed_name = name_parser(name_view, "screen")
@@ -196,7 +203,7 @@ def create_from_structure(
             )
 
     """
-    updating main.py.
+    Updating main.py.
     """
     with open(
         os.path.join(VIEW_BASE, "main.py"), "r", encoding="utf-8"
@@ -215,12 +222,12 @@ def create_from_structure(
         )
 
     """
-    adding extended functions and classes.
+    Adding extended functions and classes.
     """
     add_extensions(template_name, destination)
 
     """
-    updating README.md.
+    Updating README.md.
     """
     with open(
         os.path.join(template_path, "README.md"), "r", encoding="utf-8"
