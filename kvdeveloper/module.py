@@ -258,7 +258,7 @@ def create_from_structure(
     try:
         subprocess.run(
             [
-                os.path.join(variables["project_name"], "venv", envbin, f"{sys.executable}"),
+                os.path.join(variables["project_name"], "venv", envbin, "python"),
                 "-m",
                 "pip",
                 "install",
