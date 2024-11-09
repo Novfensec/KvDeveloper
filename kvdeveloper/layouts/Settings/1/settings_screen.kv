@@ -1,38 +1,40 @@
 #: import IconListItem View.{{parsed_name}}.extensions.IconListItem
 
-<{{parsed_name}}View>
+<{{parsed_name}}View>:
     MDStackLayout:
         size_hint: 1, 1 
-        spacing: "10dp"
 
         MDBoxLayout:
             orientation: 'vertical'
             adaptive_height: True
-            padding: 5
+            spacing: 10
+            padding: [ 10, 10, 10, 10]
 
-            MDIconButton:
-                style: "standard"
-                icon: "arrow-left"
+            CustomIconButton:
+                icon:  "arrow-left"
+				on_press:
+					app.referrer()
 
         MDScrollView:
             {{parsed_name}}Context:
                 orientation: 'vertical'
                 adaptive_height: True
-                padding: [10, 5, 10, 10]
+                padding: [10, 10, 10, 10]
+				spacing: 10
 
 <{{parsed_name}}Context@MDBoxLayout>:
 	MDBoxLayout:
-		orientation:"vertical"
-		adaptive_height:True
-		radius:[25]
+		orientation: "vertical"
+		adaptive_height: True
+		radius: [25]
 
         MDTextField:
             mode: "filled"
             theme_line_color: "Custom"
-            line_color_normal: 1,1,1,0
+            line_color_normal: [1, 1, 1, 0]
 
             MDTextFieldLeadingIcon:
-                icon: "magnify"
+                icon:  "magnify"
                 theme_icon_color: "Custom"
                 icon_color_normal: app.theme_cls.primaryColor
                 icon_color_focus: app.theme_cls.primaryColor
@@ -40,92 +42,94 @@
             MDTextFieldHintText:
                 text: "Search"
                 theme_text_color: "Custom"
-                text_color_normal: 0,0,0,.7
+                text_color_normal: app.theme_cls.outlineColor
 
             MDTextFieldTrailingIcon:
-                icon:"microphone"
-                theme_icon_color:"Custom"
-                icon_color_normal:app.theme_cls.primaryColor
-                icon_color_focus:app.theme_cls.primaryColor
+                icon: "microphone"
+                theme_icon_color: "Custom"
+                icon_color_normal: app.theme_cls.primaryColor
+                icon_color_focus: app.theme_cls.primaryColor
 
 	MDBoxLayout:
-		orientation:"vertical"
-		adaptive_height:True
-		padding:"0dp","7dp","0dp","7dp"
-		spacing:"10dp"
+		orientation: "vertical"
+		adaptive_height: True
+		padding: ["0dp", "7dp", "0dp", "7dp"]
+		spacing: "10dp"
 
 		MDList:
-			radius:[15]
-			spacing:"7dp"
-            cols:1
+			radius: [15]
+			spacing: "7dp"
+            cols: 1
 
 			IconListItem:
-				icon:"weather-night"
-				text:"Night Mode"
-				ripple:False
-				secondary_text:"Enabled" if mode_switch.active else "Disabled"
+				icon: "weather-night"
+				text: "Night Mode"
+				ripple: False
+				secondary_text: "Enabled" if mode_switch.active else "Disabled"
 
 				MDSwitch:
-					id:mode_switch
-					pos_hint:{"center_x":.9,"center_y":.5}
+					id: mode_switch
+					pos_hint: {"center_x": 0.9, "center_y": 0.5}
+					on_active:
+						app.apply_styles('Dark') if self.active else app.apply_styles('Light')
 
 			IconListItem:
-				icon:"bell-outline"
-				text:"Notifications"
-				ripple:False
-				secondary_text:"News and updates"
+				icon: "bell-outline"
+				text: "Notifications"
+				ripple: False
+				secondary_text: "News and updates"
 
 				MDSwitch:
-					id:notification_switch
-					pos_hint:{"center_x":.9,"center_y":.5}
+					id: notification_switch
+					pos_hint: {"center_x": 0.9, "center_y": 0.5}
 
 		MDDivider:
 		MDList:
-			radius:[15]
-			spacing:"7dp"
-            cols:1
+			radius: [15]
+			spacing: "7dp"
+            cols: 1
 
 			IconListItem:
-				icon:"magic-staff"
-				text:"Appearance"
-				secondary_text:"Themes, layout, text size"
+				icon: "magic-staff"
+				text: "Appearance"
+				secondary_text: "Themes, layout, text size"
 
 			IconListItem:
-				icon:"shield-lock-outline"
-				text:"Privacy and security"
-				secondary_text:"Terms of use and privacy policy"
+				icon: "shield-lock-outline"
+				text: "Privacy and security"
+				secondary_text: "Terms of use and privacy policy"
 
 			IconListItem:
-				icon:"help-circle-outline"
-				text:"Help and feedback"
-				secondary_text:"FAQs, report problems, social"
+				icon: "help-circle-outline"
+				text: "Help and feedback"
+				secondary_text: "FAQs, report problems, social"
 
 			IconListItem:
-				icon:"information-outline"
-				text:"About KvDeveloper"
-				secondary_text:"Updates, version"
+				icon: "information-outline"
+				text: "About KvDeveloper"
+				secondary_text: "Updates, version"
 
 <IconListItem>:
-	size_hint:1,None
-	height:list_item.height
-	md_bg_color:0.5,0.6,1,0.1
-	radius:[15]
-    padding:"3dp","0dp","3dp","0dp"
+	size_hint: 1, None
+	height: list_item.height
+	md_bg_color: app.theme_cls.surfaceContainerLowColor
+	radius: [15]
+    padding: ["3dp", "0dp", "3dp", "0dp"]
 
 	MDListItem:
-		id:list_item
-        theme_bg_color:"Custom"
-        md_bg_color:1,1,1,0
-		ripple_effect:root.ripple
+		id: list_item
+        theme_bg_color: "Custom"
+        md_bg_color: 1, 1, 1, 0
+		ripple_effect: root.ripple
 
 		MDListItemLeadingIcon:
-			icon:root.icon
-			color:app.theme_cls.onPrimaryFixedVariantColor
-            theme_bg_color:"Custom"
-            md_bg_color:app.theme_cls.inversePrimaryColor
+			icon: root.icon
+			color: app.theme_cls.onPrimaryFixedVariantColor
+            theme_bg_color: "Custom"
+            md_bg_color: app.theme_cls.inversePrimaryColor
 
 		MDListItemHeadlineText:
-			text:root.text
+			text: root.text
 
 		MDListItemSupportingText:
-			text:root.secondary_text
+			text: root.secondary_text

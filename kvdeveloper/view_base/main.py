@@ -79,7 +79,7 @@ class {{project_name}}(MDApp):
 
     def apply_styles(self, style: str = "Light") -> None:
         self.theme_cls.theme_style = style
-        
+
     def on_keyboard_down(self, window, keyboard, keycode, text, modifiers) -> None:
         """
         The method handles keyboard events.

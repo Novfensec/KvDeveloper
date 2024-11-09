@@ -15,19 +15,18 @@ from kivy.core.window import Window
 Window.top = 30
 Window.left = resolution[0] - Window.width + 5
 
-Window.keyboard_anim_args = {"d": .2, "t": "in_out_expo"}
-Window.softinput_mode = "below_target"
-
 from kivymd.tools.hotreload.app import MDApp
 from kivymd.uix.screenmanager import MDScreenManager
 from kivymd.uix.transition import MDSharedAxisTransition as SAT
 import webbrowser
 from kvdeveloper.config import IMAGE_LIBRARY
 
+
 class UI(MDScreenManager):
     def __init__(self, *args, **kwargs):
         super(UI, self).__init__(*args, **kwargs)
         self.transition = SAT()
+
 
 class {{project_name}}(MDApp):
     def __init__(self, *args, **kwargs):
@@ -45,10 +44,11 @@ class {{project_name}}(MDApp):
         return self.manager_screens
 
     def generate_application_screens(self) -> None:
-        '''
+        """
         Adds different screen widgets to the screen manager
-        '''
+        """
         import View.screens
+
         importlib.reload(View.screens)
         screens = View.screens.screens
 
@@ -58,15 +58,23 @@ class {{project_name}}(MDApp):
             view.name = name_screen
             self.manager_screens.add_widget(view)
 
+    def apply_styles(self, style: str = "Light") -> None:
+        self.theme_cls.theme_style = style
+
+    def referrer(self, destination: str = None) -> None:
+        if self.manager_screens.current != destination:
+            self.manager_screens.current = destination
+
     def web_open(self, url: str) -> None:
         webbrowser.open_new_tab(url)
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     {{project_name}}().run()
 
-'''
+"""
 For Production uncomment the below code and comment out the above code
-'''
+"""
 
 # import webbrowser
 # from kivymd.app import MDApp
@@ -75,14 +83,22 @@ For Production uncomment the below code and comment out the above code
 # from kvdeveloper.config import IMAGE_LIBRARY
 # from kivymd.utils.set_bars_colors import set_bars_colors
 # from kivy.core.window import Window
+# from kivy.clock import Clock
 
-# Window.keyboard_anim_args = {"d": .2, "t": "in_out_expo"}
-# Window.softinput_mode = "below_target"
+
+# def set_softinput(*args) -> None:
+#     Window.keyboard_anim_args = {"d": 0.2, "t": "in_out_expo"}
+#     Window.softinput_mode = "below_target"
+
+
+# Window.on_restore(Clock.schedule_once(set_softinput, 0.1))
+
 
 # class UI(MDScreenManager):
 #     def __init__(self, *args, **kwargs):
 #         super(UI, self).__init__(*args, **kwargs)
 #         self.transition = SAT()
+
 
 # class {{project_name}}(MDApp):
 #     def __init__(self, *args, **kwargs):
@@ -91,15 +107,16 @@ For Production uncomment the below code and comment out the above code
 #         self.theme_cls.primary_palette = "Midnightblue"
 #         self.image_library_path = IMAGE_LIBRARY
 #         self.manager_screens = UI()
-        
+
 #     def build(self) -> UI:
 #         self.generate_application_screens()
-#         self.set_bars_colors()
+#         self.apply_styles()
 #         return self.manager_screens
-    
+
 #     def generate_application_screens(self) -> None:
-#        # adds different screen widgets to the screen manager 
+#         # adds different screen widgets to the screen manager
 #         import View.screens
+
 #         screens = View.screens.screens
 
 #         for i, name_screen in enumerate(screens.keys()):
@@ -108,15 +125,26 @@ For Production uncomment the below code and comment out the above code
 #             view.name = name_screen
 #             self.manager_screens.add_widget(view)
 
-#     def set_bars_colors(self) -> None:
+#     def apply_styles(self, style: str = "Light") -> None:
+#         self.theme_cls.theme_style = style
+#         if style == "Light":
+#             style = "Dark"
+#         self.set_bars_colors(style)
+
+#     def set_bars_colors(self, style: str = "Light") -> None:
 #         set_bars_colors(
 #             self.theme_cls.primaryColor,  # status bar color
 #             self.theme_cls.primaryColor,  # navigation bar color
-#             "Light",                       # icons color of status bar
+#             style,  # icons color of status bar
 #         )
+
+#     def referrer(self, destination: str = None) -> None:
+#         if self.manager_screens.current != destination:
+#             self.manager_screens.current = destination
 
 #     def web_open(self, url: str) -> None:
 #         webbrowser.open_new_tab(url)
 
-# if __name__ == '__main__':
+
+# if __name__ == "__main__":
 #     {{project_name}}().run()

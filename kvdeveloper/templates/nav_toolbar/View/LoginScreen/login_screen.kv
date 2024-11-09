@@ -1,325 +1,303 @@
 <LoginScreenView>:
     MDScreenManager:
-        id:login_manager_screens
+        id: login_manager_screens
         LoginSubScreen:
-			manager_screens:login_manager_screens
+			manager_screens: login_manager_screens
         SignupSubScreen:
-			manager_screens:login_manager_screens
+			manager_screens: login_manager_screens
+
+    MDStackLayout:
+        size_hint: 1, 1
+        MDBoxLayout:
+            adaptive_height: True
+            padding: [5, 5, 5, 5]
+            CustomIconButton:
+                icon: 'arrow-left'
+                on_press:
+                    app.referrer("home screen")
 
 <LoginSubScreen@MDScreen>:
-	manager_screens:None
-    name:"login sub screen"
-    MDStackLayout:
-        size_hint:1,1
-        MDBoxLayout:
-            adaptive_height:True
-            MDIconButton:
-                icon:'arrow-left'
-                theme_icon_color:"Custom"
-                icon_color:"midnightblue"
-                elevation:1
-                on_press:
-                    app.manager_screens.current='home screen'
+	manager_screens: None
+    name: "login sub screen"
 
-        MDBoxLayout:
-            orientation: 'vertical'
-            MDScrollView:
-                always_overscroll:False
+    MDBoxLayout:
+        orientation: 'vertical'
+        MDScrollView:
+            always_overscroll: False
 
-                MDGridLayout:
-                    cols:1
-                    adaptive_height:True
-					padding: ('9dp', '9dp', '9dp', '45dp')
+            MDGridLayout:
+                cols: 1
+                adaptive_height: True
+                padding: ['9dp', '9dp', '9dp', '45dp']
 
-                    LoginBoxLayout:
-                        orientation: 'vertical'
-                        adaptive_height:True
-                        spacing: '10dp'
-						manager_screens:root.manager_screens
+                MDWidget:
+                    size_hint: 1, None
+                    height: "45dp"
+
+                LoginBoxLayout:
+                    orientation: 'vertical'
+                    adaptive_height: True
+                    spacing: 7
+                    manager_screens: root.manager_screens
 
 <LoginBoxLayout@MDBoxLayout>:
-    MDBoxLayout:
-        adaptive_height:True
-
-        MDLabel:
-            text:'Login to Novfensec Inc.'
-            color:app.theme_cls.primaryColor
-			multiline:True
-            halign:'center'
-            theme_font_size:"Custom"
-            font_size:'25sp'
-            size_hint_y:None
-            height:self.texture_size[1]
+    MDLabel:
+        text: 'Login'
+        font_style: "Display"
+        role: "small"
+        color: app.theme_cls.primaryColor
+        halign: 'center'
+        adaptive_height: True
 
     MDBoxLayout:
         orientation: 'vertical'
         adaptive_height:True
-        padding: ('14dp', '14dp', '14dp', '14dp')
+        padding: [5, 10, 5, 10]
         MDAnchorLayout:
             anchor_x: 'center'
-            size_hint_y:None
-            height:avatar.height
+            size_hint: 1, None
+            height: avatar.height
 
             FitImage:
-                id:avatar
-                source:f"{app.image_library_path}/basic/login_illustration400.png"
-                size_hint: None,None
-                size:"145sp","125sp"
+                id: avatar
+                source: f"{app.image_library_path}/basic/login_illustration400.png"
+                size_hint: None, None
+                size: "200dp","145dp"
 
     MDBoxLayout:
     	orientation: 'vertical'
-        adaptive_height:True
+        adaptive_height: True
         spacing: '16dp'
-        md_bg_color:0.75,0.7,0.9,0.2
-        radius:[19]
-        padding: ('9dp', '14dp', '9dp', '14dp')
+        md_bg_color: app.theme_cls.surfaceContainerLowColor
+        radius: [19]
+        padding: ['9dp', '14dp', '9dp', '14dp']
 
         CustomTextField:
-            icon_left:"account"
-            hint_text:"Username"
+            icon_left: "account"
+            hint_text: "Username"
 
         CustomTextField:
-            icon_left:"lock"
-            hint_text:"Password"
+            icon_left: "lock"
+            hint_text: "Password"
             
             MDTextFieldTrailingIcon:
-                icon:"eye"
-                theme_icon_color:"Custom"
-                icon_color_normal:app.theme_cls.primaryColor
-                icon_color_focus:app.theme_cls.primaryColor
+                icon: "eye"
+                theme_icon_color: "Custom"
+                icon_color_normal: app.theme_cls.primaryColor
+                icon_color_focus: app.theme_cls.primaryColor
 
-        MDExtendedFabButton:
-        	size_hint:.9,None
-            pos_hint:{'center_x':.5}
-            theme_bg_color:"Custom"
-			md_bg_color:app.theme_cls.inversePrimaryColor
-			ripple_color:app.theme_cls.primaryColor
+        MDButton:
+            style: "tonal"
+            theme_width: "Custom"
+            height: "56dp"
+            size_hint_x: 1
             
-            MDExtendedFabButtonText:
-                text:"Login"
-                theme_font_size:"Custom"
-                font_size:"19sp"
-                theme_text_color:"Custom"
+            MDButtonText:
+                text: "Login"
+                font_style: "Title"
+                role: "medium"
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
 
 		MDButton:
-            style:"text"
-            pos_hint:{'center_x':.5}
+            style: "text"
+            pos_hint: {'center_x': 0.5}
 			on_press:
 				root.manager_screens.current="signup sub screen"
 			MDButtonText:
-				text:"Or Create an Account"
-				color:0,0,1,.8
+				text: "Or Create an Account"
 
 	Widget:
 	MDBoxLayout:
-		adaptive_height:True
-        padding: ('9dp', '7dp', '9dp', '1dp')
+		adaptive_height: True
+        padding: ['9dp', '7dp', '9dp', '1dp']
 
 		MDDivider:
 
 		MDLabel:
-			id:centered_text
-			adaptive_width:True
-			text:" or Login with"
+			id: centered_text
+			adaptive_width: True
+			text: " or Login with"
 
 		MDDivider:
 
 	MDAnchorLayout:
-		anchor_x:"center"
-		radius:[15]
-		size_hint_y:None
+		anchor_x: "center"
+		radius: [15]
+		size_hint_y: None
 
 		MDGridLayout:
-			adaptive_size:True
-			padding:"7dp","7dp","7dp","7dp"
-            cols:2
+			adaptive_size: True
+			padding: ["7dp", "7dp", "7dp", "7dp"]
+            cols: 2
 
             MDAnchorLayout:
-                size_hint:None,None
+                size_hint: None, None
                 MDIconButton:
-                    icon:"blank"
-                    size_hint:1,1
-                    theme_font_size:"Custom"
-                    font_size:"51sp"
+                    icon: "blank"
+                    size_hint: 1, 1
+                    theme_font_size: "Custom"
+                    font_size: "51sp"
                     
                 FitImage:
-                    source:f"{app.image_library_path}/basic/google64.png"
-                    size_hint:None,None
-                    size:"45dp","45dp"
+                    source: f"{app.image_library_path}/basic/google64.png"
+                    size_hint: None, None
+                    size: "45dp", "45dp"
 
             MDAnchorLayout:
-                size_hint:None,None
+                size_hint: None, None
                 MDIconButton:
-                    icon:"github"
-                    size_hint:1,1
-                    theme_icon_color:"Custom"
-                    icon_color:"black"
-                    theme_font_size:"Custom"
-                    font_size:"51sp"
+                    icon: "github"
+                    size_hint: 1, 1
+                    theme_icon_color: "Custom"
+                    icon_color: app.theme_cls.onSurfaceColor
+                    theme_font_size: "Custom"
+                    font_size: "51sp"
 
 <SignupSubScreen@MDScreen>:
-	manager_screens:None
-	name:"signup sub screen"
-
-    MDStackLayout:
-        size_hint:1,1
-        MDBoxLayout:
-            adaptive_height:True
-            MDIconButton:
-                icon:'arrow-left'
-                theme_icon_color:"Custom"
-                icon_color:"midnightblue"
-                elevation:1
-                on_press:
-                    app.manager_screens.current='home screen'
-
-        MDBoxLayout:
-            orientation: 'vertical'
-            MDScrollView:
-                always_overscroll:False
-
-                MDGridLayout:
-                    cols:1
-                    adaptive_height:True
-					padding: ('9dp', '9dp', '9dp', '45dp')
-
-                    SignupBoxLayout:
-                        orientation: 'vertical'
-                        adaptive_height:True
-                        spacing: '10dp'
-						manager_screens:root.manager_screens
-
-<SignupBoxLayout@MDBoxLayout>:
-    MDBoxLayout:
-        adaptive_height:True
-
-        MDLabel:
-            text:'Signup for Novfensec Inc.'
-            color:app.theme_cls.primaryColor
-			multiline:True
-            halign:'center'
-            theme_font_size:"Custom"
-            font_size:'25sp'
-            size_hint_y:None
-            height:self.texture_size[1]
+	manager_screens: None
+	name: "signup sub screen"
 
     MDBoxLayout:
         orientation: 'vertical'
-        adaptive_height:True
-        padding: ('14dp', '14dp', '14dp', '14dp')
+        MDScrollView:
+            always_overscroll: False
+
+            MDGridLayout:
+                cols: 1
+                adaptive_height: True
+                padding: ['9dp', '9dp', '9dp', '45dp']
+
+                MDWidget:
+                    size_hint: 1, None
+                    height: "45dp"
+
+                SignupBoxLayout:
+                    orientation: 'vertical'
+                    adaptive_height: True
+                    spacing: 7
+                    manager_screens: root.manager_screens
+
+<SignupBoxLayout@MDBoxLayout>:
+    MDLabel:
+        text: 'Signup'
+        font_style: "Display"
+        role: "small"
+        color: app.theme_cls.primaryColor
+        halign: 'center'
+
+    MDBoxLayout:
+        orientation: 'vertical'
+        adaptive_height: True
+        padding: [5, 10, 5, 10]
         MDAnchorLayout:
             anchor_x: 'center'
-            size_hint_y:None
-            height:avatar.height
+            size_hint: 1, None
+            height: avatar.height
 
             FitImage:
-                id:avatar
-                source:f"{app.image_library_path}/basic/signup_illustration.png"
-                size_hint: None,None
-                size:"145sp","125sp"
-				radius:[19]
+                id: avatar
+                source: f"{app.image_library_path}/basic/signup_illustration.png"
+                size_hint: None, None
+                size: "145dp","145dp"
 
     MDBoxLayout:
     	orientation: 'vertical'
-        adaptive_height:True
-        md_bg_color:0.75,0.7,0.9,0.2
+        adaptive_height: True
+        md_bg_color: app.theme_cls.surfaceContainerLowColor
         spacing: '11dp'
-        radius:[19]
-        padding: ('9dp', '14dp', '9dp', '14dp')
+        radius: [19]
+        padding: ['9dp', '14dp', '9dp', '14dp']
 
         CustomTextField:
-            icon_left:"account"
-            hint_text:"Username"
+            icon_left: "account"
+            hint_text: "Username"
 
         CustomTextField:
-            icon_left:"email"
-            hint_text:"Email Address"
-            email:True
+            icon_left: "email"
+            hint_text: "Email Address"
+            email: True
 
         CustomTextField:
-            icon_left:"lock"
-            hint_text:"Password"
+            icon_left: "lock"
+            hint_text: "Password"
             MDTextFieldTrailingIcon:
-                icon:"eye"
-                theme_icon_color:"Custom"
-                icon_color_normal:app.theme_cls.primaryColor
-                icon_color_focus:app.theme_cls.primaryColor
+                icon: "eye"
+                theme_icon_color: "Custom"
+                icon_color_normal: app.theme_cls.primaryColor
+                icon_color_focus: app.theme_cls.primaryColor
 
         CustomTextField:
-            icon_left:"lock"
-            hint_text:"Confirm Password"
+            icon_left: "lock"
+            hint_text: "Confirm Password"
             MDTextFieldTrailingIcon:
-                icon:"eye"
-                theme_icon_color:"Custom"
-                icon_color_normal:app.theme_cls.primaryColor
-                icon_color_focus:app.theme_cls.primaryColor
+                icon: "eye"
+                theme_icon_color: "Custom"
+                icon_color_normal: app.theme_cls.primaryColor
+                icon_color_focus: app.theme_cls.primaryColor
 
-        MDExtendedFabButton:
-
-        	size_hint:.9,None
-            pos_hint:{'center_x':.5}
-            theme_bg_color:"Custom"
-			md_bg_color:app.theme_cls.inversePrimaryColor
-			ripple_color:app.theme_cls.primaryColor
+        MDButton:
+            style: "tonal"
+            theme_width: "Custom"
+            height: "56dp"
+            size_hint_x: 1
             
-            MDExtendedFabButtonText:
-                text:"Signup"
-                theme_font_size:"Custom"
-                font_size:"19sp"
-                theme_text_color:"Custom"
+            MDButtonText:
+                text: "Signup"
+                font_style: "Title"
+                role: "medium"
+                pos_hint: {'center_x': 0.5, 'center_y': 0.5}
 
 		MDButton:
-            style:"text"
-            pos_hint:{'center_x':.5}
+            style: "text"
+            pos_hint: {'center_x': 0.5}
 			on_press:
-				root.manager_screens.current="login sub screen"
+				root.manager_screens.current = "login sub screen"
 			MDButtonText:
-				text:"Or Login to your Account"
-				color:0,0,1,.8
+				text: "Or Login to your Account"
 
 	Widget:
 	MDBoxLayout:
-		adaptive_height:True
-        padding: ('9dp', '7dp', '9dp', '1dp')
+		adaptive_height: True
+        padding: ['9dp', '7dp', '9dp', '1dp']
 
 		MDDivider:
 
 		MDLabel:
-			id:centered_text
-			adaptive_width:True
-			text:" or Signup with"
+			id: centered_text
+			adaptive_width: True
+			text: " or Signup with"
 
 		MDDivider:
 
 	MDAnchorLayout:
-		anchor_x:"center"
-		radius:[15]
-		size_hint_y:None
+		anchor_x: "center"
+		radius: [15]
+		size_hint_y: None
 
 		MDGridLayout:
-			adaptive_size:True
-			padding:"7dp","7dp","7dp","7dp"
-            cols:2
+			adaptive_size: True
+			padding: ["7dp", "7dp", "7dp", "7dp"]
+            cols: 2
 
             MDAnchorLayout:
-                size_hint:None,None
+                size_hint: None, None
                 MDIconButton:
-                    icon:"blank"
-                    size_hint:1,1
-                    theme_font_size:"Custom"
-                    font_size:"51sp"
+                    icon: "blank"
+                    size_hint: 1, 1
+                    theme_font_size: "Custom"
+                    font_size: "51sp"
                     
                 FitImage:
-                    source:f"{app.image_library_path}/basic/google64.png"
-                    size_hint:None,None
-                    size:"45dp","45dp"
+                    source: f"{app.image_library_path}/basic/google64.png"
+                    size_hint: None, None
+                    size: "45dp", "45dp"
 
             MDAnchorLayout:
-                size_hint:None,None
+                size_hint: None, None
                 MDIconButton:
-                    icon:"github"
-                    size_hint:1,1
-                    theme_icon_color:"Custom"
-                    icon_color:"black"
-                    theme_font_size:"Custom"
-                    font_size:"51sp"
+                    icon: "github"
+                    size_hint: 1, 1
+                    theme_icon_color: "Custom"
+                    icon_color: app.theme_cls.onSurfaceColor
+                    theme_font_size: "Custom"
+                    font_size: "51sp"
