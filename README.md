@@ -11,7 +11,7 @@
 
 [![PyPI version](https://img.shields.io/pypi/v/kvdeveloper.svg?color=blueviolet&logo=pypi&logoColor=white)](https://pypi.org/project/kvdeveloper)
 [![Supported Python versions](https://img.shields.io/pypi/pyversions/kvdeveloper.svg?color=yellow&logo=python&logoColor=ffd43b)](#Installation)
-[![Downloads](https://static.pepy.tech/badge/kvdeveloper)
+![Downloads](https://static.pepy.tech/badge/kvdeveloper)
 [![Code style: Black](https://img.shields.io/badge/code%20style-black-000000.svg?color=purple)](https://github.com/psf/black)
 
 [![GitHub stars](https://img.shields.io/github/stars/Novfensec/KvDeveloper)](https://github.com/Novfensec/KvDeveloper/stargazers)
