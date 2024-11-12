@@ -1,5 +1,5 @@
 kivy>=2.0.0
-kivymd>=2.0.0
+https://github.com/kivymd/KivyMD/archive/master.zip
 watchdog>=4.0.1
 pillow>=10.0.0
-kvdeveloper=={{kvdeveloper_version}}
+kvdeveloper>={{kvdeveloper_version}}

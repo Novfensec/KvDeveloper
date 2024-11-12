@@ -15,11 +15,14 @@ from kivy.core.window import Window
 Window.top = 30
 Window.left = resolution[0] - Window.width + 5
 
+import webbrowser
 from kivymd.tools.hotreload.app import MDApp
 from kivymd.uix.screenmanager import MDScreenManager
 from kivymd.uix.transition import MDSharedAxisTransition as SAT
-import webbrowser
 from kvdeveloper.config import IMAGE_LIBRARY
+from kivy.clock import Clock
+
+Clock.max_iteration = 30
 
 
 class UI(MDScreenManager):
@@ -39,13 +42,14 @@ class {{project_name}}(MDApp):
         self.image_library_path = IMAGE_LIBRARY
 
     def build_app(self) -> UI:
+        self.apply_styles("Light")
         self.manager_screens = UI()
         self.generate_application_screens()
         return self.manager_screens
 
     def generate_application_screens(self) -> None:
         """
-        Adds different screen widgets to the screen manager
+        Adds different screen widgets to the screen manager.
         """
         import View.screens
 
@@ -84,6 +88,8 @@ For Production uncomment the below code and comment out the above code
 # from kivymd.utils.set_bars_colors import set_bars_colors
 # from kivy.core.window import Window
 # from kivy.clock import Clock
+
+# Clock.max_iteration=30
 
 
 # def set_softinput(*args) -> None:
