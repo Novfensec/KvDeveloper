@@ -111,6 +111,11 @@ If you encounter any issues or have questions, feel free to reach out to the com
     kvdeveloper add-component Container ResponsiveGrid ITDCard
     ```
 
+- Create a new customizable components:
+    ```bash
+    kvdeveloper create-component MyComponent
+    ```
+
 - Register all custom fonts and components to Kivy bases:
     ```bash
     kvdeveloper register
