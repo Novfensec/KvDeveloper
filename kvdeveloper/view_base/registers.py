@@ -10,8 +10,8 @@ component_register = Factory.register
 # Get the absolute path to the "View" directory
 view_path = os.path.join(os.getcwd(), "View")
 
-# Pattern to match all "Components" directories recursively within "View"
-component_dir_pattern = os.path.join(view_path, "**", "Components")
+# Pattern to match all "components" directories recursively within "View"
+component_dir_pattern = os.path.join(view_path, "**", "components")
 
 # Find all directories that match the component pattern
 component_dirs: List[str] = glob.glob(component_dir_pattern, recursive=True)
@@ -19,7 +19,7 @@ component_dirs: List[str] = glob.glob(component_dir_pattern, recursive=True)
 """
 Registers custom components to the Kivy Factory.
 
-Below code searches for all directories named "Components" within the "View" directory and registers each component to the Kivy Factory. 
+Below code searches for all directories named "components" within the "View" directory and registers each component to the Kivy Factory. 
 Once registered, the components can be used without explicitly importing them elsewhere in the kvlang files.
 """
 

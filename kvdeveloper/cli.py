@@ -27,6 +27,7 @@ from kvdeveloper.module import (
     project_info,
 )
 from kvdeveloper.build_config import generate_build_files
+from kvdeveloper.utils import replace_placeholders
 from rich.panel import Panel
 from rich.text import Text
 from rich.table import Table
@@ -184,7 +185,7 @@ def add_component(
     ),
 ) -> None:
     """
-    Add Components to the project.
+    Add Components to the project using the existing ones.
 
     :param name_component: List containing the names of the components. (Case Sensitive Names)
     """
@@ -192,13 +193,13 @@ def add_component(
     for components in name_component:
         component_path = os.path.join(COMPONENTS_DIR, components)
         if not os.path.isdir(component_path):
-            typer.secho(f"\nComponent {components} does not exists.")
+            typer.secho(f"\nComponent '{components}' does not exists.")
             continue
         list_component_path.append(component_path)
 
-    destination = os.path.join(os.getcwd(), "Components")
+    destination = os.path.join(os.getcwd(), "components")
     if not os.path.isdir(destination):
-        os.makedirs("Components", exist_ok=True)
+        os.makedirs("components", exist_ok=True)
 
     for component_path in list_component_path:
         for root, _, files in os.walk(component_path):
@@ -208,7 +209,7 @@ def add_component(
                 os.makedirs(target_dir, exist_ok=True)
 
             console.print(
-                f"\nCreating Component [bold cyan]{os.path.basename(component_path)}[/bold cyan]"
+                f"\nCreating Component [bold cyan]{os.path.basename(component_path)}[/bold cyan]."
             )
 
             for file_name in files:
@@ -227,6 +228,60 @@ def add_component(
                 console.print(
                     f"\nCreated file: [bright_white]{target_file_path}[/bright_white]"
                 )
+
+
+@app.command()
+def create_component(
+    name_component: List[str] = typer.Argument(
+        help="List containing the names of the components.")
+) -> None:
+    
+    """
+    Add user defined Components to the project.
+
+    :param name_component: List containing the names of the components. (Case Sensitive Names)
+    """
+    destination = os.path.join(os.getcwd(), "components")
+    if not os.path.isdir(destination):
+        os.makedirs("components", exist_ok=True)
+
+    for components in name_component:
+        component_path = os.path.join(destination, components)
+        if os.pah.isdir(component_path):
+            typer.secho(f"\nComponent '{components}' already exists.")
+            continue
+        os.makedirs(component_path, exist_ok=True)
+        console.print(
+            f"\nCreating Component [bold cyan]{components}[/bold cyan]."
+        )
+        # Create an __init__.py File
+        with open(
+            os.path.join(component_path, "__init__.py"), "w", encoding="utf-8"
+        ) as init_file:
+            init_file.write(f"from .{components.lower()} import {components}\n")
+
+        variables = {
+            "component_name" : f"{components}",
+        }
+
+        # Create the .py File using template
+        with open(
+            os.path.join(VIEW_BASE, "default_component.py"), "r", encoding="utf-8"
+        ) as template_file:
+            content = template_file.read()
+
+        content = replace_placeholders(content, variables)
+        
+        with open(
+            os.path.join(component_path, f"{components.lower()}.py"), "w", encoding="utf-8"
+        ) as component_file:
+            component_file.write(content)
+
+        # Create the .kv File
+        with open(
+            os.path.join(component_path, f"{components.lower()}.kv"), "w", encoding="utf-8"
+        ) as component_file:
+            component_file.write(f"<{components}>:\n")
 
 
 @app.command()
