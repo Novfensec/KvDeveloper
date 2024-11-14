@@ -233,9 +233,9 @@ def add_component(
 @app.command()
 def create_component(
     name_component: List[str] = typer.Argument(
-        help="List containing the names of the components.")
+        help="List containing the names of the components."
+    ),
 ) -> None:
-    
     """
     Add user defined Components to the project.
 
@@ -251,9 +251,7 @@ def create_component(
             typer.secho(f"\nComponent '{components}' already exists.")
             continue
         os.makedirs(component_path, exist_ok=True)
-        console.print(
-            f"\nCreating Component [bold cyan]{components}[/bold cyan]."
-        )
+        console.print(f"\nCreating Component [bold cyan]{components}[/bold cyan].")
         # Create an __init__.py File
         with open(
             os.path.join(component_path, "__init__.py"), "w", encoding="utf-8"
@@ -264,7 +262,7 @@ def create_component(
                 f"\nCreated file: [bright_white]{component_path}/__init__.py[/bright_white]"
             )
         variables = {
-            "component_name" : f"{components}",
+            "component_name": f"{components}",
         }
 
         # Create the .py File using template
@@ -276,7 +274,9 @@ def create_component(
         content = replace_placeholders(content, variables)
 
         with open(
-            os.path.join(component_path, f"{components.lower()}.py"), "w", encoding="utf-8"
+            os.path.join(component_path, f"{components.lower()}.py"),
+            "w",
+            encoding="utf-8",
         ) as component_file:
             component_file.write(content)
             console.print(
@@ -285,7 +285,9 @@ def create_component(
 
         # Create the .kv File
         with open(
-            os.path.join(component_path, f"{components.lower()}.kv"), "w", encoding="utf-8"
+            os.path.join(component_path, f"{components.lower()}.kv"),
+            "w",
+            encoding="utf-8",
         ) as component_file:
             component_file.write(f"<{components}>:\n")
             console.print(
