@@ -247,7 +247,7 @@ def create_component(
 
     for components in name_component:
         component_path = os.path.join(destination, components)
-        if os.pah.isdir(component_path):
+        if os.path.isdir(component_path):
             typer.secho(f"\nComponent '{components}' already exists.")
             continue
         os.makedirs(component_path, exist_ok=True)
@@ -260,6 +260,9 @@ def create_component(
         ) as init_file:
             init_file.write(f"from .{components.lower()} import {components}\n")
 
+            console.print(
+                f"\nCreated file: [bright_white]{component_path}/__init__.py[/bright_white]"
+            )
         variables = {
             "component_name" : f"{components}",
         }
@@ -271,17 +274,23 @@ def create_component(
             content = template_file.read()
 
         content = replace_placeholders(content, variables)
-        
+
         with open(
             os.path.join(component_path, f"{components.lower()}.py"), "w", encoding="utf-8"
         ) as component_file:
             component_file.write(content)
+            console.print(
+                f"\nCreated file: [bright_white]{component_path}/{components.lower()}.py[/bright_white]"
+            )
 
         # Create the .kv File
         with open(
             os.path.join(component_path, f"{components.lower()}.kv"), "w", encoding="utf-8"
         ) as component_file:
             component_file.write(f"<{components}>:\n")
+            console.print(
+                f"\nCreated file: [bright_white]{component_path}/{components.lower()}.kv[/bright_white]"
+            )
 
 
 @app.command()
