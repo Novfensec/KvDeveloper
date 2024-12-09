@@ -144,7 +144,7 @@ If you encounter any issues or have questions, feel free to reach out to the com
 - **Navigation Toolbar Template**: A template with navigation and toolbar screens.
     <p align="center">
         <img 
-            width="800" src="https://raw.githubusercontent.com/Novfensec/KvDeveloper/main/kvdeveloper/assets/image_library/kvdeveloper/nav_toolbar.png" style="border-radius:1em" 
+            width="800" src="https://raw.githubusercontent.com/Novfensec/KvDeveloper/main/kvdeveloper/assets/image_library/kvdeveloper/templates/nav_toolbar.png" style="border-radius:1em" 
             title="kvdeveloper create MyApp --template nav_toolbar"
         />
     </p>
@@ -152,7 +152,7 @@ If you encounter any issues or have questions, feel free to reach out to the com
 - **Navigation Dock Template**: A template navigation and toolbar screens with BottomNavigation, HomeScreen, LoginScreen and SettingsScreen components.
     <p align="center">
         <img 
-            width="800" src="https://raw.githubusercontent.com/Novfensec/KvDeveloper/main/kvdeveloper/assets/image_library/kvdeveloper/nav_dock.png" style="border-radius:1em" 
+            width="800" src="https://raw.githubusercontent.com/Novfensec/KvDeveloper/main/kvdeveloper/assets/image_library/kvdeveloper/templates/nav_dock.png" style="border-radius:1em" 
             title="kvdeveloper create MyApp --template nav_dock"
         />
     </p>

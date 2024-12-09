@@ -32,87 +32,125 @@ def add_extensions(
     template_name: str, destination: str, layout_name: str = None, index: str = "1"
 ) -> None:
     """
-    Adds extensions.py to required dirs.
+    Copies 'extensions.py' files from the specified template or layout directory
+    to the corresponding subdirectories of the destination.
+
+    Parameters:
+    - template_name (str): Name of the template directory to use.
+    - destination (str): Target directory where files will be copied.
+    - layout_name (str, optional): Name of the layout directory to use. Defaults to None.
+    - index (str, optional): Subdirectory index within the layout directory. Defaults to "1".
+
+    Raises:
+    - typer.Exit: If the template or layout path doesn't exist.
     """
-    if layout_name != None:
-        template_path = os.path.join(LAYOUTS_DIR, layout_name, index)
-    else:
-        template_path = os.path.join(TEMPLATES_DIR, template_name)
+    # Determine the source directory based on layout or template
+    template_path = (
+        os.path.join(LAYOUTS_DIR, layout_name, index)
+        if layout_name
+        else os.path.join(TEMPLATES_DIR, template_name)
+    )
 
     if not os.path.isdir(template_path):
-        typer.echo(f"\nPath '{template_path}' not found.")
+        typer.echo(f"\nError: Path '{template_path}' not found.")
         raise typer.Exit(code=1)
 
+    # Walk through the source directory
     for root, _, files in os.walk(template_path):
-        relative_path = os.path.relpath(root, template_path)
-        target_dir = os.path.join(destination, relative_path)
+        relative_path = os.path.relpath(root, template_path)  # Get relative path
+        target_dir = os.path.join(destination, relative_path)  # Map to destination path
 
-        for file_name in files:
-            if file_name == "extensions.py":
-                template_file_path = os.path.join(root, file_name)
-                target_file_path = os.path.join(target_dir, file_name)
+        # Process only 'extensions.py' files
+        if "extensions.py" in files:
+            source_file = os.path.join(root, "extensions.py")
+            target_file = os.path.join(target_dir, "extensions.py")
 
-                with open(template_file_path, "r", encoding="utf-8") as template_file:
-                    content = template_file.read()
+            # Ensure the target directory exists
+            os.makedirs(target_dir, exist_ok=True)
 
-                with open(target_file_path, "w", encoding="utf-8") as target_file:
-                    target_file.write(content)
+            # Read from the source file and write to the target file
+            with open(source_file, "r", encoding="utf-8") as src, open(
+                target_file, "w", encoding="utf-8"
+            ) as dest:
+                dest.write(src.read())
 
-                console.print(
-                    f"\nCreated file: [bright_white]{target_file_path}[/bright_white]"
-                )
+            console.print(
+                f"\nCreated file: [bright_white]{target_file}[/bright_white]"
+            )
 
 
 def create_from_template(
     template_name: str, destination: str, variables: Dict[str, str]
 ) -> None:
     """
-    Create project files from a template, replacing placeholders with specified variables.
+    Generate project files from a specified template, replacing placeholders
+    with provided variables, and ensuring the necessary directory structure.
 
-    :param template_name: The name of the template folder.
-    :param destination: The destination path where files should be created.
-    :param variables: A dictionary of variables to replace in the template files.
+    Parameters:
+    - template_name (str): Name of the template folder.
+    - destination (str): Path to the destination directory.
+    - variables (Dict[str, str]): Dictionary of placeholder variables to replace.
+
+    Raises:
+    - typer.Exit: If the template folder is not found.
     """
+    # Construct the path to the template
     template_path = os.path.join(TEMPLATES_DIR, template_name)
+
     if not os.path.isdir(template_path):
-        typer.echo(f"\nTemplate '{template_name}' not found.")
+        typer.echo(f"\nError: Template '{template_name}' not found.")
         raise typer.Exit(code=1)
 
+    # Walk through the template directory and replicate structure in destination
     for root, _, files in os.walk(template_path):
-        relative_path = os.path.relpath(root, template_path)
-        target_dir = os.path.join(destination, relative_path)
-        os.makedirs(target_dir, exist_ok=True)
+        relative_path = os.path.relpath(root, template_path)  # Relative path from the template
+        target_dir = os.path.join(destination, relative_path)  # Corresponding destination path
 
+        os.makedirs(target_dir, exist_ok=True)  # Ensure the target directory exists
+
+        # Process files in the current directory
         for file_name in files:
-            # Skip .pyc and .pyo files
+            # Skip unnecessary file types
             if file_name.endswith((".pyc", ".pyo")):
                 continue
-            template_file_path = os.path.join(root, file_name)
-            target_file_path = os.path.join(target_dir, file_name)
 
-            with open(template_file_path, "r", encoding="utf-8") as template_file:
-                content = template_file.read()
+            source_file = os.path.join(root, file_name)  # Full path to the source file
+            target_file = os.path.join(target_dir, file_name)  # Full path to the target file
 
+            # Read and process the content of the template file
+            with open(source_file, "r", encoding="utf-8") as src:
+                content = src.read()
+
+            # Replace placeholders in the content
             content = replace_placeholders(content, variables)
 
-            with open(target_file_path, "w", encoding="utf-8") as target_file:
-                target_file.write(content)
+            # Write the processed content to the target file
+            with open(target_file, "w", encoding="utf-8") as dest:
+                dest.write(content)
 
             console.print(
-                f"\nCreated file: [bright_white]{target_file_path}[/bright_white]"
+                f"\nCreated file: [bright_white]{target_file}[/bright_white]"
             )
 
-    assets_path = os.path.join(destination, "assets")
-    fonts_path = os.path.join(assets_path, "fonts")
-    images_path = os.path.join(assets_path, "images")
-    os.makedirs(assets_path, exist_ok=True)
-    os.makedirs(fonts_path, exist_ok=True)
-    os.makedirs(images_path, exist_ok=True)
+    # Create common assets directories
+    _create_asset_directories(destination)
 
-    """
-    Updating requirements.txt.
-    """
+    # Update `requirements.txt` if needed
     update_requirements(template_path, destination)
+
+
+def _create_asset_directories(destination: str) -> None:
+    """
+    Create common asset directories within the destination folder.
+
+    Parameters:
+    - destination (str): The base path where assets directories will be created.
+    """
+    assets_path = os.path.join(destination, "assets")
+    os.makedirs(os.path.join(assets_path, "fonts"), exist_ok=True)
+    os.makedirs(os.path.join(assets_path, "images"), exist_ok=True)
+
+    console.print("\nCreated common assets directories.")
 
 
 def create_from_structure(
@@ -374,15 +412,17 @@ def add_from_default(
     """
     Add screens to the project with a specified template and a default structure.
 
-    :param name_screen: A list of screen names to be added.
-    :param use_template: The template name to be used for creating the view if it pre-exists.
-    :param destination: The destination path where the files will be created.
+    Parameters:
+        name_screen (List[str]): A list of screen names to be added.
+        use_template (str): The template name to be used for creating the view if it pre-exists.
+        destination (str): The destination path where the files will be created.
     """
     for name_view in name_screen:
         # Parse screen name to PascalCase
         parsed_name = name_parser(name_view, "screen")
         # A snake that parses a name.
         snake_name_view = name_parser_snake(parsed_name)
+
         console.print(
             f"\nCreating Screen with name [bold cyan]{parsed_name}[/bold cyan]."
         )
@@ -402,7 +442,8 @@ def add_from_default(
                     # Template does not exist; create files with a blank template
                     if use_template:
                         typer.echo(
-                            f"\nView '{parsed_name}' not found in template '{use_template}'. Creating '{parsed_name}' with a blank template."
+                            f"\nView '{parsed_name}' not found in template '{use_template}'. "
+                            f"Creating '{parsed_name}' with a blank template."
                         )
                     os.makedirs(view_path, exist_ok=True)
 
@@ -420,9 +461,9 @@ def add_from_default(
                         encoding="utf-8",
                     ) as target_file:
                         target_file.write(content)
-                        console.print(
-                            f"\nCreated file: [bright_white]{view_path}/{snake_name_view}.py[/bright_white]"
-                        )
+                    console.print(
+                        f"\nCreated file: [bright_white]{view_path}/{snake_name_view}.py[/bright_white]"
+                    )
 
                     # Create the .kv file using the default template
                     with open(
@@ -431,19 +472,18 @@ def add_from_default(
                         encoding="utf-8",
                     ) as view_file:
                         content = view_file.read()
-
                     content = replace_placeholders(content, variables)
-
                     with open(
                         os.path.join(view_path, f"{snake_name_view}.kv"),
                         "w",
                         encoding="utf-8",
                     ) as target_file:
                         target_file.write(content)
+                    console.print(
+                        f"\nCreated file: [bright_white]{view_path}/{snake_name_view}.kv[/bright_white]"
+                    )
 
-                        console.print(
-                            f"\nCreated file: [bright_white]{view_path}/{snake_name_view}.kv[/bright_white]"
-                        )
+                    # Update the screens file
                     update_screens_file(parsed_name, snake_name_view, destination)
 
                     # Create an empty __init__.py File
@@ -451,8 +491,7 @@ def add_from_default(
                         os.path.join(view_path, "__init__.py"), "w", encoding="utf-8"
                     ) as init_file:
                         init_file.write("# Empty __init__.py file")
-
-                elif os.path.isdir(template_path):
+                else:
                     # Template exists; copy and process files from the template
                     for root, _, files in os.walk(template_path):
                         relative_path = os.path.relpath(root, template_path)
@@ -476,13 +515,12 @@ def add_from_default(
                                 target_file_path, "w", encoding="utf-8"
                             ) as target_file:
                                 target_file.write(content)
-
-                                console.print(
-                                    f"\nCreated file: [bright_white]{target_file_path}[/bright_white]"
-                                )
-                            update_screens_file(
-                                parsed_name, snake_name_view, destination
+                            console.print(
+                                f"\nCreated file: [bright_white]{target_file_path}[/bright_white]"
                             )
+
+                        # Update the screens file
+                        update_screens_file(parsed_name, snake_name_view, destination)
             except Exception as e:
                 typer.secho(f"Error: {e}", err=True)
         else:
