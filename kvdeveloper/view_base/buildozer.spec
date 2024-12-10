@@ -7,7 +7,7 @@ title = {{project_name}}
 package.name = {{project_package_name}}
 
 # (str) Package domain (needed for android/ios packaging)
-package.domain = org.{{project_package_name}}
+package.domain = org.novfensec.{{project_package_name}}
 
 # (str) Source code where the main.py live
 source.dir = .
@@ -37,7 +37,7 @@ version = 0.1
 
 # (list) Application requirements
 # comma separated e.g. requirements = sqlite3,kivy
-requirements = python3, kivy==2.3.0, https://github.com/kivymd/KivyMD/archive/master.zip, pillow==10.3.0, materialyoucolor, exceptiongroup, asyncgui, asynckivy
+requirements = python3, kivy==2.3.0, https://github.com/kivymd/KivyMD/archive/master.zip, pillow, materialyoucolor, exceptiongroup, asyncgui, asynckivy
 
 # (str) Custom source folders for requirements
 # Sets custom source for any requirements with recipes
@@ -101,7 +101,7 @@ fullscreen = 0
 #android.features = android.hardware.usb.host
 
 # (int) Target Android API, should be as high as possible.
-#android.api = 31
+#android.api = 35
 
 # (int) Minimum API your APK / AAB will support.
 #android.minapi = 21
@@ -110,7 +110,7 @@ fullscreen = 0
 #android.sdk = 20
 
 # (str) Android NDK version to use
-#android.ndk = 23b
+#android.ndk = 25b
 
 # (int) Android NDK API to use. This is the minimum API your app will support, it should usually match android.minapi.
 #android.ndk_api = 21
@@ -360,15 +360,17 @@ android.allow_backup = True
 # (str) Path to a custom kivy-ios folder
 #ios.kivy_ios_dir = ../kivy-ios
 # Alternately, specify the URL and branch of a git checkout:
-ios.kivy_ios_url = https://github.com/kivy/kivy-ios
-ios.kivy_ios_branch = master
+ios.kivy_ios_url = https://github.com/kivy/kivy-ios 
+# ios.kivy_ios_url = https://github.com/Novfensec/kivy-ios
+ios.kivy_ios_branch = master 
+# ios.kivy_ios_branch = patch-2
 
 # Another platform dependency: ios-deploy
 # Uncomment to use a custom checkout
 #ios.ios_deploy_dir = ../ios_deploy
 # Or specify URL and branch
-ios.ios_deploy_url = https://github.com/phonegap/ios-deploy
-ios.ios_deploy_branch = 1.10.0
+ios.ios_deploy_url = https://github.com/ios-control/ios-deploy
+ios.ios_deploy_branch = master
 
 # (bool) Whether or not to sign the code
 ios.codesign.allowed = false

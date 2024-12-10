@@ -378,11 +378,21 @@ def config_build_setup(
 
     :param external: External Build Environment.
     """
-    available_platforms = [
-        "android",
-    ]
-    if not platform in available_platforms:
+    available_platforms = {
+        "android": [
+            "github",
+            "colab",
+        ],
+        "ios": [
+            "github",
+        ],
+    }
+    if not platform in available_platforms.keys():
         typer.secho("\nUnavailable platform.", err=True)
+        raise typer.Exit(code=0)
+
+    elif not external in available_platforms[platform]:
+        typer.secho("\nUnavailable external build environment.", err=True)
         raise typer.Exit(code=0)
 
     generate_build_files(platform, external)
@@ -394,7 +404,7 @@ def config_build_setup(
             "project_name": project_name,
             "project_package_name": project_name.strip("App").lower(),
         }
-        setup_build(project_name, ".", variables)
+        setup_build(project_name, os.getcwd(), variables)
 
 
 @app.command()
