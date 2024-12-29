@@ -545,7 +545,7 @@ def update_screens_file(
     import_statement = (
         f"from View.{parsed_name}.{snake_name_view} import {parsed_name}View\n"
     )
-    screen_entry = f"\n    '{snake_name_view.replace('_', ' ')}': {{\n        'object': {parsed_name}View(),\n    }},"
+    screen_entry = f"\n    '{snake_name_view.replace('_', ' ')}': {{\n        'object': {parsed_name}View,\n        'module': 'View.{parsed_name}'\n    }},"
 
     # Read the contents of the screens.py file
     with open(file_path, "r", encoding="utf-8") as file:

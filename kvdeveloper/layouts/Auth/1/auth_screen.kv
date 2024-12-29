@@ -8,7 +8,7 @@
         MDBoxLayout:
             orientation: 'vertical'
             adaptive_height: True
-            padding: 5
+            padding: [15, 15, 15, 15]
 
             MDIconButton:
                 style: "standard"
@@ -18,12 +18,12 @@
             MDGridLayout:
                 cols: 1
                 adaptive_height: True
-                spacing: "7dp"
+                spacing: "10dp"
 
                 LoginBoxLayout:
                     orientation: 'vertical'
                     adaptive_height: True
-                    spacing: "7dp"
+                    spacing: "10dp"
 
                 MDWidget:
                     size_hint: 1, None
@@ -40,21 +40,18 @@
             font_style: "Display"
             role: "small"
             halign: "center"
+            valign: "center"
             adaptive_height: True
             theme_text_color: "Custom"
             text_color: app.theme_cls.primaryColor
 
-        MDWidget:
-            size_hint: 1, None
-            height: dp(4)
-
         MDAnchorLayout:
             size_hint: 1, None
-            padding: "4dp"
+            padding: [15, 15, 15, 15]
             FitImage:
                 source: f"{images}/basic/login_illustration400.png"
-                size_hint: None, None
-                size: "215dp", "145dp"
+                size_hint: 1, None
+                adaptive_height: True
 
     MDWidget:
         size_hint: 1, None
@@ -63,14 +60,14 @@
     MDBoxLayout:
         orientation: 'vertical'
         adaptive_height: True
-        padding: ["7dp", "7dp", "7dp", "7dp"]
-        spacing: "14dp"
+        padding: [10, 10, 10, 10]
+        spacing: "15dp"
 
         LoginForm:
             orientation: 'vertical'
             adaptive_height: True
-            padding: ["3dp", "7dp", "3dp", "7dp"]
-            spacing: "12dp"
+            padding: [10, 10, 10, 10]
+            spacing: "15dp"
 
         RelLayout:
 
@@ -82,7 +79,7 @@
                 id: content
                 orientation: 'vertical'
                 adaptive_size: True
-                padding: ["3dp", "7dp", "3dp", "7dp"]
+                padding: [10, 10, 10, 10]
 
 <RelLayout@MDBoxLayout>:
     adaptive_height: True
@@ -158,7 +155,7 @@
     MDTextField:
         mode: "filled"
         theme_line_color: "Custom"
-        line_color_normal: 1,1,1,0
+        line_color_normal: [1, 1, 1, 0]
 
         MDTextFieldLeadingIcon:
             icon: "account"
@@ -169,12 +166,12 @@
         MDTextFieldHintText:
             text: "Username"
             theme_text_color: "Custom"
-            text_color_normal: 0,0,0,.7
+            text_color_normal: [0, 0, 0, 0.7]
 
     MDTextField:
         mode: "filled"
         theme_line_color: "Custom"
-        line_color_normal: 1,1,1,0
+        line_color_normal: [1, 1, 1, 0]
 
         MDTextFieldLeadingIcon:
             icon: "lock"
@@ -185,7 +182,7 @@
         MDTextFieldHintText:
             text: "Password"
             theme_text_color: "Custom"
-            text_color_normal: 0,0,0,.7
+            text_color_normal: [0, 0, 0, 0.7]
 
         MDTextFieldTrailingIcon:
             icon: "eye"

@@ -1,18 +1,24 @@
+import os
+import importlib
+from kivy import Config
+from PIL import ImageGrab
+
+resolution = ImageGrab.grab().size
+
+# Change the values of the application window size as you need.
+Config.set("graphics", "height", "690")
+Config.set("graphics", "width", "317")
+
+from kivy.core.window import Window
+
+# Place the application window on the right side of the computer screen.
+Window.top = 30
+Window.left = resolution[0] - Window.width + 5
+
 import webbrowser
-from kivymd.app import MDApp
+from kivymd.tools.hotreload.app import MDApp
 from kivymd.uix.screenmanager import MDScreenManager
 from kivymd.uix.transition import MDSharedAxisTransition as SAT
-from kivymd.utils.set_bars_colors import set_bars_colors
-from kivy.core.window import Window
-from kivy.clock import Clock
-
-
-def set_softinput(*args) -> None:
-    Window.keyboard_anim_args = {"d": 0.2, "t": "in_out_expo"}
-    Window.softinput_mode = "below_target"
-
-
-Window.on_restore(Clock.schedule_once(set_softinput, 0.1))
 
 
 class UI(MDScreenManager):
@@ -24,19 +30,24 @@ class UI(MDScreenManager):
 class {{project_name}}(MDApp):
     def __init__(self, *args, **kwargs):
         super({{project_name}}, self).__init__(*args, **kwargs)
-        self.load_all_kv_files(self.directory)
+        self.DEBUG = True
+        self.KV_DIRS = [
+            os.path.join(os.getcwd(), "View"),
+        ]
         self.theme_cls.primary_palette = "Midnightblue"
-        self.manager_screens = UI()
 
-    def build(self) -> UI:
+    def build_app(self) -> UI:
+        self.manager_screens = UI()
         self.generate_application_screens()
-        self.apply_styles()
         return self.manager_screens
 
     def generate_application_screens(self) -> None:
-        # adds different screen widgets to the screen manager
+        """
+        Adds different screen widgets to the screen manager
+        """
         import View.screens
 
+        importlib.reload(View.screens)
         screens = View.screens.screens
 
         for i, name_screen in enumerate(screens.keys()):
@@ -47,16 +58,6 @@ class {{project_name}}(MDApp):
 
     def apply_styles(self, style: str = "Light") -> None:
         self.theme_cls.theme_style = style
-        if style == "Light":
-            style = "Dark"
-        self.set_bars_colors(style)
-
-    def set_bars_colors(self, style: str = "Light") -> None:
-        set_bars_colors(
-            self.theme_cls.primaryColor,  # status bar color
-            self.theme_cls.primaryColor,  # navigation bar color
-            style,  # icons color of status bar
-        )
 
     def referrer(self, destination: str = None) -> None:
         if self.manager_screens.current != destination:

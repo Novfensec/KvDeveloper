@@ -1,7 +1,8 @@
-from View.HomeScreen.home_screen import HomeScreenView
+from View.HomeScreen import HomeScreenView
 
 screens = {
-    'home screen':{
-        'object': HomeScreenView(),
+    "home screen":{
+        "object": HomeScreenView(),
+        "module": "View.HomeScreen",
     },
 }

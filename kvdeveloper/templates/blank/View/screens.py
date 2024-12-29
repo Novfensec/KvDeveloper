@@ -1,7 +1,8 @@
-from View.SampleScreen.sample_screen import SampleScreenView
+from View.SampleScreen import SampleScreenView
 
 screens = {
     "sample screen": {
-        "object": SampleScreenView(),
+        "object": SampleScreenView,
+        "module": "View.SampleScreen",
     },
 }
