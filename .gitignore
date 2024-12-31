@@ -1,4 +1,6 @@
 __pycache__
+*.pyc
+*.pyo
 dist
 venv
 *.egg-info
