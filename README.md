@@ -60,11 +60,24 @@ If you encounter any issues or have questions, feel free to reach out to the com
     pip install kvdeveloper
     ```
 
+    **OR**
+
+    ```bash
+    pip install kvdeveloper[all]
+    ```
+
 - Install development version using pip `(requires git installation)`:
 
     ```bash
     pip install git+https://github.com/Novfensec/KvDeveloper.git@main
     ```
+
+    **OR**
+
+    ```bash
+    pip install https://github.com/Novfensec/KvDeveloper/archive/main.zip
+    ```
+
 
 ## Requirements
 - **Python**>=3.9
@@ -78,6 +91,8 @@ If you encounter any issues or have questions, feel free to reach out to the com
 - typer>=0.12.3
 
 - rich>=13.7.1
+
+**OPTIONAL**
 
 - markdown2>=2.5.0
 
@@ -167,6 +182,10 @@ Create customizable bootstrap like components directly in your project.
 - **ResponsiveGrid**: A responsive grid with pre-defined column calculations.
 
 - **ITDCard (Image Title Description Card)**: A responsive boostrap like card with image aspect-ratio calculations.
+
+- **LazyManager**: A [`MDScreenManager`](https://kivymd.readthedocs.io/en/latest/components/screenmanager) class instance with lazy loading abilities.
+
+- **LoadingLayout**: A FloatLayout class instance with centralised [`MDCircularProgressIndicator`](https://kivymd.readthedocs.io/en/latest/components/progressindicator/) widget.
 
 ## Contributing
 
