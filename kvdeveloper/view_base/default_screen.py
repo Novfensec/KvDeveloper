@@ -1,4 +1,6 @@
 from View.base_screen import BaseScreenView
 
+
 class {{parsed_name}}View(BaseScreenView):
-    pass
+    def __init__(self, *args, **kwargs):
+        super({{parsed_name}}, self).__init__(*args, **kwargs)

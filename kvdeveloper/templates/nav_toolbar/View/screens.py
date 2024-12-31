@@ -3,11 +3,11 @@ from View.LoginScreen import LoginScreenView
 
 screens = {
     "home screen": {
-        "object": HomeScreenView(),
+        "object": HomeScreenView,
         "module": "View.HomeScreenView",
     },
     "login screen": {
-        "object": LoginScreenView(),
+        "object": LoginScreenView,
         "module": "View.LoginScreenView",
     },
 }

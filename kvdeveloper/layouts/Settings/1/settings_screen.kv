@@ -7,11 +7,16 @@
         MDBoxLayout:
             orientation: 'vertical'
             adaptive_height: True
-            spacing: 10
-            padding: [ 10, 10, 10, 10]
+            padding: [20, 20, 20, 20]
+            spacing: 15
 
-            CustomIconButton:
+
+            MDIconButton:
                 icon:  "arrow-left"
+                style: "tonal"
+                color_map: "secodary"
+                theme_bg_color: "Custom"
+                md_bg_color: [0.5, 0.6, 1, 0.1]
 				on_press:
 					app.referrer()
 
@@ -19,8 +24,8 @@
             {{parsed_name}}Context:
                 orientation: 'vertical'
                 adaptive_height: True
-                padding: [10, 10, 10, 10]
-				spacing: 10
+                padding: [20, 20, 20, 20]
+				spacing: 15
 
 <{{parsed_name}}Context@MDBoxLayout>:
 	MDBoxLayout:
@@ -53,12 +58,12 @@
 	MDBoxLayout:
 		orientation: "vertical"
 		adaptive_height: True
-		padding: ["0dp", "7dp", "0dp", "7dp"]
-		spacing: "10dp"
+		padding: [0, 10, 0, 10]
+		spacing: 15
 
 		MDList:
 			radius: [15]
-			spacing: "7dp"
+			spacing: 10
             cols: 1
 
 			IconListItem:
@@ -69,7 +74,7 @@
 
 				MDSwitch:
 					id: mode_switch
-					pos_hint: {"center_x": 0.9, "center_y": 0.5}
+					pos_hint: {"right": 0.95, "center_y": 0.5}
 					on_active:
 						app.apply_styles('Dark') if self.active else app.apply_styles('Light')
 
@@ -81,12 +86,12 @@
 
 				MDSwitch:
 					id: notification_switch
-					pos_hint: {"center_x": 0.9, "center_y": 0.5}
+					pos_hint: {"right": 0.95, "center_y": 0.5}
 
 		MDDivider:
 		MDList:
 			radius: [15]
-			spacing: "7dp"
+			spacing: 10
             cols: 1
 
 			IconListItem:
@@ -114,7 +119,7 @@
 	height: list_item.height
 	md_bg_color: app.theme_cls.surfaceContainerLowColor
 	radius: [15]
-    padding: ["3dp", "0dp", "3dp", "0dp"]
+    padding: [5, 0, 5, 0]
 
 	MDListItem:
 		id: list_item
