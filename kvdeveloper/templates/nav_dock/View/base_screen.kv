@@ -2,95 +2,95 @@
 #: import CustomTextField View.extensions.CustomTextField
 
 <BaseScreenView>:
-    md_bg_color:app.theme_cls.surfaceColor
+    md_bg_color: app.theme_cls.surfaceColor
 
 <DrawerClickableItem>
-    md_bg_color:app.theme_cls.primaryContainerColor
-    ripple_color:app.theme_cls.inversePrimaryColor
-    inactive_indicator_color:app.theme_cls.primaryContainerColor
-    active_indicator_color:app.theme_cls.inversePrimaryColor
+    md_bg_color: app.theme_cls.primaryContainerColor
+    ripple_color: app.theme_cls.inversePrimaryColor
+    inactive_indicator_color: app.theme_cls.primaryContainerColor
+    active_indicator_color: app.theme_cls.inversePrimaryColor
     
     MDNavigationDrawerItemLeadingIcon:
-        icon:root.icon
+        icon: root.icon
 
     MDNavigationDrawerItemText:
-        text:root.text
+        text: root.text
 
 <ContentNavigationDrawer@MDNavigationDrawerMenu>:
-    spacing:"4dp"
+    spacing: 10
     MDNavigationDrawerHeader:
-        orientation:"vertical"
-        adaptive_height:True
+        orientation: "vertical"
+        adaptive_height: True
 
         MDLabel:
             text: "KvDeveloper"
             theme_text_color: "Custom"
             theme_line_height: "Custom"
             line_height: 0
-            text_color:app.theme_cls.onPrimaryFixedColor
+            text_color: app.theme_cls.onPrimaryFixedColor
             adaptive_height: True
             font_style: "Display"
-            role:"small"
+            role: "small"
 
     MDNavigationDrawerDivider:
     MDBoxLayout:
-        adaptive_height:True
-        orientation:"vertical"
-        padding: ('9dp', '9dp', '9dp', '9dp')
-        spacing: '11dp'
+        adaptive_height: True
+        orientation: "vertical"
+        padding: [10, 10, 10, 10]
+        spacing: 15
 
         FitImage:
-            id:avatar
-            source:f"{app.image_library_path}/kvdeveloper/kvdeveloper_logo128.png"
-            size_hint: None,None
-            size:"100sp","100sp"
+            id: avatar
+            source: f"{app.image_library_path}/kvdeveloper/kvdeveloper_logo128.png"
+            size_hint: None, None
+            size: "100sp", "100sp"
         Widget:
 
         MDLabel:
             text: 'Novfensec Inc.'
             color: app.theme_cls.primaryColor
-            style:"Body"
-            role:"large"
+            style: "Body"
+            role: "large"
 
         Widget:
 
     MDNavigationDrawerDivider:
             
     DrawerClickableItem:
-        icon:"source-pull"
-        text:"Screen 1"
+        icon: "source-pull"
+        text: "Screen 1"
 
     DrawerClickableItem:
-        icon:"source-branch"
-        text:"Screen 2"
+        icon: "source-branch"
+        text: "Screen 2"
 
     DrawerClickableItem:
-        icon:"source-repository-multiple"
-        text:"Screen 3"
+        icon: "source-repository-multiple"
+        text: "Screen 3"
         
 <CustomTextField>:
-    helper_text:""
-    hint_text:""
-    icon_left:"blank"
-    mode:"filled"
-    theme_bg_color:"Custom"
-    fill_color_normal:app.theme_cls.transparentColor
-    fill_color_focus:self.fill_color_normal
-    theme_line_color:"Custom"
-    line_color_normal:app.theme_cls.transparentColor
-    line_color_focus:self.fill_color_normal
-    radius:[10]
+    helper_text: ""
+    hint_text: ""
+    icon_left: "blank"
+    mode: "filled"
+    theme_bg_color: "Custom"
+    fill_color_normal: app.theme_cls.transparentColor
+    fill_color_focus: self.fill_color_normal
+    theme_line_color: "Custom"
+    line_color_normal: app.theme_cls.transparentColor
+    line_color_focus: self.fill_color_normal
+    radius: [10]
 
     MDTextFieldLeadingIcon:
-        icon:root.icon_left
-        theme_icon_color:"Custom"
-        icon_color_normal:app.theme_cls.primaryColor
-        icon_color_focus:app.theme_cls.primaryColor 
+        icon: root.icon_left
+        theme_icon_color: "Custom"
+        icon_color_normal: app.theme_cls.primaryColor
+        icon_color_focus: app.theme_cls.primaryColor 
         
     MDTextFieldHintText:
-        text:root.hint_text
-        theme_text_color:"Custom"
-        text_color_normal:0,0,0,.6
+        text: root.hint_text
+        theme_text_color: "Custom"
+        text_color_normal: [0, 0, 0, 0.6]
 
     MDTextFieldHelperText:
-        text:root.helper_text
+        text: root.helper_text
