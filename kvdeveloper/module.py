@@ -906,7 +906,7 @@ def remove_from_default(name_screen: List[str], destination: str) -> None:
         )
 
         # Regular expression pattern to match the dictionary entry, regardless of content inside
-        screen_entry_pattern = rf"    '{snake_name_view.replace('_', ' ')}': {{.*?}},\n"
+        screen_entry_pattern = rf"""    ["']{snake_name_view.replace('_', ' ')}["']: {{.*?}},\n"""
 
         try:
             # Read content of screens.py

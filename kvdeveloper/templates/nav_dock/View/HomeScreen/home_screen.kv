@@ -10,16 +10,16 @@
 
             MDBoxLayout:
                 orientation: "vertical"
-                MDRecycleView:
-                    ScrollView:
-                        always_overscroll: False
-                        HomeScreenContext:
-                            orientation: 'vertical'
-                            padding: [20, 20, 20, 20]
-                            adaptive_height: True
+                ScrollView:
+                    always_overscroll: False
 
-                            Widget:
-                                size_hint: 1, None
+                    HomeScreenContext:
+                        orientation: 'vertical'
+                        padding: [20, 20, 20, 20]
+                        adaptive_height: True
+
+                        Widget:
+                            size_hint: 1, None
 
         MDScreen:
             name: "login"
@@ -49,14 +49,14 @@
 							
 							SettingsScreenContext:
 								orientation: 'vertical'
-								padding: "7dp", "13dp", "7dp", "7dp"
+								padding: [20, 20, 20, 20]
 								adaptive_height:True
 
                                 Widget:
                                     size_hint: 1, None
 
     MDNavigationBar:
-        on_switch_tabs: on_switch_tabs(*args,sub_manager_screens)
+        on_switch_tabs: on_switch_tabs(*args, sub_manager_screens)
 
         BaseNavigationItem:
 			text: "Home"
@@ -76,14 +76,15 @@
 
         MDBoxLayout:
             adaptive_height: True
-            padding: "4dp", "4dp", "4dp", "4dp"
+            padding: [20, 20, 20, 20]
+			spacing: 15
 
             MDIconButton:
                 icon:  "menu"
                 style: "tonal"
                 color_map: "secodary"
                 theme_bg_color: "Custom"
-                md_bg_color: 0.5, 0.6, 1, 0.1
+                md_bg_color: [0.5, 0.6, 1, 0.1]
                 on_press:
                     nav_drawer.set_state("open")
                     
@@ -129,123 +130,109 @@
 	MDBoxLayout:
 		orientation: "vertical"
 		adaptive_height: True
-		padding: "7dp","7dp","7dp","7dp"
-		spacing: "7dp"
+		padding: [15, 30, 15, 15]
+		spacing: 25
 		radius: [25]
+
 		MDBoxLayout:
 			adaptive_height: True
-			padding: "7dp","7dp","7dp","7dp"
-			MDBoxLayout:
-				adaptive_height: True
-				orientation: "vertical"
-				MDLabel:
-					text: "KvDeveloper"
-					font_style: "Headline"
-					role: "medium"
-					theme_text_color: "Custom"
-					text_color: "midnightblue"
 
-			MDBoxLayout:
-				orientation: 'vertical'
-				adaptive_size: True
-				MDAnchorLayout:
-					anchor_x: 'right'
-					anchor_y: 'top'
-					size_hint_y: None
-					height: avatar.height
+            MDLabel:
+                text: "KvDeveloper"
+                font_style: "Headline"
+                role: "medium"
+                theme_text_color: "Custom"
+                text_color: "midnightblue"
 
-					FitImage:
-						id: avatar
-						source: f"{app.image_library_path}/kvdeveloper/kvdeveloper_logo128.png"
-						size_hint: None, None
-						size: "95sp", "95sp"
+
+            FitImage:
+                id: avatar
+                source: f"{app.image_library_path}/kvdeveloper/kvdeveloper_logo128.png"
+                size_hint: None, None
+                size: "75sp", "75sp"
+
 		MDDivider:
-		MDBoxLayout:
-			orientation: 'vertical'
-			adaptive_height: True
-			spacing: "11dp"
-			padding: "7dp", "7dp", "7dp", "7dp"
 
-			MDLabel:
-				multiline: True
-                theme_font_size: "Custom"
-                font_size: "16sp"
-				adaptive_height: True
-				text:
-                    "KvDeveloper is a PyPI module designed to streamline the development of Kivy and KivyMD applications. Inspired by Expo CLI for React Native, it offers starter templates and essential functionalities to kickstart your projects with ease. With features like predefined templates, MVC architecture support, and customizable options, KvDeveloper simplifies creating robust and organized Kivy projects."
+        MDLabel:
+            multiline: True
+            theme_font_size: "Custom"
+            font_size: "16sp"
+            adaptive_height: True
+            text:
+                "KvDeveloper is a PyPI module designed to streamline the development of Kivy and KivyMD applications. Inspired by Expo CLI for React Native, it offers starter templates and essential functionalities to kickstart your projects with ease. With features like predefined templates, MVC architecture support, and customizable options, KvDeveloper simplifies creating robust and organized Kivy projects."
 
-			MDDivider:
-			MDGridLayout:
-				cols: 2
-				adaptive_height: True
-				padding: "7dp","7dp","7dp","7dp"
-				spacing: "15dp"
+        MDDivider:
+        MDGridLayout:
+            cols: 2
+            adaptive_height: True
+            padding: [10, 10, 10, 10]
+            spacing: 15
 
-				MDAnchorLayout:
-					md_bg_color: 0, .4, 1, .05
-					radius: [15]
-					size_hint_y: None
+            MDAnchorLayout:
+                md_bg_color: [0, 0.4, 1, 0.05]
+                radius: [15]
+                size_hint_y: None
 
-					MDIconButton:
-						icon: "youtube"
-						theme_icon_color: "Custom"
-						icon_color: "red"
-						theme_font_size: "Custom"
-						size_hint: 1, 1
-						font_size: "75sp"
-						on_press:
-							app.web_open("https://youtube.com/@NovfensecInc")
+                MDIconButton:
+                    icon: "youtube"
+                    theme_icon_color: "Custom"
+                    icon_color: "red"
+                    theme_font_size: "Custom"
+                    size_hint: 1, 1
+                    font_size: "75sp"
+                    on_press:
+                        app.web_open("https://youtube.com/@NovfensecInc")
 
-				MDAnchorLayout:
-					md_bg_color: 0, .4, 1, .05
-					radius: [15]
-					size_hint_y: None
+            MDAnchorLayout:
+                md_bg_color: [0, 0.4, 1, 0.05]
+                radius: [15]
+                size_hint_y: None
 
-					MDIconButton:
-						icon: "github"
-						theme_icon_color: "Custom"
-						icon_color: "black"
-						theme_font_size: "Custom"
-						size_hint: 1, 1
-						font_size: "75sp"
-						on_press:
-							app.web_open("https://github.com/Novfensec/KvDeveloper")
+                MDIconButton:
+                    icon: "github"
+                    theme_icon_color: "Custom"
+                    icon_color: "black"
+                    theme_font_size: "Custom"
+                    size_hint: 1, 1
+                    font_size: "75sp"
+                    on_press:
+                        app.web_open("https://github.com/Novfensec/KvDeveloper")
 
-				MDAnchorLayout:
-					md_bg_color: 0, .4, 1, .05
-					radius: [15]
-					size_hint_y: None
+            MDAnchorLayout:
+                md_bg_color: [0, 0.4, 1, 0.05]
+                radius: [15]
+                size_hint_y: None
 
-					MDIconButton:
-                        icon: "blank"
-                        theme_font_size: "Custom"
-						size_hint: 1, 1
-						font_size: "75sp"
-						on_press:
-							app.web_open("https://discord.com/invite/U9bfkD6A4c")
+                MDIconButton:
+                    icon: "blank"
+                    theme_font_size: "Custom"
+                    size_hint: 1, 1
+                    font_size: "75sp"
+                    on_press:
+                        app.web_open("https://discord.com/invite/U9bfkD6A4c")
 
-                    FitImage:
-                        source: f"{app.image_library_path}/basic/discord128.png"
-                        size_hint: None, None
-                        size: "85dp", "85dp"
+                FitImage:
+                    source: f"{app.image_library_path}/basic/discord128.png"
+                    size_hint: None, None
+                    size: "85dp", "85dp"
 
-				MDAnchorLayout:
-					md_bg_color: [0, 0.4, 1, 0.05]
-					radius: [15]
-					size_hint_y: None
+            MDAnchorLayout:
+                md_bg_color: [0, 0.4, 1, 0.05]
+                radius: [15]
+                size_hint_y: None
 
-					MDIconButton:
-                        icon: "blank"
-                        theme_font_size: "Custom"
-						size_hint: 1, 1
-						font_size: "75sp"
-						on_press:
-							app.web_open("https://stackoverflow.com/users/16486510/novfensec")
-                            
-                    FitImage:
-                        source: f"{app.image_library_path}/basic/stack_overflow128.png"
-                        size_hint: None, None
-                        size: "75dp", "75dp"
+                MDIconButton:
+                    icon: "blank"
+                    theme_font_size: "Custom"
+                    size_hint: 1, 1
+                    font_size: "75sp"
+                    on_press:
+                        app.web_open("https://stackoverflow.com/users/16486510/novfensec")
+                        
+                FitImage:
+                    source: f"{app.image_library_path}/basic/stack_overflow128.png"
+                    size_hint: None, None
+                    size: "75dp", "75dp"
 
 <LoginSubScreen@MDScreen>:
 	manager_screens: None
@@ -295,7 +282,7 @@
     MDBoxLayout:
         orientation: 'vertical'
         adaptive_height: True
-        padding: ('14dp', '14dp', '14dp', '14dp')
+        padding: [15, 15, 15, 15]
         MDAnchorLayout:
             anchor_x: 'center'
             size_hint_y: None
@@ -311,9 +298,9 @@
     	orientation: 'vertical'
         adaptive_height: True
         spacing: '16dp'
-        md_bg_color: 0.75, 0.7, 0.9, 0.2
+        md_bg_color: [0.75, 0.7, 0.9, 0.2]
         radius: [19]
-        padding: ('9dp', '14dp', '9dp', '14dp')
+        padding: [10, 10, 10, 10]
 
         CustomTextField:
             icon_left: "account"
@@ -349,329 +336,330 @@
 				root.manager_screens.current="signup sub screen"
 			MDButtonText:
 				text: "Or Create an Account"
-				color: 0, 0, 1, 0.8
+				color: [0, 0, 1, 0.8]
 
 	Widget:
 	MDBoxLayout:
-		adaptive_height:True
-        padding: ('9dp', '7dp', '9dp', '1dp')
+		adaptive_height: True
+        padding: [10, 10, 10, 10]
 
 		MDDivider:
 
 		MDLabel:
-			id:centered_text
-			adaptive_width:True
-			text:" or Login with"
+			id: centered_text
+			adaptive_width: True
+			text: " or Login with"
 
 		MDDivider:
 
 	MDAnchorLayout:
-		anchor_x:"center"
-		radius:[15]
-		size_hint_y:None
+		anchor_x: "center"
+		radius: [15]
+		size_hint_y: None
 
 		MDGridLayout:
-			adaptive_size:True
-			padding:"7dp","7dp","7dp","7dp"
-            cols:2
+			adaptive_size: True
+			padding: [10, 10, 10, 10]
+            cols: 2
 
             MDAnchorLayout:
-                size_hint:None,None
+                size_hint: None, None
                 MDIconButton:
-                    icon:"blank"
-                    size_hint:1,1
-                    theme_font_size:"Custom"
-                    font_size:"51sp"
+                    icon: "blank"
+                    size_hint: 1, 1
+                    theme_font_size: "Custom"
+                    font_size: "51sp"
                     
                 FitImage:
-                    source:f"{app.image_library_path}/basic/google64.png"
-                    size_hint:None,None
-                    size:"45dp","45dp"
+                    source: f"{app.image_library_path}/basic/google64.png"
+                    size_hint: None, None
+                    size: "45dp", "45dp"
 
             MDAnchorLayout:
-                size_hint:None,None
+                size_hint: None, None
                 MDIconButton:
-                    icon:"github"
-                    size_hint:1,1
-                    theme_icon_color:"Custom"
-                    icon_color:"black"
-                    theme_font_size:"Custom"
-                    font_size:"51sp"
+                    icon: "github"
+                    size_hint: 1, 1
+                    theme_icon_color: "Custom"
+                    icon_color: "black"
+                    theme_font_size: "Custom"
+                    font_size: "51sp"
 
 <SignupSubScreen@MDScreen>:
-	manager_screens:None
-	name:"signup sub screen"
+	manager_screens: None
+	name: "signup sub screen"
 
     MDStackLayout:
-        size_hint:1,1
+        size_hint: 1, 1
 
         MDBoxLayout:
             orientation: 'vertical'
 			MDRecycleView:
 				ScrollView:
-					always_overscroll:False
+					always_overscroll: False
 
 					MDGridLayout:
-						cols:1
-						adaptive_height:True
-						padding: ('9dp', '9dp', '9dp', '45dp')
+						cols: 1
+						adaptive_height: True
+						padding: [10, 10, 10, 50]
 
 						Widget:
-							size_hint:1,None
-							height:"45dp"
+							size_hint: 1, None
+							height: "45dp"
 
 						SignupBoxLayout:
 							orientation: 'vertical'
-							adaptive_height:True
-							spacing: '7dp'
-							manager_screens:root.manager_screens
+							adaptive_height: True
+							spacing: 15
+							manager_screens: root.manager_screens
 
 						Widget:
-							size_hint:1,None
-							height:"45dp"
+							size_hint: 1, None
+							height: "45dp"
 
 <SignupBoxLayout@MDBoxLayout>:
     MDBoxLayout:
-        adaptive_height:True
+        adaptive_height: True
 
         MDLabel:
-            text:'Signup for Novfensec Inc.'
-            color:app.theme_cls.primaryColor
-			multiline:True
-            halign:'center'
-            theme_font_size:"Custom"
-            font_size:'25sp'
-            size_hint_y:None
-            height:self.texture_size[1]
+            text: 'Signup for Novfensec Inc.'
+            color: app.theme_cls.primaryColor
+			multiline: True
+            halign: 'center'
+            theme_font_size: "Custom"
+            font_size: '25sp'
+            size_hint_y: None
+            height: self.texture_size[1]
 
     MDBoxLayout:
         orientation: 'vertical'
-        adaptive_height:True
-        padding: ('14dp', '14dp', '14dp', '14dp')
+        adaptive_height: True
+        padding: [10, 10, 10, 10]
         MDAnchorLayout:
             anchor_x: 'center'
-            size_hint_y:None
-            height:avatar.height
+            size_hint_y: None
+            height: avatar.height
 
             FitImage:
-                id:avatar
-                source:f"{app.image_library_path}/basic/signup_illustration.png"
-                size_hint: None,None
-                size:"145sp","125sp"
-				radius:[19]
+                id: avatar
+                source: f"{app.image_library_path}/basic/signup_illustration.png"
+                size_hint: None, None
+                size: "145sp", "125sp"
+				radius: [19]
 
     MDBoxLayout:
     	orientation: 'vertical'
-        adaptive_height:True
-        md_bg_color:0.75,0.7,0.9,0.2
-        spacing: '11dp'
-        radius:[19]
-        padding: ('9dp', '14dp', '9dp', '14dp')
+        adaptive_height: True
+        md_bg_color: [0.75, 0.7, 0.9, 0.2]
+        spacing: 15
+        radius: [19]
+        padding: [15, 15, 15, 15]
 
         CustomTextField:
-            icon_left:"account"
-            hint_text:"Username"
+            icon_left: "account"
+            hint_text: "Username"
 
         CustomTextField:
-            icon_left:"email"
-            hint_text:"Email Address"
-            email:True
+            icon_left: "email"
+            hint_text: "Email Address"
+            email: True
 
         CustomTextField:
-            icon_left:"lock"
-            hint_text:"Password"
+            icon_left: "lock"
+            hint_text: "Password"
+
             MDTextFieldTrailingIcon:
-                icon:"eye"
-                theme_icon_color:"Custom"
-                icon_color_normal:app.theme_cls.primaryColor
-                icon_color_focus:app.theme_cls.primaryColor
+                icon: "eye"
+                theme_icon_color: "Custom"
+                icon_color_normal: app.theme_cls.primaryColor
+                icon_color_focus: app.theme_cls.primaryColor
 
         CustomTextField:
-            icon_left:"lock"
-            hint_text:"Confirm Password"
+            icon_left: "lock"
+            hint_text: "Confirm Password"
+
             MDTextFieldTrailingIcon:
-                icon:"eye"
-                theme_icon_color:"Custom"
-                icon_color_normal:app.theme_cls.primaryColor
-                icon_color_focus:app.theme_cls.primaryColor
+                icon: "eye"
+                theme_icon_color: "Custom"
+                icon_color_normal: app.theme_cls.primaryColor
+                icon_color_focus: app.theme_cls.primaryColor
 
         MDExtendedFabButton:
-
-        	size_hint:.9,None
-            pos_hint:{'center_x':.5}
-            theme_bg_color:"Custom"
-			md_bg_color:app.theme_cls.inversePrimaryColor
-			ripple_color:app.theme_cls.primaryColor
+        	size_hint: 0.9, None
+            pos_hint: {'center_x': 0.5}
+            theme_bg_color: "Custom"
+			md_bg_color: app.theme_cls.inversePrimaryColor
+			ripple_color: app.theme_cls.primaryColor
             
             MDExtendedFabButtonText:
-                text:"Signup"
-                theme_font_size:"Custom"
-                font_size:"19sp"
-                theme_text_color:"Custom"
+                text: "Signup"
+                theme_font_size: "Custom"
+                font_size: "19sp"
+                theme_text_color: "Custom"
 
 		MDButton:
-            style:"text"
-            pos_hint:{'center_x':.5}
+            style: "text"
+            pos_hint: {'center_x': 0.5}
 			on_press:
 				root.manager_screens.current="login sub screen"
 			MDButtonText:
-				text:"Or Login to your Account"
-				color:0,0,1,.8
+				text: "Or Login to your Account"
+				color: [0, 0, 1, 0.8]
 
 	Widget:
 	MDBoxLayout:
-		adaptive_height:True
-        padding: ('9dp', '7dp', '9dp', '1dp')
+		adaptive_height: True
+        padding: [10, 10, 10, 10]
 
 		MDDivider:
 
 		MDLabel:
-			id:centered_text
-			adaptive_width:True
-			text:" or Signup with"
+			id: centered_text
+			adaptive_width: True
+			text: " or Signup with"
 
 		MDDivider:
 
 	MDAnchorLayout:
-		anchor_x:"center"
-		radius:[15]
-		size_hint_y:None
+		anchor_x: "center"
+		radius: [15]
+		size_hint_y: None
 
 		MDGridLayout:
-			adaptive_size:True
-			padding:"7dp","7dp","7dp","7dp"
-            cols:2
+			adaptive_size: True
+			padding: [10, 10, 10, 10]
+            cols: 2
 
             MDAnchorLayout:
-                size_hint:None,None
+                size_hint: None, None
                 MDIconButton:
-                    icon:"blank"
-                    size_hint:1,1
-                    theme_font_size:"Custom"
-                    font_size:"51sp"
+                    icon: "blank"
+                    size_hint: 1, 1
+                    theme_font_size: "Custom"
+                    font_size: "51sp"
                     
                 FitImage:
-                    source:f"{app.image_library_path}/basic/google64.png"
-                    size_hint:None,None
-                    size:"45dp","45dp"
+                    source: f"{app.image_library_path}/basic/google64.png"
+                    size_hint: None, None
+                    size: "45dp", "45dp"
 
             MDAnchorLayout:
                 size_hint:None,None
                 MDIconButton:
-                    icon:"github"
-                    size_hint:1,1
-                    theme_icon_color:"Custom"
-                    icon_color:"black"
-                    theme_font_size:"Custom"
-                    font_size:"51sp"
+                    icon: "github"
+                    size_hint: 1, 1
+                    theme_icon_color: "Custom"
+                    icon_color: "black"
+                    theme_font_size: "Custom"
+                    font_size: "51sp"
 
 <SettingsScreenContext@MDBoxLayout>:
 	MDBoxLayout:
-		orientation:"vertical"
-		adaptive_height:True
-		spacing:"7dp"
-		radius:[25]
+		orientation: "vertical"
+		adaptive_height: True
+		spacing: 15
+		radius: [25]
 
 		MDRelativeLayout:
-			size_hint:1,None
-			height:text_field.height
-            md_bg_color:0.7,0.7,1,0.2
-			radius:[15]
+			size_hint: 1, None
+			height: text_field.height
+            md_bg_color: 0.7, 0.7, 1, 0.2
+			radius: [15]
 
 			CustomTextField:
-				id:text_field
-				mode:"filled"
-                icon_left:"magnify"
-                hint_text:"Search Settings"
+				id: text_field
+				mode: "filled"
+                icon_left: "magnify"
+                hint_text: "Search Settings"
 
                 MDTextFieldTrailingIcon:
-                    icon:"microphone"
-                    theme_icon_color:"Custom"
-                    icon_color_normal:app.theme_cls.primaryColor
-                    icon_color_focus:app.theme_cls.primaryColor
+                    icon: "microphone"
+                    theme_icon_color: "Custom"
+                    icon_color_normal: app.theme_cls.primaryColor
+                    icon_color_focus: app.theme_cls.primaryColor
 
 	MDBoxLayout:
-		orientation:"vertical"
-		adaptive_height:True
-		padding:"0dp","7dp","0dp","7dp"
-		spacing:"10dp"
+		orientation: "vertical"
+		adaptive_height: True
+		padding: [0, 10, 0, 10]
+		spacing: 15
 
 		MDList:
-			radius:[15]
-			spacing:"7dp"
-            cols:1
+			radius: [15]
+			spacing: 15
+            cols: 1
 
 			IconListItem:
-				icon:"weather-night"
-				text:"Night Mode"
-				ripple:False
-				secondary_text:"Enabled" if mode_switch.active else "Disabled"
+				icon: "weather-night"
+				text: "Night Mode"
+				ripple: False
+				secondary_text: "Enabled" if mode_switch.active else "Disabled"
 
 				MDSwitch:
-					id:mode_switch
-					pos_hint:{"center_x":.9,"center_y":.5}
+					id: mode_switch
+					pos_hint: {"right": .95,"center_y": .5}
 
 			IconListItem:
-				icon:"bell-outline"
-				text:"Notifications"
-				ripple:False
-				secondary_text:"News and updates"
+				icon: "bell-outline"
+				text: "Notifications"
+				ripple: False
+				secondary_text: "News and updates"
 
 				MDSwitch:
-					id:notification_switch
-					pos_hint:{"center_x":.9,"center_y":.5}
+					id: notification_switch
+					pos_hint: {"right": .95,"center_y": .5}
 
 		MDDivider:
 		MDList:
-			radius:[15]
-			spacing:"7dp"
-            cols:1
+			radius: [15]
+			spacing: 15
+            cols: 1
 
 			IconListItem:
-				icon:"magic-staff"
-				text:"Appearance"
-				secondary_text:"Themes, layout, text size"
+				icon: "magic-staff"
+				text: "Appearance"
+				secondary_text: "Themes, layout, text size"
 
 			IconListItem:
-				icon:"shield-lock-outline"
-				text:"Privacy and security"
-				secondary_text:"Terms of use and privacy policy"
+				icon: "shield-lock-outline"
+				text: "Privacy and security"
+				secondary_text: "Terms of use and privacy policy"
 
 			IconListItem:
-				icon:"help-circle-outline"
-				text:"Help and feedback"
-				secondary_text:"FAQs, report problems, social"
+				icon: "help-circle-outline"
+				text: "Help and feedback"
+				secondary_text: "FAQs, report problems, social"
 
 			IconListItem:
-				icon:"information-outline"
-				text:"About KvDeveloper"
-				secondary_text:"Updates, version"
+				icon: "information-outline"
+				text: "About KvDeveloper"
+				secondary_text: "Updates, version"
 
 <IconListItem@MDRelativeLayout>:
-	size_hint:1,None
-	height:list_item.height
-	text:"blank"
-	icon:"blank"
-	secondary_text:""
-	ripple:True
-	md_bg_color:0.5,0.6,1,0.1
-	radius:[15]
-    padding:"3dp","0dp","3dp","0dp"
+	size_hint: 1, None
+	height: list_item.height
+	text: "blank"
+	icon: "blank"
+	secondary_text: ""
+	ripple: True
+	md_bg_color: [0.5, 0.6, 1, 0.1]
+	radius: [15]
+    padding: [5, 0, 5, 0]
 
 	MDListItem:
-		id:list_item
-        theme_bg_color:"Custom"
-        md_bg_color:1,1,1,0
-		ripple_effect:root.ripple
+		id: list_item
+        theme_bg_color: "Custom"
+        md_bg_color: [1, 1, 1, 0]
+		ripple_effect: root.ripple
 
 		MDListItemLeadingIcon:
-			icon:root.icon
-			color:app.theme_cls.onPrimaryFixedVariantColor
-            theme_bg_color:"Custom"
-            md_bg_color:app.theme_cls.inversePrimaryColor
+			icon: root.icon
+			color: app.theme_cls.onPrimaryFixedVariantColor
+            theme_bg_color: "Custom"
+            md_bg_color: app.theme_cls.inversePrimaryColor
 
 		MDListItemHeadlineText:
-			text:root.text
+			text: root.text
 
 		MDListItemSupportingText:
-			text:root.secondary_text
+			text: root.secondary_text

@@ -1,4 +1,4 @@
-from View.HomeScreen import HomeScreenView
+from View.HomeScreen.home_screen import HomeScreenView
 
 screens = {
     "home screen":{

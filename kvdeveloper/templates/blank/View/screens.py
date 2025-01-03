@@ -1,4 +1,4 @@
-from View.SampleScreen import SampleScreenView
+from View.SampleScreen.sample_screen import SampleScreenView
 
 screens = {
     "sample screen": {
