@@ -495,7 +495,7 @@ def add_from_default(
                     # Template exists; copy and process files from the template
                     for root, _, files in os.walk(template_path):
                         relative_path = os.path.relpath(root, template_path)
-                        target_dir = os.path.join(destination, relative_path)
+                        target_dir = os.path.join(view_path, relative_path)
                         os.makedirs(target_dir, exist_ok=True)
 
                         for file_name in files:
