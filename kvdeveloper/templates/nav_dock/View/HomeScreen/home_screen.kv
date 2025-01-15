@@ -597,7 +597,9 @@
 
 				MDSwitch:
 					id: mode_switch
-					pos_hint: {"right": .95,"center_y": .5}
+					pos_hint: {"right": 0.95, "center_y": 0.5}
+					on_active:
+						app.apply_styles('Dark') if self.active else app.apply_styles('Light')
 
 			IconListItem:
 				icon: "bell-outline"
