@@ -32,9 +32,11 @@ from kvdeveloper.module import (
     remove_from_structure,
     setup_build,
     project_info,
+    read_gradle_json,
+    clone_p4a,
 )
 from kvdeveloper.build_config import generate_build_files
-from kvdeveloper.utils import replace_placeholders, read_gradle_json, clone_p4a
+from kvdeveloper.utils import replace_placeholders
 from rich.panel import Panel
 from rich.text import Text
 from rich.table import Table
@@ -576,7 +578,7 @@ def update_gradle() -> None:
     p4a_dir = os.path.join(os.getcwd(), "python-for-android")
     if not os.path.exists(p4a_dir):
         console.print(f"{p4a_dir} does not exist, cloning it...")
-        clone_p4a(p4a_dir)
+        clone_p4a(p4a_dir, P4A_URL)
 
     gradle_json_path = os.path.join(os.getcwd(), 'gradle.json')
     gradle_json = read_gradle_json(gradle_json_path)

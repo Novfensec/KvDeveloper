@@ -1,11 +1,5 @@
 from typing import Dict, Literal
-import io
 import re
-import os
-import json
-import requests
-import subprocess
-
 
 def replace_placeholders(content: str, variables: Dict[str, str]) -> str:
     """
@@ -87,55 +81,3 @@ def name_parser(name: str, parse_type: Literal["screen", "project"]) -> str:
         )
 
     return pascal_case
-
-def read_gradle_json(path: str):
-    """
-    gradle.json from path to dict
-    :param path: Path of the gradle.json
-    :return:
-        Python dict with the keywords ['classpath', 'plugin', 'bom', 'dep']
-        For each of the keys it does set(value) to avoid duplicates.
-    """
-    gradle_json = {
-        'classpath': [],
-        'plugin': [],
-        'bom': [],
-        'dep': []
-        }
-
-    if os.path.exists(path):
-        with open(path, "r", encoding="UTF-8") as file:
-            g_json = json.load(file)
-            for k, v in g_json.items():
-                if gradle_json.get(k) is not None:
-                    gradle_json[k].extend(v)
-                    gradle_json[k] = list(set(gradle_json[k]))
-
-                else:
-                    raise ValueError(
-                            "Key does not belong to {gradle_json.keys()}"
-                            )
-    return gradle_json
-
-def clone_p4a(p4a_dir: str):
-    with requests.get(P4A_URL, stream=True) as response:
-        response.raise_for_status()
-        with open(f"{p4a_dir}.tar.gz", 'wb') as file:
-            for chunk in response.iter_content(
-                    chunk_size=io.DEFAULT_BUFFER_SIZE): 
-                file.write(chunk)
-
-    console.print(f"{p4a_dir} Creating it...")
-    os.mkdir(p4a_dir)
-    untar_command = [
-            "tar", "-xvzf", "python-for-android.tar.gz",
-            "-C", "python-for-android",
-            "--strip-components=1"
-            ]
-
-    console.print(' '.join(untar_command))
-    subprocess.run(
-                untar_command,
-                capture_output=True,
-                check=False
-                )
