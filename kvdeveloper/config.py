@@ -40,3 +40,7 @@ COMPONENTS = {
 COMPONENTS_DIR =  os.path.join(def_dir, "components")
 
 LIBS_DIR =  os.path.join(def_dir, "libs")
+
+# GRADLE
+GRADLE_TEMPLATE: str = os.path.join(def_dir, "templates/p4a/build.tmpl.gradle")
+P4A_URL = "https://github.com/kivy/python-for-android/archive/refs/tags/v2024.01.21.tar.gz"
