@@ -1012,7 +1012,7 @@ def read_gradle_json(path: str):
 
                 else:
                     raise ValueError(
-                            "Key does not belong to {gradle_json.keys()}"
+                            f"Key does not belong to {gradle_json.keys()}"
                             )
     return gradle_json
 
@@ -1036,7 +1036,7 @@ def clone_p4a(p4a_dir: str, url: str):
     subprocess.run(
                 untar_command,
                 capture_output=True,
-                check=False
+                check=True
                 )
 
     with open("buildozer.spec", "r", encoding="utf-8") as build_file:
