@@ -4,6 +4,7 @@ import platform
 import subprocess
 import sys
 import re
+from pathlib import Path
 
 import io
 import json
@@ -15,6 +16,7 @@ from kvdeveloper.utils import (
     name_parser,
     name_parser_snake,
     replace_placeholders,
+    extract_tar_file
 )
 from kvdeveloper.config import (
     TEMPLATES_DIR,
@@ -1024,20 +1026,9 @@ def clone_p4a(p4a_dir: str, url: str):
                     chunk_size=io.DEFAULT_BUFFER_SIZE): 
                 file.write(chunk)
 
-    console.print(f"{p4a_dir} Creating it...")
-    os.mkdir(p4a_dir)
-    untar_command = [
-            "tar", "-xvzf", "python-for-android.tar.gz",
-            "-C", "python-for-android",
-            "--strip-components=1"
-            ]
-
-    console.print(' '.join(untar_command))
-    subprocess.run(
-                untar_command,
-                capture_output=True,
-                check=True
-                )
+    extract_tar_file(f"{p4a_dir}.tar.gz", Path(p4a_dir).parent)
+    console.print(f"Removing: {p4a_dir}.tar.gz")
+    os.remove(f"{p4a_dir}.tar.gz")
 
     with open("buildozer.spec", "r", encoding="utf-8") as build_file:
         content = build_file.readlines()

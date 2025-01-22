@@ -581,7 +581,7 @@ def update_gradle() -> None:
     then buildozer.spec p4a.source_dir points to the new cloned repo.
     """
 
-    p4a_dir = os.path.join(os.getcwd(), "python-for-android")
+    p4a_dir = os.path.join(os.getcwd(), "python-for-android-2024.01.21")
     if not os.path.exists(p4a_dir):
         console.print(f"{p4a_dir} does not exist, cloning it...")
         clone_p4a(p4a_dir, P4A_URL)
