@@ -525,9 +525,12 @@ def add_firebase(
     """
     Add firebase service to gradle.json then automatically adds
     com.google.gms:google-services and
-    com.google.firebase:firebase-bom to gradle.json if not exist yet to then
-    update python-for-android build.tmpl.gradle.
-    Optional: Add google-services.json to python-for-android.
+    com.google.firebase:firebase-bom to gradle.json if not exist yet,
+    then runs update_gradle.
+
+    :optional: Add google-services.json to python-for-android.
+
+    :notes: check update_gradle
     """
     gradle_json_path = os.path.join(os.getcwd(), 'gradle.json')
     gradle_json = read_gradle_json(gradle_json_path)
@@ -572,7 +575,10 @@ def add_firebase(
 def update_gradle() -> None:
     """
     Parses KV GRADLE_TEMPLATE to place there the contents of
-    gradle.json and then copies to P4A build.tmpl.gradle
+    gradle.json and then copies to P4A build.tmpl.gradle.
+    
+    :notes: If P4A directory does not exist it's cloned from Github
+    then buildozer.spec p4a.source_dir points to the new cloned repo.
     """
 
     p4a_dir = os.path.join(os.getcwd(), "python-for-android")

@@ -1038,3 +1038,18 @@ def clone_p4a(p4a_dir: str, url: str):
                 capture_output=True,
                 check=False
                 )
+
+    with open("buildozer.spec", "r", encoding="utf-8") as build_file:
+        content = build_file.readlines()
+
+    with open("buildozer.spec", "w", encoding="utf-8") as target_build_file:
+        for line in content:
+            # Comment line with p4a.source_dir
+            if line.lstrip().startswith('p4a.source_dir'):
+                line = '#' + line
+
+            target_build_file.write(line)
+
+        line = f"p4a.source_dir = {p4a_dir}"
+        console.print(f"Inserting at buildozer.spec: {line}")
+        target_build_file.write(f"{line}\n")
