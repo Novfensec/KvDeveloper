@@ -64,6 +64,8 @@ all = [
   "**/*.spec",
   "**/*.js",
   "**/*.css",
+  "templates/p4a/build.tmpl.gradle",
+  "templates/p4a/gradle.json",
 ]
 
 [tool.setuptools.exclude-package-data]
