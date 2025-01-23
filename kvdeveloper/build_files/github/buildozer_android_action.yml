@@ -128,8 +128,14 @@ jobs:
         id: buildozer
         run: |
           yes | buildozer -v android debug
+
+        # Android App Bundle (Signed) [Required by Google Play]
+        # https://gist.github.com/Guhan-SenSam/fa4ed215ef3419e7b3154de5cb71f641
+        # echo "P4A_RELEASE_KEYSTORE=$PWD/.keystores/yourkey.keystore" >> $GITHUB_ENV
+        # echo "P4A_RELEASE_KEYSTORE_PASSWD=your_keystore_password" >> $GITHUB_ENV
+        # echo "P4A_RELEASE_KEYALIAS_PASSWD=your_keyalias_password" >> $GITHUB_ENV
+        # echo "P4A_RELEASE_KEYALIAS=your_keyalias" >> $GITHUB_ENV
         # yes | buildozer -v android release
-        # run this for generating aab (Android App Bundle) [Required by google play]
 
       # Upload artifacts
       - name: Upload APK artifact
