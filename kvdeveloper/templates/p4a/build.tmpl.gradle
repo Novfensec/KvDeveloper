@@ -1,0 +1,132 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    repositories {
+       google()
+       jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.1.1'
+        {%- gradle_classpath %}
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        {%- for repo in args.gradle_repositories %}
+        {{repo}}
+        {%- endfor %}
+    }
+}
+
+{% if is_library %}
+apply plugin: 'com.android.library'
+{% else %}
+apply plugin: 'com.android.application'
+{% endif %}
+
+// gradle_plugin is the same as gradle_classpath (i think) 
+{%- gradle_plugin %}
+
+android {
+    namespace '{{ args.package }}'
+    compileSdkVersion {{ android_api }}
+    buildToolsVersion '{{ build_tools_version }}'
+    defaultConfig {
+        minSdkVersion {{ args.min_sdk_version }}
+        targetSdkVersion {{ android_api }}
+        versionCode {{ args.numeric_version }}
+        versionName '{{ args.version }}'
+        manifestPlaceholders = {{ args.manifest_placeholders}}
+    }
+
+	packagingOptions {
+        jniLibs {
+            useLegacyPackaging = true
+        }
+        {% if debug_build -%}
+        doNotStrip '**/*.so'
+        {% else %}
+        exclude 'lib/**/gdbserver'
+        exclude 'lib/**/gdb.setup'
+        {%- endif %}
+	}
+	
+
+	{% if args.sign -%}
+	signingConfigs {
+		release {
+			storeFile file(System.getenv("P4A_RELEASE_KEYSTORE"))
+			keyAlias System.getenv("P4A_RELEASE_KEYALIAS")
+			storePassword System.getenv("P4A_RELEASE_KEYSTORE_PASSWD")
+			keyPassword System.getenv("P4A_RELEASE_KEYALIAS_PASSWD")
+		}
+	}
+
+    {%- endif %}
+
+    {% if args.packaging_options -%}
+    packagingOptions {
+        {%- for option in args.packaging_options %}
+        {{option}}
+        {%- endfor %}
+    }
+    {%- endif %}
+
+    buildTypes {
+        debug {
+        }
+        release {
+            {% if args.sign -%}
+            signingConfig signingConfigs.release
+            {%- endif %}
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+        {%- for option in args.compile_options %}
+        {{option}}
+        {%- endfor %}
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDir 'libs'
+            java {
+
+                {%- for adir, pattern in args.extra_source_dirs -%}
+                    srcDir '{{adir}}'
+                {%- endfor -%}
+
+            }
+        }
+    }
+
+    aaptOptions {
+        noCompress "tflite"
+    }
+
+}
+
+dependencies {
+    {%- gradle_bom %}
+    {%- gradle_dep %}
+
+    {%- for aar in aars %}
+    implementation(name: '{{ aar }}', ext: 'aar')
+    {%- endfor -%}
+    {%- for jar in jars %}
+    implementation files('src/main/libs/{{ jar }}')
+    {%- endfor -%}
+    {%- if args.depends -%}
+    {%- for depend in args.depends %}
+    implementation '{{ depend }}'
+    {%- endfor %}
+    {%- endif %}
+    {% if args.presplash_lottie %}
+    implementation 'com.airbnb.android:lottie:6.1.0'
+    {%- endif %}
+}

@@ -1,6 +1,7 @@
 from typing import Dict, Literal
+import tarfile
 import re
-
+import os
 
 def replace_placeholders(content: str, variables: Dict[str, str]) -> str:
     """
@@ -82,3 +83,20 @@ def name_parser(name: str, parse_type: Literal["screen", "project"]) -> str:
         )
 
     return pascal_case
+
+
+def extract_tar_file(tar_file_path: str, extract_to_path: str) -> None:
+    """
+    Extracts a .tar file to a specified directory.
+    
+    Args:
+        tar_file_path (str): Path to the .tar file.
+        extract_to_path (str): Directory to extract the files into.
+    """
+    try:
+        with tarfile.open(tar_file_path, 'r') as tar:
+            tar.extractall(path=extract_to_path)
+            print(f"Extracted '{tar_file_path}' to '{extract_to_path}' successfully.")
+
+    except Exception as e:
+        print(f"Error extracting file: {e}")
