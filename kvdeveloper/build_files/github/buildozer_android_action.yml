@@ -123,20 +123,20 @@ jobs:
           pip install --upgrade pip
           pip install buildozer cython==0.29.33
       
-      # Set env variables for P4A Android App Bundle (Signed) [Required by Google Play]
-      # https://gist.github.com/Guhan-SenSam/fa4ed215ef3419e7b3154de5cb71f641
-      - name: Set environment variables
-        env:
-          P4A_RELEASE_KEYSTORE: ${{ secrets.P4A_RELEASE_KEYSTORE }}
-          P4A_RELEASE_KEYSTORE_PASSWD: ${{ secrets.P4A_RELEASE_KEYSTORE_PASSWD }}
-          P4A_RELEASE_KEYALIAS_PASSWD: ${{ secrets.P4A_RELEASE_KEYALIAS_PASSWD }}
-          P4A_RELEASE_KEYALIAS: ${{ secrets.P4A_RELEASE_KEYALIAS }}
+      ## Set env variables for P4A Android App Bundle (Signed) [Required by Google Play]
+      ## https://gist.github.com/Guhan-SenSam/fa4ed215ef3419e7b3154de5cb71f641
+      # - name: Set environment variables
+      #   env:
+      #     P4A_RELEASE_KEYSTORE: ${{ secrets.P4A_RELEASE_KEYSTORE }}
+      #     P4A_RELEASE_KEYSTORE_PASSWD: ${{ secrets.P4A_RELEASE_KEYSTORE_PASSWD }}
+      #     P4A_RELEASE_KEYALIAS_PASSWD: ${{ secrets.P4A_RELEASE_KEYALIAS_PASSWD }}
+      #     P4A_RELEASE_KEYALIAS: ${{ secrets.P4A_RELEASE_KEYALIAS }}
 
-        run: |
-          echo "P4A_RELEASE_KEYSTORE=$P4A_RELEASE_KEYSTORE" >> $GITHUB_ENV
-          echo "P4A_RELEASE_KEYSTORE_PASSWD=$P4A_RELEASE_KEYSTORE_PASSWD" >> $GITHUB_ENV
-          echo "P4A_RELEASE_KEYALIAS_PASSWD=$P4A_RELEASE_KEYALIAS_PASSWD" >> $GITHUB_ENV
-          echo "P4A_RELEASE_KEYALIAS=$P4A_RELEASE_KEYALIAS" >> $GITHUB_ENV
+      #   run: |
+      #     echo "P4A_RELEASE_KEYSTORE=$P4A_RELEASE_KEYSTORE" >> $GITHUB_ENV
+      #     echo "P4A_RELEASE_KEYSTORE_PASSWD=$P4A_RELEASE_KEYSTORE_PASSWD" >> $GITHUB_ENV
+      #     echo "P4A_RELEASE_KEYALIAS_PASSWD=$P4A_RELEASE_KEYALIAS_PASSWD" >> $GITHUB_ENV
+      #     echo "P4A_RELEASE_KEYALIAS=$P4A_RELEASE_KEYALIAS" >> $GITHUB_ENV
 
       # Build with Buildozer
       - name: Build with Buildozer
