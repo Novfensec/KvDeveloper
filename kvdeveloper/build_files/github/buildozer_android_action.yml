@@ -122,9 +122,8 @@ jobs:
         run: |
           pip install --upgrade pip
           pip install buildozer cython==0.29.33
-
       
-      # Android App Bundle (Signed) [Required by Google Play]
+      # Set env variables for P4A Android App Bundle (Signed) [Required by Google Play]
       # https://gist.github.com/Guhan-SenSam/fa4ed215ef3419e7b3154de5cb71f641
       - name: Set environment variables
         env:
@@ -145,7 +144,7 @@ jobs:
         run: |
           yes | buildozer -v android debug
 
-        # Android App Bundle (Signed) [Required by Google Play]
+        # Run below command to generate an Android App bundle [Required by Google Play]
         # yes | buildozer -v android release
 
       # Upload artifacts
