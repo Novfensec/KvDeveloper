@@ -18,7 +18,7 @@ from kvdeveloper.config import (
     COMPONENTS,
     VIEW_BASE,
     GRADLE_TEMPLATE,
-    P4A_URL
+    P4A_URL,
 )
 from kvdeveloper.module import (
     console,
@@ -32,9 +32,8 @@ from kvdeveloper.module import (
     remove_from_structure,
     setup_build,
     project_info,
-    read_gradle_json,
-    clone_p4a,
 )
+from kvdeveloper.internals.firebase import read_gradle_json, clone_p4a
 from kvdeveloper.build_config import generate_build_files
 from kvdeveloper.utils import replace_placeholders
 from rich.panel import Panel
@@ -512,15 +511,15 @@ def list_components() -> None:
     typer.secho(help_text, fg=typer.colors.BRIGHT_WHITE)
     console.print(components_box)
 
+
 @app.command()
 def add_firebase(
     service: str = typer.Argument(
         help="Firebase service, e.g: com.google.android.gms:play-services-ads"
-        ),
-
+    ),
     google_services_json: Optional[str] = typer.Argument(
         None, help="google-services.json path"
-        )
+    ),
 ) -> None:
     """
     Add firebase service to gradle.json then automatically adds
@@ -532,105 +531,130 @@ def add_firebase(
 
     :notes: check update_gradle
     """
-    gradle_json_path = os.path.join(os.getcwd(), 'gradle.json')
+    gradle_json_path = os.path.join(os.getcwd(), "gradle.json")
     gradle_json = read_gradle_json(gradle_json_path)
 
-    # Adding firebase to gradle_json 
-    console.print(f"Adding service: {service}")
-    gradle_json['dep'].append(service)
-    gradle_json['dep'] = list(set(gradle_json['dep']))
+    # Adding firebase to gradle_json
+    console.print(f"\nAdding service: [bright_cyan]{service}[/bright_cyan]")
+    gradle_json["dep"].append(service)
+    gradle_json["dep"] = list(set(gradle_json["dep"]))
 
-    if len(list(filter(lambda x: 'com.google.gms:google-services' in x,
-        gradle_json['classpath']))) == 0:
-        console.print('Adding classpath: com.google.gms:google-services:4.4.2')
-        gradle_json['classpath'].append('com.google.gms:google-services:4.4.2')
-    
-    if len(list(filter(lambda x: 'com.google.gms:google-services' in x,
-        gradle_json['plugin']))) == 0:
-        console.print('Adding plugin: com.google.gms:google-services')
-        gradle_json['plugin'].append('com.google.gms:google-services')
-    
-    if len(list(filter(lambda x: 'com.google.firebase:firebase-bom' in x,
-        gradle_json['bom']))) == 0:
-        console.print('Adding bom: com.google.firebase:firebase-bom:33.8.0')
-        gradle_json['bom'].append('com.google.firebase:firebase-bom:33.8.0')
+    if (
+        len(
+            list(
+                filter(
+                    lambda x: "com.google.gms:google-services" in x,
+                    gradle_json["classpath"],
+                )
+            )
+        )
+        == 0
+    ):
+        console.print("\nAdding classpath: [bright_green]com.google.gms:google-services:4.4.2[/bright_green]")
+        gradle_json["classpath"].append("com.google.gms:google-services:4.4.2")
+
+    if (
+        len(
+            list(
+                filter(
+                    lambda x: "com.google.gms:google-services" in x,
+                    gradle_json["plugin"],
+                )
+            )
+        )
+        == 0
+    ):
+        console.print("\nAdding plugin: [bright_green]com.google.gms:google-services[/bright_green]")
+        gradle_json["plugin"].append("com.google.gms:google-services")
+
+    if (
+        len(
+            list(
+                filter(
+                    lambda x: "com.google.firebase:firebase-bom" in x,
+                    gradle_json["bom"],
+                )
+            )
+        )
+        == 0
+    ):
+        console.print("Adding bom: [bright_green]com.google.firebase:firebase-bom:33.8.0[/bright_green]")
+        gradle_json["bom"].append("com.google.firebase:firebase-bom:33.8.0")
 
     console.print(f"Updating {gradle_json_path}")
-    with open(gradle_json_path, 'w') as file:
+    with open(gradle_json_path, "w") as file:
         json.dump(gradle_json, file, indent=4)
-    
+
     update_gradle()
 
     if google_services_json is not None:
         p4a_gs_json = os.path.join(
-                os.getcwd(),
-                "python-for-android/pythonforandroid/bootstraps/common/build/"
-                "google-services.json"
-                )
+            os.getcwd(),
+            "python-for-android/pythonforandroid/bootstraps/common/build/"
+            "google-services.json",
+        )
 
-        console.print(f"Copying {google_services_json} to {p4a_gs_json}")
+        console.print(f"\nCopying [bright_cyan]{google_services_json}[/bright_cyan] to [bright_cyan]{p4a_gs_json}[/bright_cyan]")
         Path(google_services_json).replace(p4a_gs_json)
+
 
 @app.command()
 def update_gradle() -> None:
     """
     Parses KV GRADLE_TEMPLATE to place there the contents of
     gradle.json and then copies to P4A build.tmpl.gradle.
-    
+
     :notes: If P4A directory does not exist it's cloned from Github
     then buildozer.spec p4a.source_dir points to the new cloned repo.
     """
 
     p4a_dir = os.path.join(os.getcwd(), "python-for-android-2024.01.21")
     if not os.path.exists(p4a_dir):
-        console.print(f"{p4a_dir} does not exist, cloning it...")
+        console.print(f"\n{p4a_dir} does not exist, cloning it...")
         clone_p4a(p4a_dir, P4A_URL)
 
-    gradle_json_path = os.path.join(os.getcwd(), 'gradle.json')
+    gradle_json_path = os.path.join(os.getcwd(), "gradle.json")
     gradle_json = read_gradle_json(gradle_json_path)
     p4a_gradle_template = os.path.join(
-            p4a_dir,
-            "pythonforandroid/bootstraps/common/build/templates/"
-            "build.tmpl.gradle"
-            )
+        p4a_dir,
+        "pythonforandroid/bootstraps/common/build/templates/" "build.tmpl.gradle",
+    )
 
-    console.print(f"Updating {p4a_gradle_template}")
-    with open(p4a_gradle_template, 'w', encoding="utf-8") as file:
-        with open(GRADLE_TEMPLATE, 'r', encoding="utf-8") as template:
+    console.print(f"\nUpdating [bright_white]{p4a_gradle_template}[/bright_white]")
+    with open(p4a_gradle_template, "w", encoding="utf-8") as file:
+        with open(GRADLE_TEMPLATE, "r", encoding="utf-8") as template:
             lines = template.readlines()
             for line in lines:
-                indent = ''.join(
-                        char for char in itertools.takewhile(
-                            lambda x: x in {' ', '\t'},
-                            line
-                            )
-                        )
+                indent = "".join(
+                    char
+                    for char in itertools.takewhile(lambda x: x in {" ", "\t"}, line)
+                )
 
-                if '{%- gradle_classpath %}' in line:
-                    for classpath in gradle_json['classpath']:
+                if "{%- gradle_classpath %}" in line:
+                    for classpath in gradle_json["classpath"]:
                         file.write(f"{indent}classpath '{classpath}'\n")
 
-                elif '{%- gradle_plugin %}' in line:
-                    for plugin in gradle_json['plugin']:
+                elif "{%- gradle_plugin %}" in line:
+                    for plugin in gradle_json["plugin"]:
                         file.write(f"{indent}apply plugin: '{plugin}'\n")
 
-                elif '{%- gradle_bom %}' in line:
-                    for bom in gradle_json['bom']:
-                        file.write(
-                                f"{indent}implementation platform('{bom}')\n"
-                                )
+                elif "{%- gradle_bom %}" in line:
+                    for bom in gradle_json["bom"]:
+                        file.write(f"{indent}implementation platform('{bom}')\n")
 
-                elif '{%- gradle_dep %}' in line:
-                    for dep in gradle_json['dep']:
+                elif "{%- gradle_dep %}" in line:
+                    for dep in gradle_json["dep"]:
                         file.write(f"{indent}implementation '{dep}'\n")
 
                 else:
                     file.write(line)
 
+
 def _version_callback(value: bool) -> None:
     if value:
         typer.secho(f"{__app_name__} v{__version__}", fg=typer.colors.BRIGHT_WHITE)
         raise typer.Exit()
+
 
 @app.callback()
 def main(
