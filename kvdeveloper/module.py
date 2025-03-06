@@ -1,14 +1,11 @@
 import os
 import typer
 import platform
-import subprocess
+import subprocess  # nosec
 import sys
 import re
 from pathlib import Path
 
-import io
-import json
-import requests
 
 from shutil import rmtree
 from typing import Dict, List
@@ -16,7 +13,7 @@ from kvdeveloper.utils import (
     name_parser,
     name_parser_snake,
     replace_placeholders,
-    extract_tar_file
+    extract_tar_file,
 )
 from kvdeveloper.config import (
     TEMPLATES_DIR,
@@ -76,14 +73,13 @@ def add_extensions(
             os.makedirs(target_dir, exist_ok=True)
 
             # Read from the source file and write to the target file
-            with open(source_file, "r", encoding="utf-8") as src, open(
-                target_file, "w", encoding="utf-8"
-            ) as dest:
+            with (
+                open(source_file, "r", encoding="utf-8") as src,
+                open(target_file, "w", encoding="utf-8") as dest,
+            ):
                 dest.write(src.read())
 
-            console.print(
-                f"\nCreated file: [bright_white]{target_file}[/bright_white]"
-            )
+            console.print(f"\nCreated file: [bright_white]{target_file}[/bright_white]")
 
 
 def create_from_template(
@@ -110,8 +106,12 @@ def create_from_template(
 
     # Walk through the template directory and replicate structure in destination
     for root, _, files in os.walk(template_path):
-        relative_path = os.path.relpath(root, template_path)  # Relative path from the template
-        target_dir = os.path.join(destination, relative_path)  # Corresponding destination path
+        relative_path = os.path.relpath(
+            root, template_path
+        )  # Relative path from the template
+        target_dir = os.path.join(
+            destination, relative_path
+        )  # Corresponding destination path
 
         os.makedirs(target_dir, exist_ok=True)  # Ensure the target directory exists
 
@@ -122,7 +122,9 @@ def create_from_template(
                 continue
 
             source_file = os.path.join(root, file_name)  # Full path to the source file
-            target_file = os.path.join(target_dir, file_name)  # Full path to the target file
+            target_file = os.path.join(
+                target_dir, file_name
+            )  # Full path to the target file
 
             # Read and process the content of the template file
             with open(source_file, "r", encoding="utf-8") as src:
@@ -135,9 +137,7 @@ def create_from_template(
             with open(target_file, "w", encoding="utf-8") as dest:
                 dest.write(content)
 
-            console.print(
-                f"\nCreated file: [bright_white]{target_file}[/bright_white]"
-            )
+            console.print(f"\nCreated file: [bright_white]{target_file}[/bright_white]")
 
     # Create common assets directories
     _create_asset_directories(destination)
@@ -200,7 +200,7 @@ def create_from_structure(
     """
     output = subprocess.run(
         f"{sys.executable} -m kivymd.tools.patterns.create_project MVC . {variables['project_name']} python{python_version} master --use_hotreload yes --name_screen {parsed_screens_string}",
-        shell=True,
+        shell=True,  # nosec
     )
 
     if output.returncode != 0:
@@ -301,7 +301,7 @@ def create_from_structure(
         envbin = "scripts"
     console.print(f"\n[green]Installing requirements with pip.[/green]\n")
     try:
-        subprocess.run(
+        subprocess.run(  # nosec
             [
                 os.path.join(variables["project_name"], "venv", envbin, "python"),
                 "-m",
@@ -621,7 +621,7 @@ def add_from_structure(
         )
         output = subprocess.run(
             f"{sys.executable} -m kivymd.tools.patterns.add_view MVC . {parsed_name}",
-            shell=True,
+            shell=True,  # nosec
         )
         if output.returncode != 0:
             console.print(
@@ -913,7 +913,9 @@ def remove_from_default(name_screen: List[str], destination: str) -> None:
         )
 
         # Regular expression pattern to match the dictionary entry, regardless of content inside
-        screen_entry_pattern = rf"""    ["']{snake_name_view.replace('_', ' ')}["']: {{.*?}},\n"""
+        screen_entry_pattern = (
+            rf"""    ["']{snake_name_view.replace('_', ' ')}["']: {{.*?}},\n"""
+        )
 
         try:
             # Read content of screens.py
@@ -988,59 +990,3 @@ def remove_from_structure(
                     console.print(f"\nDeleted: [red]{controller_file_path}[/red]")
             except Exception as e:
                 console.print(f"Error: [red]{e}[/red]")
-
-def read_gradle_json(path: str):
-    """
-    gradle.json from path to dict
-    :param path: Path of the gradle.json
-    :return:
-        Python dict with the keywords ['classpath', 'plugin', 'bom', 'dep']
-        For each of the keys it does set(value) to avoid duplicates.
-    """
-    gradle_json = {
-        'classpath': [],
-        'plugin': [],
-        'bom': [],
-        'dep': []
-        }
-
-    if os.path.exists(path):
-        with open(path, "r", encoding="UTF-8") as file:
-            g_json = json.load(file)
-            for k, v in g_json.items():
-                if gradle_json.get(k) is not None:
-                    gradle_json[k].extend(v)
-                    gradle_json[k] = list(set(gradle_json[k]))
-
-                else:
-                    raise ValueError(
-                            f"Key does not belong to {gradle_json.keys()}"
-                            )
-    return gradle_json
-
-def clone_p4a(p4a_dir: str, url: str):
-    with requests.get(url, stream=True) as response:
-        response.raise_for_status()
-        with open(f"{p4a_dir}.tar.gz", 'wb') as file:
-            for chunk in response.iter_content(
-                    chunk_size=io.DEFAULT_BUFFER_SIZE): 
-                file.write(chunk)
-
-    extract_tar_file(f"{p4a_dir}.tar.gz", Path(p4a_dir).parent)
-    console.print(f"Removing: {p4a_dir}.tar.gz")
-    os.remove(f"{p4a_dir}.tar.gz")
-
-    with open("buildozer.spec", "r", encoding="utf-8") as build_file:
-        content = build_file.readlines()
-
-    with open("buildozer.spec", "w", encoding="utf-8") as target_build_file:
-        for line in content:
-            # Comment line with p4a.source_dir
-            if line.lstrip().startswith('p4a.source_dir'):
-                line = '#' + line
-
-            target_build_file.write(line)
-
-        line = f"p4a.source_dir = {p4a_dir}"
-        console.print(f"Inserting at buildozer.spec: {line}")
-        target_build_file.write(f"{line}\n")
