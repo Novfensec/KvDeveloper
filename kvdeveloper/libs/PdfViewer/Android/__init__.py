@@ -1,4 +1,4 @@
-from jnius import autoclass # type: ignore
+from jnius import autoclass  # type: ignore
 
 
 class PdfViewer:
@@ -7,10 +7,10 @@ class PdfViewer:
 
     def open_pdf(self, file_path: str, *args) -> None:
         try:
-            Intent = autoclass('android.content.Intent')
-            Uri = autoclass('android.net.Uri')
-            File = autoclass('java.io.File')
-            file = File(file_path) # Replace with the path to your PDF file
+            Intent = autoclass("android.content.Intent")
+            Uri = autoclass("android.net.Uri")
+            File = autoclass("java.io.File")
+            file = File(file_path)  # Replace with the path to your PDF file
             uri = Uri.fromFile(file)
 
             intent = Intent(Intent.ACTION_VIEW)
@@ -18,7 +18,7 @@ class PdfViewer:
             intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
 
-            PythonActivity = autoclass('org.kivy.android.PythonActivity')
+            PythonActivity = autoclass("org.kivy.android.PythonActivity")
             current_activity = PythonActivity.mActivity
             current_activity.startActivity(intent)
         except Exception as e:

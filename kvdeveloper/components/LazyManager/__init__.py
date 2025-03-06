@@ -1,1 +1,1 @@
-from .lazymanager import LazyManager 
+from .lazymanager import LazyManager

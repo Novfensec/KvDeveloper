@@ -30,10 +30,12 @@ def generate_build_files(platform: str, external: str) -> None:
             console.print(f"Created file {destination_file_path}.")
 
     elif external == "github":
-        external_file_path = os.path.join(external_path, f"buildozer_{platform}_action.yml")
+        external_file_path = os.path.join(
+            external_path, f"buildozer_{platform}_action.yml"
+        )
         os.makedirs(".github/workflows", exist_ok=True)
         destination_file_path = os.path.join(
-            os.getcwd(), ".github" ,"workflows", f"buildozer_{platform}_action.yml"
+            os.getcwd(), ".github", "workflows", f"buildozer_{platform}_action.yml"
         )
         with open(external_file_path, "r", encoding="utf-8") as target_file:
             content = target_file.read()

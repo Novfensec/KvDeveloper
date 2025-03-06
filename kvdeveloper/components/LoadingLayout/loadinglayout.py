@@ -9,7 +9,7 @@ class LoadingLayout(MDFloatLayout):
     @mainthread
     def display(self, timeout: int = None, *args) -> None:
         initial = 0
-        if timeout:=timeout:
+        if timeout := timeout:
             while initial < timeout:
                 self.opacity = 1
             self.opacity = 0
@@ -18,4 +18,3 @@ class LoadingLayout(MDFloatLayout):
     @mainthread
     def dismiss(self, *args) -> None:
         self.opacity = 0
-    
