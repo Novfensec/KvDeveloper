@@ -46,7 +46,7 @@ def clone_p4a(p4a_dir: str, url: str):
         for line in content:
             # Comment line with p4a.source_dir
             if line.lstrip().startswith("p4a.source_dir"):
-                line = "#" + line
+                line = f"#{line}"
 
             target_build_file.write(line)
 
