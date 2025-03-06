@@ -5,6 +5,7 @@ from kivy.properties import StringProperty
 
 napp = MDApp.get_running_app()
 
+
 def on_switch_tabs(
     instance: object,
     bar: MDNavigationBar,

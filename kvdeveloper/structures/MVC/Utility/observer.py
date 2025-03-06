@@ -6,6 +6,7 @@
 # that can be received by all attached observers. This approach seems less
 # universal - you may want to use a different library in the future.
 
+
 class Observer:
     """Abstract superclass for all observers."""
 

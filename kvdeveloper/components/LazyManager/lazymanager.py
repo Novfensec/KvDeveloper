@@ -49,12 +49,12 @@ class LazyManager(MDScreenManager):
         if not self.has_screen(name_screen):
             module = self.raw_views[name_screen]["module"]
             self._load_kvlang_file(module)
-            
+
             # Create the screen view and add it to the screen manager
-            view = self.raw_views[name_screen]['object']()
+            view = self.raw_views[name_screen]["object"]()
             view.name = name_screen
             view.manager_screens = self
-            
+
             self.add_widget(view)
             self.upstream_views.extend(name_screen)
 

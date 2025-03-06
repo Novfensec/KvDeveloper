@@ -6,6 +6,7 @@
 # method). For this, observers must be descendants of an abstract class,
 # inheriting which, the `model_is_changed` method must be overridden.
 
+
 class BaseScreenModel:
     """Implements a base class for model modules."""
 

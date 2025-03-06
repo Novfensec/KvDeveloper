@@ -1,3 +1,4 @@
+import os
 import webbrowser
 from kivymd.app import MDApp
 from kivymd.uix.screenmanager import MDScreenManager
@@ -27,7 +28,7 @@ class UI(MDScreenManager):
 class {{project_name}}(MDApp):
     def __init__(self, *args, **kwargs):
         super({{project_name}}, self).__init__(*args, **kwargs)
-        self.load_all_kv_files(self.directory)
+        self.load_all_kv_files(os.path.join(self.directory, "View"))
         self.theme_cls.primary_palette = "Midnightblue"
         self.image_library_path = IMAGE_LIBRARY
         self.manager_screens = UI()

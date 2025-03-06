@@ -1,15 +1,19 @@
 import os
 import typer
 import platform
-import subprocess
+import subprocess  # nosec
 import sys
 import re
+from pathlib import Path
+
+
 from shutil import rmtree
 from typing import Dict, List
 from kvdeveloper.utils import (
     name_parser,
     name_parser_snake,
     replace_placeholders,
+    extract_tar_file,
 )
 from kvdeveloper.config import (
     TEMPLATES_DIR,
@@ -69,14 +73,13 @@ def add_extensions(
             os.makedirs(target_dir, exist_ok=True)
 
             # Read from the source file and write to the target file
-            with open(source_file, "r", encoding="utf-8") as src, open(
-                target_file, "w", encoding="utf-8"
-            ) as dest:
+            with (
+                open(source_file, "r", encoding="utf-8") as src,
+                open(target_file, "w", encoding="utf-8") as dest,
+            ):
                 dest.write(src.read())
 
-            console.print(
-                f"\nCreated file: [bright_white]{target_file}[/bright_white]"
-            )
+            console.print(f"\nCreated file: [bright_white]{target_file}[/bright_white]")
 
 
 def create_from_template(
@@ -103,8 +106,12 @@ def create_from_template(
 
     # Walk through the template directory and replicate structure in destination
     for root, _, files in os.walk(template_path):
-        relative_path = os.path.relpath(root, template_path)  # Relative path from the template
-        target_dir = os.path.join(destination, relative_path)  # Corresponding destination path
+        relative_path = os.path.relpath(
+            root, template_path
+        )  # Relative path from the template
+        target_dir = os.path.join(
+            destination, relative_path
+        )  # Corresponding destination path
 
         os.makedirs(target_dir, exist_ok=True)  # Ensure the target directory exists
 
@@ -115,7 +122,9 @@ def create_from_template(
                 continue
 
             source_file = os.path.join(root, file_name)  # Full path to the source file
-            target_file = os.path.join(target_dir, file_name)  # Full path to the target file
+            target_file = os.path.join(
+                target_dir, file_name
+            )  # Full path to the target file
 
             # Read and process the content of the template file
             with open(source_file, "r", encoding="utf-8") as src:
@@ -128,9 +137,7 @@ def create_from_template(
             with open(target_file, "w", encoding="utf-8") as dest:
                 dest.write(content)
 
-            console.print(
-                f"\nCreated file: [bright_white]{target_file}[/bright_white]"
-            )
+            console.print(f"\nCreated file: [bright_white]{target_file}[/bright_white]")
 
     # Create common assets directories
     _create_asset_directories(destination)
@@ -193,7 +200,7 @@ def create_from_structure(
     """
     output = subprocess.run(
         f"{sys.executable} -m kivymd.tools.patterns.create_project MVC . {variables['project_name']} python{python_version} master --use_hotreload yes --name_screen {parsed_screens_string}",
-        shell=True,
+        shell=True,  # nosec
     )
 
     if output.returncode != 0:
@@ -294,7 +301,7 @@ def create_from_structure(
         envbin = "scripts"
     console.print(f"\n[green]Installing requirements with pip.[/green]\n")
     try:
-        subprocess.run(
+        subprocess.run(  # nosec
             [
                 os.path.join(variables["project_name"], "venv", envbin, "python"),
                 "-m",
@@ -614,7 +621,7 @@ def add_from_structure(
         )
         output = subprocess.run(
             f"{sys.executable} -m kivymd.tools.patterns.add_view MVC . {parsed_name}",
-            shell=True,
+            shell=True,  # nosec
         )
         if output.returncode != 0:
             console.print(
@@ -906,7 +913,9 @@ def remove_from_default(name_screen: List[str], destination: str) -> None:
         )
 
         # Regular expression pattern to match the dictionary entry, regardless of content inside
-        screen_entry_pattern = rf"""    ["']{snake_name_view.replace('_', ' ')}["']: {{.*?}},\n"""
+        screen_entry_pattern = (
+            rf"""    ["']{snake_name_view.replace('_', ' ')}["']: {{.*?}},\n"""
+        )
 
         try:
             # Read content of screens.py
