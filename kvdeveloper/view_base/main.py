@@ -117,6 +117,7 @@ if __name__ == "__main__":
 # https://en.wikipedia.org/wiki/Model–view–controller
 # """
 
+# import os
 # import webbrowser
 # from kivymd.app import MDApp
 # from kivymd.uix.screenmanager import MDScreenManager
@@ -146,7 +147,7 @@ if __name__ == "__main__":
 # class {{project_name}}(MDApp):
 #     def __init__(self, **kwargs):
 #         super().__init__(**kwargs)
-#         self.load_all_kv_files(self.directory)
+#         self.load_all_kv_files(os.path.join(self.directory, "View"))
 #         self.theme_cls.primary_palette = "Midnightblue"
 #         self.image_library_path = IMAGE_LIBRARY
 #         # This is the screen manager that will contain all the screens of your application.
