@@ -1,19 +1,17 @@
-import os
-import typer
-import platform
-import subprocess  # nosec
-import sys
-import re
-from pathlib import Path
-
-
+import os, re, platform, subprocess, sys, typer  # nosec
 from shutil import rmtree
 from typing import Dict, List
+
+from rich.console import Console
+from rich.panel import Panel
+from rich.table import Table
+from rich.tree import Tree
+from rich.prompt import Prompt
+
 from kvdeveloper.utils import (
     name_parser,
     name_parser_snake,
     replace_placeholders,
-    extract_tar_file,
 )
 from kvdeveloper.config import (
     TEMPLATES_DIR,
@@ -23,11 +21,6 @@ from kvdeveloper.config import (
     LAYOUTS_DIR,
     VIEW_BASE,
 )
-from rich.console import Console
-from rich.panel import Panel
-from rich.table import Table
-from rich.tree import Tree
-from rich.prompt import Prompt
 
 console = Console()
 

@@ -1,12 +1,11 @@
-import os
-import re
-import json
-import typer
-import shutil
-import itertools
+import os, re, json, typer, itertools
 from pathlib import Path
-
 from typing import Optional, List
+
+from rich.panel import Panel
+from rich.text import Text
+from rich.table import Table
+
 from kvdeveloper import __app_name__, __version__
 from kvdeveloper.config import (
     app,
@@ -14,12 +13,14 @@ from kvdeveloper.config import (
     DEFAULT_STRUCTURE,
     STRUCTURES,
     TEMPLATES,
+    LIBS,
     COMPONENTS_DIR,
     COMPONENTS,
     VIEW_BASE,
     GRADLE_TEMPLATE,
     P4A_URL,
 )
+from kvdeveloper.libs import add_from_libs
 from kvdeveloper.module import (
     console,
     create_from_template,
@@ -36,9 +37,6 @@ from kvdeveloper.module import (
 from kvdeveloper.internals.firebase import read_gradle_json, clone_p4a
 from kvdeveloper.build_config import generate_build_files
 from kvdeveloper.utils import replace_placeholders
-from rich.panel import Panel
-from rich.text import Text
-from rich.table import Table
 
 
 @app.command()
@@ -251,7 +249,7 @@ def create_component(
     """
     destination = os.path.join(os.getcwd(), "components")
     if not os.path.isdir(destination):
-        os.makedirs("components", exist_ok=True)
+        os.makedirs(destination, exist_ok=True)
 
     for components in name_component:
         component_path = os.path.join(destination, components)
@@ -550,7 +548,9 @@ def add_firebase(
         )
         == 0
     ):
-        console.print("\nAdding classpath: [bright_green]com.google.gms:google-services:4.4.2[/bright_green]")
+        console.print(
+            "\nAdding classpath: [bright_green]com.google.gms:google-services:4.4.2[/bright_green]"
+        )
         gradle_json["classpath"].append("com.google.gms:google-services:4.4.2")
 
     if (
@@ -564,7 +564,9 @@ def add_firebase(
         )
         == 0
     ):
-        console.print("\nAdding plugin: [bright_green]com.google.gms:google-services[/bright_green]")
+        console.print(
+            "\nAdding plugin: [bright_green]com.google.gms:google-services[/bright_green]"
+        )
         gradle_json["plugin"].append("com.google.gms:google-services")
 
     if (
@@ -578,7 +580,9 @@ def add_firebase(
         )
         == 0
     ):
-        console.print("Adding bom: [bright_green]com.google.firebase:firebase-bom:33.8.0[/bright_green]")
+        console.print(
+            "Adding bom: [bright_green]com.google.firebase:firebase-bom:33.8.0[/bright_green]"
+        )
         gradle_json["bom"].append("com.google.firebase:firebase-bom:33.8.0")
 
     console.print(f"Updating {gradle_json_path}")
@@ -594,7 +598,9 @@ def add_firebase(
             "google-services.json",
         )
 
-        console.print(f"\nCopying [bright_cyan]{google_services_json}[/bright_cyan] to [bright_cyan]{p4a_gs_json}[/bright_cyan]")
+        console.print(
+            f"\nCopying [bright_cyan]{google_services_json}[/bright_cyan] to [bright_cyan]{p4a_gs_json}[/bright_cyan]"
+        )
         Path(google_services_json).replace(p4a_gs_json)
 
 
@@ -648,6 +654,42 @@ def update_gradle() -> None:
 
                 else:
                     file.write(line)
+
+
+@app.command()
+def add_libs(
+    name_libs: List[str] = typer.Argument(
+        help="List of names of the helper module as defined in the available list."
+    ),
+    destination: str = typer.Option(".", help="Destination of the helper module."),
+) -> None:
+    """
+    Implements platform specific helper libraries into the app using tools like pyjnius, pyobjus and plyer
+    with automatic platform detection.
+
+    :param name_libs: List of names of the helper module as defined in the available list.
+
+    :param destination: Destination of the helper module.
+    """
+    destination = os.path.join(destination, "libs")
+    if not os.path.isdir(destination):
+        os.makedirs(destination, exist_ok=True)
+
+    for libs in name_libs:
+        if libs not in LIBS.keys():
+            console.print(
+                f"\nNo helper module found for name: [bright_red]{libs}[/bright_red]"
+            )
+
+    name_libs = [libs for libs in name_libs if libs in LIBS.keys()]
+
+    if len(name_libs) == 0:
+        raise typer.Exit(code=0)
+    else:
+        console.print(
+            f"\nAdding libs for names: [bright_cyan]{name_libs}[/bright_cyan]"
+        )
+        add_from_libs(name_libs, destination)
 
 
 def _version_callback(value: bool) -> None:

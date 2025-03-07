@@ -39,6 +39,10 @@ COMPONENTS = {
 }
 COMPONENTS_DIR = os.path.join(def_dir, "components")
 
+LIBS = {
+    "PdfViewer": "PdfViewer module with appropriate pyjnius operations.",
+}
+
 LIBS_DIR = os.path.join(def_dir, "libs")
 
 # GRADLE
@@ -46,6 +50,4 @@ GRADLE_TEMPLATE: str = os.path.join(def_dir, "templates/p4a/build.tmpl.gradle")
 
 p4a_version = "2024.01.21"
 
-P4A_URL = (
-    f"https://github.com/kivy/python-for-android/archive/refs/tags/v{p4a_version}.tar.gz"
-)
+P4A_URL = f"https://github.com/kivy/python-for-android/archive/refs/tags/v{p4a_version}.tar.gz"
