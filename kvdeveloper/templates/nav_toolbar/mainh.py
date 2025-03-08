@@ -64,6 +64,7 @@ class {{project_name}}(MDApp):
 
     def apply_styles(self, style: str = "Light") -> None:
         self.theme_cls.theme_style = style
+        Window.clearcolor = self.theme_cls.backgroundColor
 
     def referrer(self, destination: str = None) -> None:
         if self.manager_screens.current != destination:

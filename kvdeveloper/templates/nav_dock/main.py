@@ -52,6 +52,7 @@ class {{project_name}}(MDApp):
 
     def apply_styles(self, style: str = "Light") -> None:
         self.theme_cls.theme_style = style
+        Window.clearcolor = self.theme_cls.backgroundColor
         if style == "Light":
             style = "Dark"
         self.set_bars_colors(style)

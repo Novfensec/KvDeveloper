@@ -78,6 +78,7 @@ class {{project_name}}(MDApp):
 
     def apply_styles(self, style: str = "Light") -> None:
         self.theme_cls.theme_style = style
+        Window.clearcolor = self.theme_cls.backgroundColor
 
     def referrer(self, destination: str = None) -> None:
         if self.manager_screens.current != destination:
@@ -125,6 +126,7 @@ if __name__ == "__main__":
 # from kivymd.utils.set_bars_colors import set_bars_colors
 # from kvdeveloper.config import IMAGE_LIBRARY
 # from kivy.clock import Clock
+# from kivy.core.window import Window
 # from View.screens import screens
 
 # Clock.max_iteration = 30
@@ -178,6 +180,7 @@ if __name__ == "__main__":
 
 #     def apply_styles(self, style: str = "Light") -> None:
 #         self.theme_cls.theme_style = style
+#         Window.clearcolor = self.theme_cls.backgroundColor
 #         if style == "Light":
 #             style = "Dark"
 #         self.set_bars_colors(style)
