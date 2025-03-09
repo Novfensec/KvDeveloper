@@ -48,7 +48,7 @@ If you encounter any issues or have questions, feel free to reach out to the com
 ## Features
 - **Starter Templates**: Quickly create new Kivy and KivyMD projects with predefined templates.
 - **Layouts**: Build standard screens rapidly with prebuilt designs. Add layouts to any screen with a single command, making the development process faster and more efficient.
-- **MVC Structure**: Includes templates with Model-View-Controller (MVC) architecture. `(recommended KivyMD==1.1.1)`
+- **MVC Structure**: Includes templates with Model-View-Controller (MVC) architecture. `(recommended KivyMD==2.0.1.dev0)`
 - **Navigation and Toolbar**: Templates with built-in navigation and toolbar screens.
 - **Customizable**: Easily extend and customize the templates and layouts to fit your project needs.
 - **Build Workflows and Jupyter Notebooks**: Generates build workflows for github based conversions and jupyter notebooks for colab based converions.
