@@ -1,7 +1,7 @@
+from kivy.properties import StringProperty
 from kivymd.app import MDApp
 from kivymd.uix.navigationbar import MDNavigationBar, MDNavigationItem
 from kivymd.uix.screenmanager import MDScreenManager
-from kivy.properties import StringProperty
 
 napp = MDApp.get_running_app()
 

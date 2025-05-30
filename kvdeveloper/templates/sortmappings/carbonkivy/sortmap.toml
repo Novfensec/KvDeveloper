@@ -1,0 +1,108 @@
+[CORE]
+modules = [
+    "carbonkivy.behaviors.**",
+    "carbonkivy.theme.**",
+    "carbonkivy",
+    "carbonkivy.data.**",
+]
+extensions = [
+    "*.kv",
+    "*.py",
+    "*.ttf",
+]
+
+[ANCHORLAYOUT]
+modules = [
+    "carbonkivy.uix.anchorlayout",
+]
+
+[BOXLAYOUT]
+modules = [
+    "carbonkivy.uix.boxlayout",
+]
+
+[BUTTON]
+modules = [
+    "carbonkivy.uix.button",
+]
+
+[CODESNIPPET]
+modules = [
+    "carbonkivy.uix.codesnippet",
+]
+
+[DATATABLE]
+modules = [
+    "carbonkivy.uix.datatable",
+]
+
+[DIVIDER]
+modules = [
+    "carbonkivy.uix.divider",
+]
+
+[FLOATLAYOUT]
+modules = [
+    "carbonkivy.uix.floatlayout",
+]
+
+[FOCUSCONTAINER]
+modules = [
+    "carbonkivy.uix.focuscontainer",
+]
+
+[GRIDLAYOUT]
+modules = [
+    "carbonkivy.uix.gridlayout",
+]
+
+[ICON]
+
+modules = [
+    "carbonkivy.uix.icon",
+]
+
+[IMAGE]
+modules = [
+    "carbonkivy.uix.image",
+]
+
+[LABEL]
+modules = [
+    "carbonkivy.uix.label",
+]
+
+[LINK]
+modules = [
+    "carbonkivy.uix.link",
+]
+
+[RELATIVELAYOUT]
+modules = [
+    "carbonkivy.uix.relativelayout",
+]
+
+[SCREEN]
+modules = [
+    "carbonkivy.uix.screen",
+]
+
+[SCREENMANAGER]
+modules = [
+    "carbonkivy.uix.screenmanager",
+]
+
+[SCROLLVIEW]
+modules = [
+    "carbonkivy.uix.scrollview",
+]
+
+[STACKLAYOUT]
+modules = [
+    "carbonkivy.uix.stacklayout",
+]
+
+[TEXTINPUT]
+modules = [
+    "carbonkivy.uix.textinput",
+]

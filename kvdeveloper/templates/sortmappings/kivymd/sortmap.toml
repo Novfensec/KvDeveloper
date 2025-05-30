@@ -1,0 +1,361 @@
+[CORE]
+modules = [
+	"kivymd",
+	"kivymd.uix.behaviors",
+	"kivymd.fonts",
+	"kivymd.images.**",
+	"kivymd.uix.transition",
+]
+extensions = [
+	"*.kv",
+	"*.py",
+	"*.ttf",
+	"*.png",
+]
+
+[UTILS]
+modules = [
+	"kivymd.utils",
+]
+
+[EXTRAS]
+modules = [
+	"kivymd.toast",
+]
+
+
+[ANCHORLAYOUT]
+
+modules = [
+	"kivymd.uix.anchorlayout",
+]
+
+
+[APPBAR]
+
+modules = [
+	"kivymd.uix.appbar",
+]
+
+
+[BADGE]
+
+modules = [
+	"kivymd.uix.badge",
+]
+
+
+[BEHAVIORS]
+
+modules = [
+	"kivymd.uix.behaviors",
+]
+
+
+[BOTTOMSHEET]
+
+modules = [
+	"kivymd.uix.bottomsheet",
+]
+
+
+[BOXLAYOUT]
+
+modules = [
+	"kivymd.uix.boxlayout",
+]
+
+
+[BUTTON]
+
+modules = [
+	"kivymd.uix.button",
+]
+
+
+[CARD]
+
+modules = [
+	"kivymd.uix.card",
+]
+
+
+[CHIP]
+
+modules = [
+	"kivymd.uix.chip",
+]
+
+
+[CIRCULARLAYOUT]
+
+modules = [
+	"kivymd.uix.circularlayout",
+]
+
+
+[CONTROLLERS]
+
+modules = [
+	"kivymd.uix.controllers",
+]
+
+
+[DIALOG]
+
+modules = [
+	"kivymd.uix.dialog",
+]
+
+
+[DIVIDER]
+
+modules = [
+	"kivymd.uix.divider",
+]
+
+
+[DROPDOWNITEM]
+
+modules = [
+	"kivymd.uix.dropdownitem",
+]
+
+
+[EXPANSIONPANEL]
+
+modules = [
+	"kivymd.uix.expansionpanel",
+]
+
+
+[FILEMANAGER]
+
+modules = [
+	"kivymd.uix.filemanager",
+]
+
+
+[FITIMAGE]
+
+modules = [
+	"kivymd.uix.fitimage",
+]
+
+
+[FLOATLAYOUT]
+
+modules = [
+	"kivymd.uix.floatlayout",
+]
+
+
+[GRIDLAYOUT]
+
+modules = [
+	"kivymd.uix.gridlayout",
+]
+
+
+[HERO]
+
+modules = [
+	"kivymd.uix.hero",
+]
+
+
+[IMAGELIST]
+
+modules = [
+	"kivymd.uix.imagelist",
+]
+
+
+[LABEL]
+
+modules = [
+	"kivymd.uix.label",
+]
+
+
+[LIST]
+
+modules = [
+	"kivymd.uix.list",
+]
+
+
+[MENU]
+
+modules = [
+	"kivymd.uix.menu",
+]
+
+
+[NAVIGATIONBAR]
+
+modules = [
+	"kivymd.uix.navigationbar",
+]
+
+
+[NAVIGATIONDRAWER]
+
+modules = [
+	"kivymd.uix.navigationdrawer",
+]
+
+
+[NAVIGATIONRAIL]
+
+modules = [
+	"kivymd.uix.navigationrail",
+]
+
+
+[PICKERS]
+
+modules = [
+	"kivymd.uix.pickers",
+]
+
+
+[PROGRESSINDICATOR]
+
+modules = [
+	"kivymd.uix.progressindicator",
+]
+
+
+[RECYCLEGRIDLAYOUT]
+
+modules = [
+	"kivymd.uix.recyclegridlayout",
+]
+
+
+[RECYCLEVIEW]
+
+modules = [
+	"kivymd.uix.recycleview",
+]
+
+
+[REFRESHLAYOUT]
+
+modules = [
+	"kivymd.uix.refreshlayout",
+]
+
+
+[RELATIVELAYOUT]
+
+modules = [
+	"kivymd.uix.relativelayout",
+]
+
+
+[RESPONSIVELAYOUT]
+
+modules = [
+	"kivymd.uix.responsivelayout",
+]
+
+
+[SCREEN]
+
+modules = [
+	"kivymd.uix.screen",
+]
+
+
+[SCREENMANAGER]
+
+modules = [
+	"kivymd.uix.screenmanager",
+]
+
+
+[SCROLLVIEW]
+
+modules = [
+	"kivymd.uix.scrollview",
+]
+
+
+[SEGMENTEDBUTTON]
+
+modules = [
+	"kivymd.uix.segmentedbutton",
+]
+
+
+[SELECTIONCONTROL]
+
+modules = [
+	"kivymd.uix.selectioncontrol",
+]
+
+
+[SLIDER]
+
+modules = [
+	"kivymd.uix.slider",
+]
+
+
+[SLIVERAPPBAR]
+
+modules = [
+	"kivymd.uix.sliverappbar",
+]
+
+
+[SNACKBAR]
+
+modules = [
+	"kivymd.uix.snackbar",
+]
+
+
+[STACKLAYOUT]
+
+modules = [
+	"kivymd.uix.stacklayout",
+]
+
+
+[SWIPER]
+
+modules = [
+	"kivymd.uix.swiper",
+]
+
+
+[TAB]
+
+modules = [
+	"kivymd.uix.tab",
+]
+
+
+[TEXTFIELD]
+
+modules = [
+	"kivymd.uix.textfield",
+]
+
+
+[TOOLTIP]
+
+modules = [
+	"kivymd.uix.tooltip",
+]
+
+
+[WIDGET]
+
+modules = [
+	"kivymd.uix.widget",
+]
+

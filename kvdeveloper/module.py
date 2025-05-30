@@ -1,28 +1,27 @@
-import os, re, platform, subprocess, sys, typer  # nosec
+import os  # nosec
+import platform
+import re
+import subprocess
+import sys
 from shutil import rmtree
 from typing import Dict, List
 
-from rich.console import Console
+import typer
 from rich.panel import Panel
+from rich.prompt import Prompt
 from rich.table import Table
 from rich.tree import Tree
-from rich.prompt import Prompt
 
-from kvdeveloper.utils import (
-    name_parser,
-    name_parser_snake,
-    replace_placeholders,
-)
 from kvdeveloper.config import (
-    TEMPLATES_DIR,
-    TEMPLATES,
-    STRUCTURES_DIR,
-    STRUCTURES,
     LAYOUTS_DIR,
+    STRUCTURES,
+    STRUCTURES_DIR,
+    TEMPLATES,
+    TEMPLATES_DIR,
     VIEW_BASE,
+    console,
 )
-
-console = Console()
+from kvdeveloper.utils import name_parser, name_parser_snake, replace_placeholders
 
 
 def add_extensions(

@@ -1,5 +1,6 @@
-import os
 import importlib
+import os
+
 from kivy import Config
 from PIL import ImageGrab
 
@@ -16,6 +17,7 @@ Window.top = 30
 Window.left = resolution[0] - Window.width + 5
 
 import webbrowser
+
 from kivymd.tools.hotreload.app import MDApp
 from kivymd.uix.screenmanager import MDScreenManager
 from kivymd.uix.transition import MDSharedAxisTransition as SAT

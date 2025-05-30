@@ -1,8 +1,9 @@
-import os
 import glob
+import os
 from typing import List, Optional
-from kivy.factory import Factory
+
 from kivy.core.text import LabelBase
+from kivy.factory import Factory
 
 # Alias for the register function from Factory
 component_register = Factory.register

@@ -1,5 +1,5 @@
-from kivymd.uix.floatlayout import MDFloatLayout
 from kivy.clock import mainthread
+from kivymd.uix.floatlayout import MDFloatLayout
 
 
 class LoadingLayout(MDFloatLayout):

@@ -1,4 +1,4 @@
-from kivy.properties import StringProperty, NumericProperty, ListProperty
+from kivy.properties import ListProperty, NumericProperty, StringProperty
 from kivy.uix.widget import Widget
 from kivymd.uix.card import MDCard
 

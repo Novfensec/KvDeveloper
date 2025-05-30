@@ -1,6 +1,6 @@
-from kivymd.uix.boxlayout import MDBoxLayout
-from kivymd.uix.behaviors.state_layer_behavior import StateLayerBehavior
 from kivy.properties import OptionProperty
+from kivymd.uix.behaviors.state_layer_behavior import StateLayerBehavior
+from kivymd.uix.boxlayout import MDBoxLayout
 
 
 class Container(MDBoxLayout, StateLayerBehavior):
