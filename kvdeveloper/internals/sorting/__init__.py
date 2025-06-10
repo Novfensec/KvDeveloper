@@ -28,29 +28,43 @@ def sort_modules(
 
     source = toml_parser(sortmapping)
     user_config = toml_parser(sortfile)
+
+    if not user_config.get(module_name.upper()):
+        print(f"No sort configurations found for {module_name.upper()} in sort.toml")
+        return
+
     included_members = user_config[module_name.upper()]["members"]
 
     sorted_modules = []
     for member in included_members:
         sorted_modules.extend(source[member]["modules"])
 
+    sorted_files = []
     glob_patterns = []
+
     for module in sorted_modules:
+        dirs, exts = os.path.splitext(module)
+        if exts in [extensions.lstrip("*") for extensions in source["CORE"]["extensions"]]:
+            file_path = os.path.join(root, f"{dirs.replace('.', os.sep)}{exts}")
+            sorted_files.extend(file_path)
+            continue
         module_path = module.replace(".", os.sep)
         for ext in source["CORE"]["extensions"]:
             pattern = os.path.join(root, module_path, ext)
             glob_patterns.append(pattern)
 
-    sorted_files = []
     for pattern in glob_patterns:
         sorted_files.extend(glob.glob(pattern, recursive=True))
 
     os.makedirs(destination, exist_ok=True)
 
     for source_file in sorted_files:
-        src = Path(source_file)
-        relative_path = src.relative_to(root)
-        dest_path = Path(destination).parent / relative_path
-        dest_path.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(src, dest_path)
-        console.print(f"\nCreated file: [bright_white]{dest_path}[/bright_white]")
+        try:
+            src = Path(source_file)
+            relative_path = src.relative_to(root)
+            dest_path = Path(destination).parent / relative_path
+            dest_path.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(src, dest_path)
+            console.print(f"\nCreated file: [bright_white]{dest_path}[/bright_white]")
+        except Exception as e:
+            print(e)

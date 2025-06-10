@@ -55,4 +55,4 @@ p4a_version = "2024.01.21"
 
 P4A_URL = f"https://github.com/kivy/python-for-android/archive/refs/tags/v{p4a_version}.tar.gz"
 
-AVAILABLE_SORTMAPPINGS = ["carbonkivy"]
+AVAILABLE_SORTMAPPINGS = ["carbonkivy", "kivymd"]

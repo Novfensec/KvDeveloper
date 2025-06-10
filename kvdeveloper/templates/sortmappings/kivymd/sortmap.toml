@@ -27,7 +27,7 @@ modules = [
 [ANCHORLAYOUT]
 
 modules = [
-	"kivymd.uix.anchorlayout",
+	"kivymd.uix.anchorlayout.py",
 ]
 
 
@@ -62,7 +62,7 @@ modules = [
 [BOXLAYOUT]
 
 modules = [
-	"kivymd.uix.boxlayout",
+	"kivymd.uix.boxlayout.py",
 ]
 
 
@@ -90,7 +90,7 @@ modules = [
 [CIRCULARLAYOUT]
 
 modules = [
-	"kivymd.uix.circularlayout",
+	"kivymd.uix.circularlayout.py",
 ]
 
 
@@ -146,21 +146,21 @@ modules = [
 [FLOATLAYOUT]
 
 modules = [
-	"kivymd.uix.floatlayout",
+	"kivymd.uix.floatlayout.py",
 ]
 
 
 [GRIDLAYOUT]
 
 modules = [
-	"kivymd.uix.gridlayout",
+	"kivymd.uix.gridlayout.py",
 ]
 
 
 [HERO]
 
 modules = [
-	"kivymd.uix.hero",
+	"kivymd.uix.hero.py",
 ]
 
 
@@ -230,56 +230,56 @@ modules = [
 [RECYCLEGRIDLAYOUT]
 
 modules = [
-	"kivymd.uix.recyclegridlayout",
+	"kivymd.uix.recyclegridlayout.py",
 ]
 
 
 [RECYCLEVIEW]
 
 modules = [
-	"kivymd.uix.recycleview",
+	"kivymd.uix.recycleview.py",
 ]
 
 
 [REFRESHLAYOUT]
 
 modules = [
-	"kivymd.uix.refreshlayout",
+	"kivymd.uix.refreshlayout.py",
 ]
 
 
 [RELATIVELAYOUT]
 
 modules = [
-	"kivymd.uix.relativelayout",
+	"kivymd.uix.relativelayout.py",
 ]
 
 
 [RESPONSIVELAYOUT]
 
 modules = [
-	"kivymd.uix.responsivelayout",
+	"kivymd.uix.responsivelayout.py",
 ]
 
 
 [SCREEN]
 
 modules = [
-	"kivymd.uix.screen",
+	"kivymd.uix.screen.py",
 ]
 
 
 [SCREENMANAGER]
 
 modules = [
-	"kivymd.uix.screenmanager",
+	"kivymd.uix.screenmanager.py",
 ]
 
 
 [SCROLLVIEW]
 
 modules = [
-	"kivymd.uix.scrollview",
+	"kivymd.uix.scrollview.py",
 ]
 
 
@@ -321,7 +321,7 @@ modules = [
 [STACKLAYOUT]
 
 modules = [
-	"kivymd.uix.stacklayout",
+	"kivymd.uix.stacklayout.py",
 ]
 
 
@@ -356,6 +356,6 @@ modules = [
 [WIDGET]
 
 modules = [
-	"kivymd.uix.widget",
+	"kivymd.uix.widget.py",
 ]
 
