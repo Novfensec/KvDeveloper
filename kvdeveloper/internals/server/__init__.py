@@ -7,6 +7,8 @@ from typing import List
 from watchdog.events import FileSystemEventHandler
 from watchdog.observers import Observer
 
+from kvdeveloper.config import console
+
 changed_files = set()
 
 
@@ -66,15 +68,15 @@ class FileChangeLogger(FileSystemEventHandler):
 
     def on_modified(self, event):
         if any(event.src_path.endswith(ext) for ext in self.allowed_extensions):
-            print(f"[MODIFIED] {event.src_path}")
+            console.print(f"[MODIFIED] [bright_white]{event.src_path}[/bright_white]")
 
     def on_created(self, event):
         if any(event.src_path.endswith(ext) for ext in self.allowed_extensions):
-            print(f"[CREATED] {event.src_path}")
+            print(f"[CREATED] [bright_green]{event.src_path}[/bright_green]")
 
     def on_deleted(self, event):
         if any(event.src_path.endswith(ext) for ext in self.allowed_extensions):
-            print(f"[DELETED] {event.src_path}")
+            print(f"[DELETED] [bright_red]{event.src_path}[/bright_red]")
 
 
 def get_ip_address():
@@ -115,13 +117,13 @@ class LocalFileServer:
         handler = ExtensionFilterHandler
 
         self.httpd = socketserver.TCPServer((local_ip, self.port), handler)
-        print(f"Serving on http://{local_ip}:{self.port} (only {self.extensions})")
+        console.print(f"Serving on [bright_cyan]http://{local_ip}:{self.port}[/bright_cyan] (only {self.extensions})\n")
         server_thread = threading.Thread(target=self.httpd.serve_forever)
         server_thread.daemon = True
         server_thread.start()
 
     def start_watcher(self):
-        print(f"Watching '{self.directory}' for changes...")
+        console.print(f"Watching [bright_white]'{self.directory}'[/bright_white] for changes...")
         event_handler = ChangeTrackerHandler(self.extensions)
         self.observer = Observer()
         self.observer.schedule(event_handler, self.directory, recursive=True)

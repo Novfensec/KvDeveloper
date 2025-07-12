@@ -29,7 +29,7 @@ from kvdeveloper.config import (
     console,
 )
 from kvdeveloper.internals.firebase import clone_p4a, read_gradle_json
-from kvdeveloper.internals.server import LocalFileServer
+from kvdeveloper.internals.server import LocalFileServer, local_ip
 from kvdeveloper.internals.sorting import sort_modules
 from kvdeveloper.libs import add_from_libs
 from kvdeveloper.module import (
@@ -750,9 +750,14 @@ def serve(
         [".txt"], help="Additional file extensions to allow."
     ),
 ) -> None:
+    import qrcode
     server = LocalFileServer(
         directory=directory, port=port, extensions=([".py", ".kv"].extend(include_exts))
     )
+    console.print("[bright_cyan]Scan below QRCode using the client application to start the development server.[/bright_cyan]")
+    qr = qrcode.QRCode()
+    qr.add_data(f"http://{local_ip}:{port}")
+    qr.print_ascii()
     server.run()
 
 
