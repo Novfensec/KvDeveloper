@@ -1,11 +1,11 @@
-import os
-import importlib.util
 import glob
+import importlib.util
+import os
 import shutil
 from pathlib import Path
 
-from kvdeveloper.utils import toml_parser
 from kvdeveloper.config import console
+from kvdeveloper.utils import toml_parser
 
 
 def sort_modules(
@@ -44,7 +44,9 @@ def sort_modules(
 
     for module in sorted_modules:
         dirs, exts = os.path.splitext(module)
-        if exts in [extensions.lstrip("*") for extensions in source["CORE"]["extensions"]]:
+        if exts in [
+            extensions.lstrip("*") for extensions in source["CORE"]["extensions"]
+        ]:
             file_path = os.path.join(root, f"{dirs.replace('.', os.sep)}{exts}")
             sorted_files.extend(file_path)
             continue

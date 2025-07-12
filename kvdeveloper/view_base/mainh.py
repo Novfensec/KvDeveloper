@@ -11,7 +11,6 @@ set DEBUG=1 && python main.py
 import importlib
 import os
 
-
 from kivy import Config
 
 # Change the values of the application window size as you need.
@@ -19,7 +18,6 @@ Config.set("graphics", "height", "715")
 Config.set("graphics", "width", "350")
 
 from kivy.core.window import Window
-
 # TODO: You may know an easier way to get the size of a computer display.
 from PIL import ImageGrab
 

@@ -21,7 +21,6 @@ import os
 import ssl
 import webbrowser
 
-
 # ==========================
 # Third-Party Library Imports
 # ==========================
@@ -31,13 +30,10 @@ from kivymd.app import MDApp
 from kivymd.uix.screenmanager import MDScreenManager
 from kivymd.uix.transition import MDSharedAxisTransition as SAT
 from kivymd.utils.set_bars_colors import set_bars_colors
-
-
 # ==========================
 # Custom Module Imports
 # ==========================
 from View.screens import screens
-
 
 # ==========================
 # SSL Configuration

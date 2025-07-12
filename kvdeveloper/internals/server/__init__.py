@@ -1,0 +1,148 @@
+import http.server
+import os
+import socketserver
+import threading
+from typing import List
+
+from watchdog.events import FileSystemEventHandler
+from watchdog.observers import Observer
+
+changed_files = set()
+
+
+class ChangeTrackerHandler(FileSystemEventHandler):
+    def __init__(self, allowed_exts):
+        self.allowed_exts = allowed_exts
+
+    def on_modified(self, event):
+        if not event.is_directory and any(
+            event.src_path.endswith(ext) for ext in self.allowed_exts
+        ):
+            rel_path = os.path.relpath(event.src_path, os.getcwd()).replace(
+                "\\", os.sep
+            )
+            changed_files.add(rel_path)
+
+
+class ExtensionFilterHandler(http.server.SimpleHTTPRequestHandler):
+    """Serves only files with allowed extensions."""
+
+    allowed_extensions: List[str] = []
+
+    def do_GET(self):
+        if self.path == "/changes.json":
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            import json
+
+            global changed_files
+            self.wfile.write(json.dumps(list(changed_files)).encode("utf-8"))
+            changed_files.clear()
+            return
+
+        if (
+            self.path == "/"
+            or self.path.endswith("/")
+            or self.is_allowed_extension(self.path)
+        ):
+            super().do_GET()
+        else:
+            self.send_error(403, "Forbidden file type")
+
+    def is_allowed_extension(self, path: str) -> bool:
+        print(os.path.basename(path))
+        return any(
+            os.path.basename(path).endswith(ext) for ext in self.allowed_extensions
+        )
+
+
+class FileChangeLogger(FileSystemEventHandler):
+    """Logs file changes in the directory."""
+
+    def __init__(self, watch_dir: str, allowed_extensions: List[str]):
+        self.watch_dir = watch_dir
+        self.allowed_extensions = allowed_extensions
+
+    def on_modified(self, event):
+        if any(event.src_path.endswith(ext) for ext in self.allowed_extensions):
+            print(f"[MODIFIED] {event.src_path}")
+
+    def on_created(self, event):
+        if any(event.src_path.endswith(ext) for ext in self.allowed_extensions):
+            print(f"[CREATED] {event.src_path}")
+
+    def on_deleted(self, event):
+        if any(event.src_path.endswith(ext) for ext in self.allowed_extensions):
+            print(f"[DELETED] {event.src_path}")
+
+
+def get_ip_address():
+    import socket
+
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.settimeout(0)
+    try:
+        s.connect(("10.254.254.254", 1))
+        ip = s.getsockname()[0]
+    except Exception:
+        ip = "127.0.0.1"
+    finally:
+        s.close()
+    return ip
+
+
+local_ip = get_ip_address()
+
+
+class LocalFileServer:
+    def __init__(
+        self, directory: str = "./MyApp", port: int = 8000, extensions: List[str] = None
+    ):
+        self.directory = os.path.abspath(directory)
+        self.port = port
+        self.extensions = extensions or [".kv", ".py", ".txt"]
+        self.httpd = None
+        self.observer = None
+
+    def start_server(self):
+        os.chdir(self.directory)
+
+        # Set allowed extensions
+        ExtensionFilterHandler.allowed_extensions = self.extensions
+
+        # Create HTTP server
+        handler = ExtensionFilterHandler
+
+        self.httpd = socketserver.TCPServer((local_ip, self.port), handler)
+        print(f"Serving on http://{local_ip}:{self.port} (only {self.extensions})")
+        server_thread = threading.Thread(target=self.httpd.serve_forever)
+        server_thread.daemon = True
+        server_thread.start()
+
+    def start_watcher(self):
+        print(f"Watching '{self.directory}' for changes...")
+        event_handler = ChangeTrackerHandler(self.extensions)
+        self.observer = Observer()
+        self.observer.schedule(event_handler, self.directory, recursive=True)
+        self.observer.start()
+
+    def run(self):
+        try:
+            self.start_server()
+            self.start_watcher()
+            while True:
+                pass  # Keep main thread alive
+        except KeyboardInterrupt:
+            print("\nShutting down server and watcher...")
+            self.httpd.shutdown()
+            self.observer.stop()
+            self.observer.join()
+
+
+# === Example usage ===
+if __name__ == "__main__":
+    server = LocalFileServer(
+        directory="./MyApp", port=8000, extensions=[".kv", ".py", ".txt"]
+    )
+    server.run()

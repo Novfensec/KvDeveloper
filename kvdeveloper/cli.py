@@ -29,6 +29,7 @@ from kvdeveloper.config import (
     console,
 )
 from kvdeveloper.internals.firebase import clone_p4a, read_gradle_json
+from kvdeveloper.internals.server import LocalFileServer
 from kvdeveloper.internals.sorting import sort_modules
 from kvdeveloper.libs import add_from_libs
 from kvdeveloper.module import (
@@ -737,6 +738,22 @@ def sort(
         destination = os.path.join(os.getcwd(), module_name)
 
     sort_modules(module_name, sortmapping, sortfile, destination)
+
+
+@app.command()
+def serve(
+    directory: Optional[str] = typer.Argument(
+        ".", help="App directory to serve containing the entrypoint."
+    ),
+    port: Optional[int] = typer.Option(8000, help="Port for the sever."),
+    include_exts: List[str] = typer.Option(
+        [".txt"], help="Additional file extensions to allow."
+    ),
+) -> None:
+    server = LocalFileServer(
+        directory=directory, port=port, extensions=([".py", ".kv"].extend(include_exts))
+    )
+    server.run()
 
 
 def _version_callback(value: bool) -> None:
