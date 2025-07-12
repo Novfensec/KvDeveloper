@@ -72,11 +72,11 @@ class FileChangeLogger(FileSystemEventHandler):
 
     def on_created(self, event):
         if any(event.src_path.endswith(ext) for ext in self.allowed_extensions):
-            print(f"[CREATED] [bright_green]{event.src_path}[/bright_green]")
+            console.print(f"[CREATED] [bright_green]{event.src_path}[/bright_green]")
 
     def on_deleted(self, event):
         if any(event.src_path.endswith(ext) for ext in self.allowed_extensions):
-            print(f"[DELETED] [bright_red]{event.src_path}[/bright_red]")
+            console.print(f"[DELETED] [bright_red]{event.src_path}[/bright_red]")
 
 
 def get_ip_address():
