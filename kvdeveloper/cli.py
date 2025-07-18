@@ -417,7 +417,9 @@ def config_build_setup(
         variables = {
             "app_name": "MyApp",
         }
-        with open(os.path.join(VIEW_BASE, "config.toml"), "r", encoding="utf-8") as template_file:
+        with open(
+            os.path.join(VIEW_BASE, "config.toml"), "r", encoding="utf-8"
+        ) as template_file:
             content = template_file.read()
 
         content = replace_placeholders(content, variables)
@@ -764,7 +766,7 @@ def serve(
 ) -> None:
     """
     Start a development server in the specified directory for serving files in a private network.
-    
+
     :param directory: App directory to serve containing the entrypoint.
 
     :param port: Port for the sever.
@@ -779,12 +781,15 @@ def serve(
 
     config_file_path = os.path.join(directory, "config.toml")
     config = toml_parser(config_file_path)
-    
+
     import qrcode
+
     server = LocalFileServer(
         directory=directory, port=port, extensions=config["app"]["include_exts"]
     )
-    console.print("[bright_cyan]Scan below QRCode using the client application to start the development server.[/bright_cyan]")
+    console.print(
+        "[bright_cyan]Scan below QRCode using the client application to start the development server.[/bright_cyan]"
+    )
     qr = qrcode.QRCode()
     qr.add_data(f"http://{local_ip}:{port}")
     qr.print_ascii()

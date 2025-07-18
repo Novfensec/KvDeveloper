@@ -21,7 +21,9 @@ class ChangeTrackerHandler(FileSystemEventHandler):
         if not event.is_directory and any(
             event.src_path.endswith(ext) for ext in self.allowed_exts
         ):
-            rel_path = os.path.relpath(event.src_path, os.getcwd()).replace("\\", os.sep)
+            rel_path = os.path.relpath(event.src_path, os.getcwd()).replace(
+                "\\", os.sep
+            )
             changed_files.add(rel_path)
 
 
@@ -99,12 +101,18 @@ class LocalFileServer:
         self,
         directory: str = ".",
         port: int = 8000,
-        extensions: List[str] | None = None
+        extensions: List[str] | None = None,
     ) -> None:
         self.directory = os.path.abspath(directory)
         self.port = port
         self.extensions = extensions or [
-            ".kv", ".py", ".txt", ".png", ".jpg", ".atlas", ".toml"
+            ".kv",
+            ".py",
+            ".txt",
+            ".png",
+            ".jpg",
+            ".atlas",
+            ".toml",
         ]
         self.httpd = None
         self.observer = None
@@ -116,13 +124,17 @@ class LocalFileServer:
         handler = ExtensionFilterHandler
         self.httpd = socketserver.TCPServer((local_ip, self.port), handler)
 
-        console.print(f"Serving on [bright_white]http://{local_ip}:{self.port}[/bright_white] (only {self.extensions})\n")
+        console.print(
+            f"Serving on [bright_white]http://{local_ip}:{self.port}[/bright_white] (only {self.extensions})\n"
+        )
         server_thread = threading.Thread(target=self.httpd.serve_forever)
         server_thread.daemon = True
         server_thread.start()
 
     def start_watcher(self) -> None:
-        console.print(f"Watching [bright_white]'{self.directory}'[/bright_white] for changes...")
+        console.print(
+            f"Watching [bright_white]'{self.directory}'[/bright_white] for changes..."
+        )
         event_handler = ChangeTrackerHandler(self.extensions)
         self.observer = Observer()
         self.observer.schedule(event_handler, self.directory, recursive=True)

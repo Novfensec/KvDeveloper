@@ -324,9 +324,7 @@ def setup_build(project_name: str, destination: str, variables: Dict[str, str]) 
 
         content = replace_placeholders(content, variables)
 
-        with open(
-            spec_file_path, "w", encoding="utf-8"
-        ) as target_build_file:
+        with open(spec_file_path, "w", encoding="utf-8") as target_build_file:
             target_build_file.write(content)
 
             console.print(
@@ -335,7 +333,9 @@ def setup_build(project_name: str, destination: str, variables: Dict[str, str]) 
 
     config_file_path = os.path.join(destination, "config.toml")
     if not os.path.isfile(config_file_path):
-        with open(os.path.join(VIEW_BASE, "config.toml"), "r", encoding="utf-8") as template_file:
+        with open(
+            os.path.join(VIEW_BASE, "config.toml"), "r", encoding="utf-8"
+        ) as template_file:
             content = template_file.read()
 
         content = replace_placeholders(content, variables)
