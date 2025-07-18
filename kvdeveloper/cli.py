@@ -44,7 +44,7 @@ from kvdeveloper.module import (
     remove_from_structure,
     setup_build,
 )
-from kvdeveloper.utils import replace_placeholders
+from kvdeveloper.utils import replace_placeholders, toml_parser
 
 
 @app.command()
@@ -401,15 +401,7 @@ def config_build_setup(
             "github",
         ],
     }
-    if not platform in available_platforms.keys():
-        typer.secho("\nUnavailable platform.", err=True)
-        raise typer.Exit(code=0)
 
-    elif not external in available_platforms[platform]:
-        typer.secho("\nUnavailable external build environment.", err=True)
-        raise typer.Exit(code=0)
-
-    generate_build_files(platform, external)
     spec_file_path = os.path.join(os.getcwd(), "buildozer.spec")
 
     if not os.path.isfile(spec_file_path):
@@ -419,6 +411,29 @@ def config_build_setup(
             "project_package_name": project_name.strip("App").lower(),
         }
         setup_build(project_name, os.getcwd(), variables)
+
+    config_file_path = os.path.join(os.getcwd(), "config.toml")
+    if not os.path.isfile(config_file_path):
+        variables = {
+            "app_name": "MyApp",
+        }
+        with open(os.path.join(VIEW_BASE, "config.toml"), "r", encoding="utf-8") as template_file:
+            content = template_file.read()
+
+        content = replace_placeholders(content, variables)
+
+        with open(config_file_path, "w", encoding="utf-8") as config_file:
+            config_file.write(content)
+
+    if not platform in available_platforms.keys():
+        typer.secho("\nUnavailable platform.", err=True)
+        raise typer.Exit(code=0)
+
+    elif not external in available_platforms[platform]:
+        typer.secho("\nUnavailable external build environment.", err=True)
+        raise typer.Exit(code=0)
+
+    generate_build_files(platform, external)
 
 
 @app.command()
@@ -746,13 +761,28 @@ def serve(
         ".", help="App directory to serve containing the entrypoint."
     ),
     port: Optional[int] = typer.Option(8000, help="Port for the sever."),
-    include_exts: List[str] = typer.Option(
-        [".txt"], help="Additional file extensions to allow."
-    ),
 ) -> None:
+    """
+    Start a development server in the specified directory for serving files in a private network.
+    
+    :param directory: App directory to serve containing the entrypoint.
+
+    :param port: Port for the sever.
+    """
+
+    project_name = "MyApp"
+    variables = {
+        "project_name": project_name,
+        "project_package_name": project_name.strip("App").lower(),
+    }
+    setup_build(project_name=project_name, destination=directory, variables=variables)
+
+    config_file_path = os.path.join(directory, "config.toml")
+    config = toml_parser(config_file_path)
+    
     import qrcode
     server = LocalFileServer(
-        directory=directory, port=port, extensions=([".py", ".kv"].extend(include_exts))
+        directory=directory, port=port, extensions=config["app"]["include_exts"]
     )
     console.print("[bright_cyan]Scan below QRCode using the client application to start the development server.[/bright_cyan]")
     qr = qrcode.QRCode()

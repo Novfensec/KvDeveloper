@@ -1,0 +1,12 @@
+[app]
+entrypoint = "main.py"
+app_name = "{{project_name}}"
+include_exts = [
+    ".py",
+    ".kv",
+    ".png",
+    ".txt",
+    ".atlas",
+    ".jpg",
+]
+
