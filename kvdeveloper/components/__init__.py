@@ -1,9 +1,11 @@
 import os
-from kivy.logger import Logger
+
 from kivy.lang import Builder
+from kivy.logger import Logger
+
+import kvdeveloper.components.factory_registers
 from kvdeveloper import __version__
 from kvdeveloper.config import COMPONENTS_DIR, def_dir
-import kvdeveloper.components.factory_registers
 
 for root, _, files in os.walk(COMPONENTS_DIR):
     for file in files:

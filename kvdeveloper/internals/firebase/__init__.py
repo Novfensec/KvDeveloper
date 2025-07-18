@@ -1,7 +1,11 @@
-import os, json, io, requests
+import io
+import json
+import os
 from pathlib import Path
 
-from kvdeveloper.module import console
+import requests
+
+from kvdeveloper.config import console
 from kvdeveloper.utils import extract_tar_file
 
 

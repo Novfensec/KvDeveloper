@@ -1,28 +1,27 @@
-import os, re, platform, subprocess, sys, typer  # nosec
+import os  # nosec
+import platform
+import re
+import subprocess
+import sys
 from shutil import rmtree
 from typing import Dict, List
 
-from rich.console import Console
+import typer
 from rich.panel import Panel
+from rich.prompt import Prompt
 from rich.table import Table
 from rich.tree import Tree
-from rich.prompt import Prompt
 
-from kvdeveloper.utils import (
-    name_parser,
-    name_parser_snake,
-    replace_placeholders,
-)
 from kvdeveloper.config import (
-    TEMPLATES_DIR,
-    TEMPLATES,
-    STRUCTURES_DIR,
-    STRUCTURES,
     LAYOUTS_DIR,
+    STRUCTURES,
+    STRUCTURES_DIR,
+    TEMPLATES,
+    TEMPLATES_DIR,
     VIEW_BASE,
+    console,
 )
-
-console = Console()
+from kvdeveloper.utils import name_parser, name_parser_snake, replace_placeholders
 
 
 def add_extensions(
@@ -316,21 +315,37 @@ def setup_build(project_name: str, destination: str, variables: Dict[str, str]) 
     :param destination: The destination path where file should be created.
     :param variables: A dictionary of variables to replace in the structure files.
     """
-    with open(
-        os.path.join(VIEW_BASE, "buildozer.spec"), "r", encoding="utf-8"
-    ) as build_file:
-        content = build_file.read()
+    spec_file_path = os.path.join(destination, "buildozer.spec")
+    if not os.path.isfile(spec_file_path):
+        with open(
+            os.path.join(VIEW_BASE, "buildozer.spec"), "r", encoding="utf-8"
+        ) as build_file:
+            content = build_file.read()
 
-    content = replace_placeholders(content, variables)
+        content = replace_placeholders(content, variables)
 
-    with open(
-        os.path.join(destination, "buildozer.spec"), "w", encoding="utf-8"
-    ) as target_build_file:
-        target_build_file.write(content)
+        with open(spec_file_path, "w", encoding="utf-8") as target_build_file:
+            target_build_file.write(content)
 
-        console.print(
-            f"\nCreated file: [bold cyan]{destination}/buildozer.spec[/bold cyan]\n"
-        )
+            console.print(
+                f"\nCreated file: [bold cyan]{destination}/buildozer.spec[/bold cyan]\n"
+            )
+
+    config_file_path = os.path.join(destination, "config.toml")
+    if not os.path.isfile(config_file_path):
+        with open(
+            os.path.join(VIEW_BASE, "config.toml"), "r", encoding="utf-8"
+        ) as template_file:
+            content = template_file.read()
+
+        content = replace_placeholders(content, variables)
+
+        with open(config_file_path, "w", encoding="utf-8") as config_file:
+            config_file.write(content)
+
+            console.print(
+                f"\nCreated file: [bold cyan]{config_file_path}[/bold cyan]\n"
+            )
 
 
 def project_info(

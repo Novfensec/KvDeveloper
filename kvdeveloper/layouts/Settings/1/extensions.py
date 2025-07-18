@@ -1,5 +1,5 @@
+from kivy.properties import BooleanProperty, StringProperty
 from kivymd.uix.relativelayout import MDRelativeLayout
-from kivy.properties import StringProperty, BooleanProperty
 
 
 class IconListItem(MDRelativeLayout):

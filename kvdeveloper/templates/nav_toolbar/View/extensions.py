@@ -1,6 +1,6 @@
+from kivy.properties import StringProperty
 from kivymd.uix.navigationdrawer import MDNavigationDrawerItem
 from kivymd.uix.textfield import MDTextField
-from kivy.properties import StringProperty
 
 
 class DrawerClickableItem(MDNavigationDrawerItem):

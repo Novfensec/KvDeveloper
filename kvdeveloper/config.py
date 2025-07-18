@@ -1,8 +1,11 @@
 import os
-import typer
 from pathlib import Path
 
+import typer
+from rich.console import Console
+
 app = typer.Typer()
+console = Console()
 def_dir = Path(__file__).parent
 
 # Configuration settings
@@ -51,3 +54,5 @@ GRADLE_TEMPLATE: str = os.path.join(def_dir, "templates/p4a/build.tmpl.gradle")
 p4a_version = "2024.01.21"
 
 P4A_URL = f"https://github.com/kivy/python-for-android/archive/refs/tags/v{p4a_version}.tar.gz"
+
+AVAILABLE_SORTMAPPINGS = ["carbonkivy", "kivymd"]

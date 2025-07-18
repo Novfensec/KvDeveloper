@@ -1,42 +1,50 @@
-import os, re, json, typer, itertools
+import itertools
+import json
+import os
+import re
 from pathlib import Path
-from typing import Optional, List
+from typing import List, Optional
 
+import typer
 from rich.panel import Panel
-from rich.text import Text
 from rich.table import Table
+from rich.text import Text
 
 from kvdeveloper import __app_name__, __version__
+from kvdeveloper.build_config import generate_build_files
 from kvdeveloper.config import (
-    app,
-    DEFAULT_TEMPLATE,
+    AVAILABLE_SORTMAPPINGS,
+    COMPONENTS,
+    COMPONENTS_DIR,
     DEFAULT_STRUCTURE,
+    DEFAULT_TEMPLATE,
+    GRADLE_TEMPLATE,
+    LIBS,
+    P4A_URL,
     STRUCTURES,
     TEMPLATES,
-    LIBS,
-    COMPONENTS_DIR,
-    COMPONENTS,
+    TEMPLATES_DIR,
     VIEW_BASE,
-    GRADLE_TEMPLATE,
-    P4A_URL,
+    app,
+    console,
 )
+from kvdeveloper.internals.firebase import clone_p4a, read_gradle_json
+from kvdeveloper.internals.server import LocalFileServer, local_ip
+from kvdeveloper.internals.sorting import sort_modules
 from kvdeveloper.libs import add_from_libs
 from kvdeveloper.module import (
-    console,
-    create_from_template,
-    create_from_structure,
     add_from_default,
-    add_from_structure,
     add_from_layout,
+    add_from_structure,
     apply_layout,
+    create_from_structure,
+    create_from_template,
+    project_info,
     remove_from_default,
     remove_from_structure,
     setup_build,
-    project_info,
 )
-from kvdeveloper.internals.firebase import read_gradle_json, clone_p4a
-from kvdeveloper.build_config import generate_build_files
-from kvdeveloper.utils import replace_placeholders
+from kvdeveloper.utils import replace_placeholders, toml_parser
 
 
 @app.command()
@@ -393,15 +401,7 @@ def config_build_setup(
             "github",
         ],
     }
-    if not platform in available_platforms.keys():
-        typer.secho("\nUnavailable platform.", err=True)
-        raise typer.Exit(code=0)
 
-    elif not external in available_platforms[platform]:
-        typer.secho("\nUnavailable external build environment.", err=True)
-        raise typer.Exit(code=0)
-
-    generate_build_files(platform, external)
     spec_file_path = os.path.join(os.getcwd(), "buildozer.spec")
 
     if not os.path.isfile(spec_file_path):
@@ -411,6 +411,31 @@ def config_build_setup(
             "project_package_name": project_name.strip("App").lower(),
         }
         setup_build(project_name, os.getcwd(), variables)
+
+    config_file_path = os.path.join(os.getcwd(), "config.toml")
+    if not os.path.isfile(config_file_path):
+        variables = {
+            "app_name": "MyApp",
+        }
+        with open(
+            os.path.join(VIEW_BASE, "config.toml"), "r", encoding="utf-8"
+        ) as template_file:
+            content = template_file.read()
+
+        content = replace_placeholders(content, variables)
+
+        with open(config_file_path, "w", encoding="utf-8") as config_file:
+            config_file.write(content)
+
+    if not platform in available_platforms.keys():
+        typer.secho("\nUnavailable platform.", err=True)
+        raise typer.Exit(code=0)
+
+    elif not external in available_platforms[platform]:
+        typer.secho("\nUnavailable external build environment.", err=True)
+        raise typer.Exit(code=0)
+
+    generate_build_files(platform, external)
 
 
 @app.command()
@@ -690,6 +715,85 @@ def add_libs(
             f"\nAdding libs for names: [bright_cyan]{name_libs}[/bright_cyan]"
         )
         add_from_libs(name_libs, destination)
+
+
+@app.command()
+def sort(
+    module_name: str = typer.Argument(help="Name of the module."),
+    sortmapfile: Optional[str] = typer.Option(
+        None,
+        help="Path of the custom sortmappings for the module if any.",
+    ),
+    sortfiledir: Optional[str] = typer.Option(
+        ".",
+        help="Path of sort.toml",
+    ),
+    destination: Optional[str] = typer.Option(
+        None, help="Destination of the sorted module."
+    ),
+):
+    if not sortmapfile:
+        if module_name in AVAILABLE_SORTMAPPINGS:
+            sortmapping = os.path.join(
+                TEMPLATES_DIR, "sortmappings", module_name, "sortmap.toml"
+            )
+        else:
+            typer.secho(f"\nNo sort mappings available for {module_name}.")
+            raise typer.Exit(code=0)
+    else:
+        sortmapping = os.path.join(os.getcwd(), sortmapfile)
+        if not os.path.exists(sortmapping):
+            typer.secho(f"\nFile '{sortmapping}' not found.", err=True)
+            raise typer.Exit(code=0)
+
+    sortfile = os.path.join(os.getcwd(), sortfiledir, "sort.toml")
+    if not os.path.exists(sortfile):
+        typer.secho(f"\nFile '{sortfile}' not found.", err=True)
+        raise typer.Exit(code=0)
+
+    if not destination:
+        destination = os.path.join(os.getcwd(), module_name)
+
+    sort_modules(module_name, sortmapping, sortfile, destination)
+
+
+@app.command()
+def serve(
+    directory: Optional[str] = typer.Argument(
+        ".", help="App directory to serve containing the entrypoint."
+    ),
+    port: Optional[int] = typer.Option(8000, help="Port for the sever."),
+) -> None:
+    """
+    Start a development server in the specified directory for serving files in a private network.
+
+    :param directory: App directory to serve containing the entrypoint.
+
+    :param port: Port for the sever.
+    """
+
+    project_name = "MyApp"
+    variables = {
+        "project_name": project_name,
+        "project_package_name": project_name.strip("App").lower(),
+    }
+    setup_build(project_name=project_name, destination=directory, variables=variables)
+
+    config_file_path = os.path.join(directory, "config.toml")
+    config = toml_parser(config_file_path)
+
+    import qrcode
+
+    server = LocalFileServer(
+        directory=directory, port=port, extensions=config["app"]["include_exts"]
+    )
+    console.print(
+        "[bright_cyan]Scan below QRCode using the client application to start the development server.[/bright_cyan]"
+    )
+    qr = qrcode.QRCode()
+    qr.add_data(f"http://{local_ip}:{port}")
+    qr.print_ascii()
+    server.run()
 
 
 def _version_callback(value: bool) -> None:

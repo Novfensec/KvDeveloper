@@ -1,9 +1,9 @@
-import os, glob
+import glob
+import os
 
-from kivy.properties import DictProperty, ListProperty, ObjectProperty
-from kivy.lang import Builder
 from kivy.clock import mainthread
-
+from kivy.lang import Builder
+from kivy.properties import DictProperty, ListProperty, ObjectProperty
 from kivymd.uix.screenmanager import MDScreenManager
 
 

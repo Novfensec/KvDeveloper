@@ -1,7 +1,8 @@
-import os, typer
+import os
 
-from kvdeveloper.config import BUILD_DIR
-from kvdeveloper.module import console
+import typer
+
+from kvdeveloper.config import BUILD_DIR, console
 
 
 def generate_build_files(platform: str, external: str) -> None:

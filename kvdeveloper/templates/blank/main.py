@@ -1,11 +1,12 @@
 import os
 import webbrowser
+
+from kivy.clock import Clock
+from kivy.core.window import Window
 from kivymd.app import MDApp
 from kivymd.uix.screenmanager import MDScreenManager
 from kivymd.uix.transition import MDSharedAxisTransition as SAT
 from kivymd.utils.set_bars_colors import set_bars_colors
-from kivy.core.window import Window
-from kivy.clock import Clock
 
 
 def set_softinput(*args) -> None:

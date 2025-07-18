@@ -1,10 +1,12 @@
-import sys
 import os
-from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget
-from PyQt5.QtGui import QIcon
-from PyQt5.QtWebEngineWidgets import QWebEngineView, QWebEngineSettings
+import sys
+
 from markdown2 import markdown
-from kvdeveloper.config import def_dir, IMAGE_LIBRARY
+from PyQt5.QtGui import QIcon
+from PyQt5.QtWebEngineWidgets import QWebEngineSettings, QWebEngineView
+from PyQt5.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget
+
+from kvdeveloper.config import IMAGE_LIBRARY, def_dir
 
 
 class MarkdownDisplayer(QMainWindow):
