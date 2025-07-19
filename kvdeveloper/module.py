@@ -18,7 +18,6 @@ from kvdeveloper.config import (
     STRUCTURES_DIR,
     TEMPLATES,
     TEMPLATES_DIR,
-    VIEW_BASE,
     console,
 )
 from kvdeveloper.utils import name_parser, name_parser_snake, replace_placeholders
@@ -75,7 +74,7 @@ def add_extensions(
 
 
 def create_from_template(
-    template_name: str, destination: str, variables: Dict[str, str]
+    template_name: str, destination: str, variables: Dict[str, str], design: str
 ) -> None:
     """
     Generate project files from a specified template, replacing placeholders
@@ -90,7 +89,7 @@ def create_from_template(
     - typer.Exit: If the template folder is not found.
     """
     # Construct the path to the template
-    template_path = os.path.join(TEMPLATES_DIR, template_name)
+    template_path = os.path.join(TEMPLATES_DIR, design, template_name)
 
     if not os.path.isdir(template_path):
         typer.echo(f"\nError: Template '{template_name}' not found.")
@@ -188,15 +187,9 @@ def create_from_structure(
     python_version = platform.python_version()
 
     """
-    There is no point of writing MVC implementation from scratch so I used subprocess to run KivyMD's inbuilt create_project script simplifying development workflow.
+    We use our own templates.
     """
-    output = subprocess.run(
-        f"{sys.executable} -m kivymd.tools.patterns.create_project MVC . {variables['project_name']} python{python_version} master --use_hotreload yes --name_screen {parsed_screens_string}",
-        shell=True,  # nosec
-    )
-
-    if output.returncode != 0:
-        raise typer.Exit(code=1)
+    # TODO: copy structure related files.
 
     """
     Updating base screen components.
@@ -243,7 +236,7 @@ def create_from_structure(
     Updating main.py.
     """
     with open(
-        os.path.join(VIEW_BASE, "main.py"), "r", encoding="utf-8"
+        os.path.join(TEMPLATES_DIR, "base", "main.py"), "r", encoding="utf-8"
     ) as template_file:
         content = template_file.read()
 
@@ -318,7 +311,7 @@ def setup_build(project_name: str, destination: str, variables: Dict[str, str]) 
     spec_file_path = os.path.join(destination, "buildozer.spec")
     if not os.path.isfile(spec_file_path):
         with open(
-            os.path.join(VIEW_BASE, "buildozer.spec"), "r", encoding="utf-8"
+            os.path.join(TEMPLATES_DIR, "buildozer.spec"), "r", encoding="utf-8"
         ) as build_file:
             content = build_file.read()
 
@@ -334,7 +327,7 @@ def setup_build(project_name: str, destination: str, variables: Dict[str, str]) 
     config_file_path = os.path.join(destination, "config.toml")
     if not os.path.isfile(config_file_path):
         with open(
-            os.path.join(VIEW_BASE, "config.toml"), "r", encoding="utf-8"
+            os.path.join(TEMPLATES_DIR, "config.toml"), "r", encoding="utf-8"
         ) as template_file:
             content = template_file.read()
 
@@ -464,7 +457,7 @@ def add_from_default(
 
                     # Create the .py file using the default template
                     with open(
-                        os.path.join(VIEW_BASE, "default_screen.py"),
+                        os.path.join(TEMPLATES_DIR, "default_screen.py"),
                         "r",
                         encoding="utf-8",
                     ) as view_file:
@@ -482,7 +475,7 @@ def add_from_default(
 
                     # Create the .kv file using the default template
                     with open(
-                        os.path.join(VIEW_BASE, "default_screen.kv"),
+                        os.path.join(TEMPLATES_DIR, "default_screen.kv"),
                         "r",
                         encoding="utf-8",
                     ) as view_file:
@@ -729,7 +722,7 @@ def add_from_layout(name_screen: List[str], layout: str, destination: str):
 
                 # Create the .py file using the default template
                 with open(
-                    os.path.join(VIEW_BASE, "default_screen.py"), "r", encoding="utf-8"
+                    os.path.join(TEMPLATES_DIR, "default_screen.py"), "r", encoding="utf-8"
                 ) as view_file:
                     content = view_file.read()
                 content = replace_placeholders(content, variables)
@@ -756,7 +749,7 @@ def add_from_layout(name_screen: List[str], layout: str, destination: str):
                         f"\nLayout {layout} not found. Creating screen with a blank layout."
                     )
                     with open(
-                        os.path.join(VIEW_BASE, "default_screen.kv"),
+                        os.path.join(TEMPLATES_DIR, "default_screen.kv"),
                         "r",
                         encoding="utf-8",
                     ) as view_file:

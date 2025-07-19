@@ -25,8 +25,6 @@ STRUCTURES_DIR = os.path.join(def_dir, "structures")
 DEFAULT_TEMPLATE = "blank"
 DEFAULT_STRUCTURE = "none"
 
-VIEW_BASE = os.path.join(def_dir, "view_base")
-
 IMAGE_LIBRARY = os.path.join(def_dir, "assets", "image_library")
 
 BUILD_DIR = os.path.join(def_dir, "build_files")

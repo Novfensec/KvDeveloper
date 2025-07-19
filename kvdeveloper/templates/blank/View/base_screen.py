@@ -1,9 +1,10 @@
 from kivy.properties import ObjectProperty
-from kivymd.app import MDApp
-from kivymd.uix.screen import MDScreen
+from kivy.app import App
+
+from {{screen_module}} import {{screen_class}}
 
 
-class BaseScreenView(MDScreen):
+class BaseScreenView({{screen_class}}):
 
     manager_screens = ObjectProperty()
     """
@@ -17,4 +18,4 @@ class BaseScreenView(MDScreen):
         super().__init__(*args, **kwargs)
         # Often you need to get access to the application object from the view
         # class. You can do this using this attribute.
-        self.app = MDApp.get_running_app()
+        self.app = App.get_running_app()

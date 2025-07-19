@@ -1,0 +1,4 @@
+[MODULE_MAP]
+screenmanager = "carbonkivy.uix.screenmanager.CScreenManager"
+screen = "carbonkivy.uix.screen.CScreen"
+app = "carbonkivy.app.CarbonApp"

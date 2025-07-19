@@ -1,0 +1,4 @@
+[MODULE_MAP]
+screenmanager = "kivy.uix.screen.ScreenManager"
+screen = "kivy.uix.screen.Screen"
+app = "kivy.app.App"

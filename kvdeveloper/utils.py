@@ -111,8 +111,22 @@ def extract_tar_file(tar_file_path: str, extract_to_path: str) -> None:
         print(f"Error extracting file: {e}")
 
 
+def read_module_mappings(filepath: str = "", default = True) -> dict:
+
+    mappings = toml_parser(filepath=filepath)
+    _map = mappings["MODULE_MAP"]
+    variables = {}
+
+    for hint, module in _map.items():
+        module_name = module.split(".")[-1]
+        variables[f"{hint}_module"] = module.rstrip(f".{module_name}")
+        variables[f"{hint}_class"] = module_name
+
+    return variables
+
+
 def toml_parser(filepath: str) -> dict:
     with open(filepath, "rb") as source_file:
-        sortmap = toml_loader.load(source_file)
+        config = toml_loader.load(source_file)
 
-    return sortmap
+    return config
