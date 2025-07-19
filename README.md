@@ -27,7 +27,7 @@
 ## Overview
 <img src="https://raw.githubusercontent.com/Novfensec/KvDeveloper/main/kvdeveloper/assets/image_library/kvdeveloper/kvdeveloper_logo256.png" height="178" align="right" padding="11"/>
 
-<p>KvDeveloper is a PyPI module designed to streamline the development of Kivy and KivyMD applications. Inspired by Expo CLI for React Native, it offers starter templates and essential functionalities to kickstart your projects with ease. With features like predefined templates, MVC architecture support, and customizable options, KvDeveloper simplifies creating robust and organized Kivy projects. It supports Python 3.1+, Kivy 2.2.0+, and KivyMD 1.1.1+, making it a versatile tool for developers looking to enhance their Kivy development workflow.</p>
+<p>KvDeveloper is a PyPI module designed to streamline the development of Kivy and applications. Inspired by Expo CLI for React Native, it offers starter templates and essential functionalities to kickstart your projects with ease. With features like predefined templates, MVC architecture support, and customizable options, KvDeveloper simplifies creating robust and organized Kivy projects. It supports Python 3.1+, Kivy 2.2.0+, with integrated support for CarbonKivy and KivyMD, making it a versatile tool for developers looking to enhance their Kivy development workflow.</p>
 
 ## Community and Support
 [![Discord](https://img.shields.io/discord/566880874789076992?style=for-the-badge&color=7289da&logo=discord&logoColor=7289da)](https://discord.com/invite/U9bfkD6A4c)
