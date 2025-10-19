@@ -1,15 +1,5 @@
 import re
 import tarfile
-
-try:
-    import tomllib  # type: ignore
-
-    toml_loader = tomllib
-except ImportError:
-    import toml  # type: ignore
-
-    toml_loader = toml
-
 from typing import Dict, Literal
 
 
@@ -112,7 +102,16 @@ def extract_tar_file(tar_file_path: str, extract_to_path: str) -> None:
 
 
 def toml_parser(filepath: str) -> dict:
-    with open(filepath, "rb") as source_file:
-        sortmap = toml_loader.load(source_file)
+    try:
+        import toml  # type: ignore
+        toml_loader = toml
+        with open(filepath, "r", encoding="utf-8") as source_file:
+            sortmap = toml_loader.load(source_file)
+    except ImportError:
+        import tomllib  # type: ignore
+        toml_loader = tomllib
+        with open(filepath, "rb", encoding="utf-8") as source_file:
+            sortmap = toml_loader.load(source_file)
 
     return sortmap
+
