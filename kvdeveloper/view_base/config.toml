@@ -10,6 +10,6 @@ include_exts = [
     ".jpg",
     ".toml",
 ]
-ignore_file = []
+ignore_files = []
 ignore_dirs = []
 noreload_files = []
