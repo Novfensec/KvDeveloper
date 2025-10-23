@@ -110,7 +110,7 @@ def toml_parser(filepath: str) -> dict:
     except ImportError:
         import tomllib  # type: ignore
         toml_loader = tomllib
-        with open(filepath, "rb", encoding="utf-8") as source_file:
+        with open(filepath, "rb") as source_file:
             sortmap = toml_loader.load(source_file)
 
     return sortmap
