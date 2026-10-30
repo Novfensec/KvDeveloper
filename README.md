@@ -19,11 +19,6 @@
 [![GitHub repo size](https://img.shields.io/github/repo-size/Novfensec/KvDeveloper?color=red&logo=github&logoColor=white)](https://github.com/Novfensec/KvDeveloper)
 [![GitHub issues](https://img.shields.io/github/issues/Novfensec/KvDeveloper?color=blueviolet&logo=github&logoColor=white)](https://github.com/Novfensec/KvDeveloper/issues)
 
-<!-- GitAds-Verify: XYREU7AOBOHFT7VHHLQVXELDSGZMG3T3 -->
-
-## GitAds Sponsored
-[![Sponsored by GitAds](https://gitads.dev/v1/ad-serve?source=novfensec/kvdeveloper@github)](https://gitads.dev/v1/ad-track?source=novfensec/kvdeveloper@github)
-
 ## Overview
 <img src="https://raw.githubusercontent.com/Novfensec/KvDeveloper/main/kvdeveloper/assets/image_library/kvdeveloper/kvdeveloper_logo256.png" height="178" align="right" padding="11"/>
 
